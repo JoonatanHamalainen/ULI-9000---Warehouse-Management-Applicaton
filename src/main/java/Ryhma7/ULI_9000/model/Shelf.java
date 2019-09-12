@@ -1,4 +1,4 @@
-package model;
+package Ryhma7.ULI_9000.model;
 
 import java.util.ArrayList;
 import java.util.List;
