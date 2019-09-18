@@ -4,8 +4,10 @@ import java.io.IOException;
 
 import Ryhma7.ULI_9000.controller.RootLayoutController;
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
@@ -83,7 +85,17 @@ public class App extends Application {
 					grid.add(rectangle, i, j);
 					System.out.println("Rectangle added");*/
 					Pane pane = new Pane();
+					pane.getStyleClass().add("storage-grid-cell:hover");
 					pane.getStyleClass().add("storage-grid-cell");
+					
+					pane.setOnMouseClicked(new EventHandler<MouseEvent>() {
+						
+						public void handle(MouseEvent event) {
+							// TODO Auto-generated method stub
+							pane.getStyleClass().remove(0);
+							
+						}
+					});
 					grid.add(pane, i, j);
 				}
 			}
