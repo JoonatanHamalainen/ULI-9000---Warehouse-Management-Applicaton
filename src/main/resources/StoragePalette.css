@@ -9,3 +9,7 @@
 	-fx-border-color: black;
 	-fx-insets:0, 0 1 1 0;
 }
+
+.storage-grid-cell:hover{
+	-fx-backround-color: black;
+}
