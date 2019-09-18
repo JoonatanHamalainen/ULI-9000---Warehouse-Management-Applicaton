@@ -29,7 +29,7 @@ public class Shelf {
 	public boolean removeItem(int itemID) {
 		Item tempItem = null;
 		for (Item item : items) {
-			if(item.getID() == itemID) {
+			if(item.getProductID() == itemID) {
 				tempItem = item;
 			}
 		}
@@ -48,7 +48,7 @@ public class Shelf {
 	 */
 	public Item getItem(int itemID) {
 		for(Item item : items) {
-			if(item.getID() == itemID) {
+			if(item.getProductID() == itemID) {
 				return item;
 			}
 		}
