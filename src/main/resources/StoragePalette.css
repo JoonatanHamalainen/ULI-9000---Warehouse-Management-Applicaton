@@ -1,0 +1,11 @@
+
+.storage-grid {
+	-fx-backround-color: white;
+	-fx-padding:10;
+}
+
+.storage-grid-cell {
+	-fx-background-color: white;
+	-fx-border-color: black;
+	-fx-insets:0, 0 1 1 0;
+}
