@@ -57,7 +57,7 @@ public class Item {
 
 	public double getSalesprice() {
 		return salesprice;
-	}
+	}	
 
 	public void setSalesprice(double salesprice) {
 		this.salesprice = salesprice;
