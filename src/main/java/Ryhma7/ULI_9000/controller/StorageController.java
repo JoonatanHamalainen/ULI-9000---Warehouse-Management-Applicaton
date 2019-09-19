@@ -2,8 +2,16 @@ package Ryhma7.ULI_9000.controller;
 
 import Ryhma7.ULI_9000.model.Shelf;
 import Ryhma7.ULI_9000.model.Storage;
+import javafx.fxml.FXML;
+import javafx.scene.control.TextField;
 
 public class StorageController {
+	
+	@FXML
+	private TextField storageWidth;
+	
+	@FXML
+	private TextField storageLength;
 	
 	Storage storage;
 	Shelf shelf;
@@ -11,20 +19,25 @@ public class StorageController {
 	// poista hylly
 	// muokkaa hyllyä. (lisää/poista ruutuja)
 	
-	public void createStorage(int width, int length) {
-		storage = new Storage(width, length);
+	@FXML
+	public void createStorage() {
+		System.out.println("Storage created!");
+		System.out.println("Dimensions:" + this.storageWidth.getText() + "x" + this.storageLength.getText());
+		//storage = new Storage(4,4);
 	}
 	
+	@FXML
 	public void createShelf() {
-		shelf = new Shelf();
+		System.out.println("Shelf Created!");
+		//shelf = new Shelf();
 	}
 	
 	/*public void changeStorageSize(int width, int length) {
 		storage.setStorageSize(width, length);
 	}*/
-	
-	public void deleteShelf() {
-		
+	@FXML
+	public void removeShelf() {
+		System.out.println("Shelf removed!");
 	}
 	
 	public void addShelfCell() {

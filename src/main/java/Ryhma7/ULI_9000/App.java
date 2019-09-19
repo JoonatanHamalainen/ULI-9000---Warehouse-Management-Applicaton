@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import Ryhma7.ULI_9000.controller.RootLayoutController;
+import Ryhma7.ULI_9000.controller.StorageController;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -65,6 +66,9 @@ public class App extends Application {
 			int width = 600;
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(App.class.getResource("view/StorageLayout.fxml"));
+			
+			StorageController controller = loader.getController();
+			
 			BorderPane page = (BorderPane) loader.load();
 			GridPane grid = new GridPane();
 			grid.getStyleClass().add("storage-grid");
