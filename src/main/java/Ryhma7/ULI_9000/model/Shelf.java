@@ -4,14 +4,14 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Shelf {
-	private int id;
+	private String id;
 	//Hyllyn sisältämät tavarat
 	private ArrayList<Item> items = new ArrayList<Item>();
 	//Lista, joka sisältää hyllyn solujen koordinaatit varastossa
 	private ArrayList<List<Integer>> cellCoordinates = new ArrayList<List<Integer>>();
 
 	//Kopioidaan konstruktorin parametrinä saatu lista solukoordinaateista
-	public Shelf(ArrayList<List<Integer>> cellCoordinates, int id) {
+	public Shelf(ArrayList<List<Integer>> cellCoordinates, String id) {
 		this.cellCoordinates = cellCoordinates;
 		this.id = id;
 	}
@@ -26,7 +26,7 @@ public class Shelf {
 	 * tarkistetaan löytyykö kyseinen tuote hyllyltä. Jos tuote löytyy metodi palauttaa boolean arvon true,
 	 * mikäli tuotteen poisto epäonnistui metodi palauttaa boolean arvon false. 
 	 */
-	public boolean removeItem(int itemID) {
+	public boolean removeItem(String itemID) {
 		Item tempItem = null;
 		for (Item item : items) {
 			if(item.getProductID() == itemID) {
@@ -46,7 +46,7 @@ public class Shelf {
 	 *  tarkistetaan löytyykö kyseinen tuote hyllyltä. Jos tuote löytyy metodi palauttaa kyseisen tavara,
 	 *  mikäli tuotetta ei lyöydy metodi palauttaa arvon null.
 	 */
-	public Item getItem(int itemID) {
+	public Item getItem(String itemID) {
 		for(Item item : items) {
 			if(item.getProductID() == itemID) {
 				return item;
@@ -77,10 +77,10 @@ public class Shelf {
 		return this.cellCoordinates;
 	}
 	
-	public int getID() {
+	public String getID() {
 		return this.id;
 	}
-	public void setID(int id) {
+	public void setID(String id) {
 		this.id = id;
 	}
 	
