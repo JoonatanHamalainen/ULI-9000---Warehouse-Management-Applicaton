@@ -1,6 +1,7 @@
 package Ryhma7.ULI_9000;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import Ryhma7.ULI_9000.controller.RootLayoutController;
 import javafx.application.Application;
@@ -13,9 +14,6 @@ import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 
 public class App extends Application {
@@ -61,6 +59,7 @@ public class App extends Application {
 	}
 	
 	public void showStorageLayout() {
+		final ArrayList<Pane> shelfPanes = new ArrayList<Pane>();
 		try {
 			int height = 300;
 			int width = 600;
@@ -78,35 +77,31 @@ public class App extends Application {
 				grid.getRowConstraints().add(row);
 			}
 			for (int i = 0; i<15;i++) {
-				for(int j = 0; j<10; j++) {
-					/*Rectangle rectangle = new Rectangle();
-					Color paint = Color.BLACK;
-					rectangle.setFill(paint);
-					grid.add(rectangle, i, j);
-					System.out.println("Rectangle added");*/
-					Pane pane = new Pane();
-					pane.getStyleClass().add("storage-grid-cell:hover");
-					pane.getStyleClass().add("storage-grid-cell");
+				for(int j = 0; j<10; j++) {					
+					final Pane pane = new Pane();
 					
-					pane.setOnMouseClicked(new EventHandler<MouseEvent>() {
-						
+					pane.getStyleClass().add("storage-grid-cell");
+										
+					pane.setOnMouseClicked(new EventHandler<MouseEvent>(){
 						public void handle(MouseEvent event) {
-							// TODO Auto-generated method stub
-							pane.getStyleClass().remove(0);
-							
-						}
+							if(pane.getStyleClass().contains("storage-grid-cell")) {
+								pane.getStyleClass().remove("storage-grid-cell");
+								pane.getStyleClass().add("storage-grid-cell-selected");
+								shelfPanes.add(pane);
+								System.out.print(shelfPanes.size());
+								
+							}else if(pane.getStyleClass().contains("storage-grid-cell-selected")) {
+								pane.getStyleClass().remove("storage-grid-cell-selected");
+								pane.getStyleClass().add("storage-grid-cell");
+								shelfPanes.remove(pane);
+								System.out.print(shelfPanes.size());
+							}
+						}						
 					});
+					
 					grid.add(pane, i, j);
 				}
 			}
-			//Stage storageStage = new Stage();
-			//storageStage.setTitle("Storage Layout");
-			//storageStage.initModality(Modality.WINDOW_MODAL);
-			//storageStage.initOwner(primaryStage);
-			//Scene scene = new Scene(page);
-			//storageStage.setScene(scene);
-			
-			//storageStage.show();
 			page.setCenter(grid);
 			this.rootLayout.setCenter(page);
 		} catch (IOException e) {

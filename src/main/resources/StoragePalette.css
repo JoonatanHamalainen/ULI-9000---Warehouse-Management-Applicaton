@@ -5,15 +5,16 @@
 }
 
 .storage-grid-cell-selected{
-	-fx-background-color:black;
+	-fx-background-color:grey;
 }
 
 .storage-grid-cell {
 	-fx-background-color:white;
 	-fx-border-color: black;
 	-fx-insets:0, 0 1 1 0;
+	
 }
 
-.storage-grid-cell:hover{
-	-fx-background-color:lightgray;
+.storage-grid-cell:hover, .storage-grid-cell-selected:hover{
+	-fx-opacity:0.5;
 }
