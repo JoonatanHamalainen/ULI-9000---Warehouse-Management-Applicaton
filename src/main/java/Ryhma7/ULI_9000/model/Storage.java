@@ -16,10 +16,10 @@ public class Storage {
 	/*
 	 * setSize-metodi ottaa vastaan varaston uudet mitat parametreinä
 	 */
-	public void setStorageSize(int widthX, int lengthY) {
+	/*public void setStorageSize(int widthX, int lengthY) {
 		this.storageSize.set(0, widthX);
 		this.storageSize.set(1, lengthY);
-	}
+	}*/
 	/*
 	 * getSize-metodi palauttaa varaston koon x,y -koodrdinaatteina
 	 */
@@ -49,7 +49,7 @@ public class Storage {
 	 * getShelf-metodi ottaa vastaan haettavan hyllyn ID:n, minkä jälkeen se etsii kyseistä hyllyä
 	 * shelves-listalta. Jos haku tuottaa tulosta, palautetaan haettu hylly, muutoin palautetaan null.
 	 */
-	public Shelf getShelf(int shelfID) {
+	public Shelf getShelf(String shelfID) {
 		for(Shelf shelf : this.shelves) {
 			if(shelf.getID() == shelfID) {
 				return shelf;
