@@ -1,17 +1,18 @@
 package Ryhma7.ULI_9000.model;
 
+import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
 public class Shelf {
+	
 	private String id;
-	//Hyllyn sisältämät tavarat
-	private ArrayList<Item> items = new ArrayList<Item>();
-	//Lista, joka sisältää hyllyn solujen koordinaatit varastossa
-	private ArrayList<List<Integer>> cellCoordinates = new ArrayList<List<Integer>>();
+	private ArrayList<Item> items;
+	private ArrayList<Point> cellCoordinates;
 
-	//Kopioidaan konstruktorin parametrinä saatu lista solukoordinaateista
-	public Shelf(ArrayList<List<Integer>> cellCoordinates, String id) {
+	//Kopioidaan konstruktorin parametrinä saatu lista solukoordinaateista ja ID
+	public Shelf(ArrayList<Point> cellCoordinates, String id) {
+		this.items = new ArrayList<Item>();
 		this.cellCoordinates = cellCoordinates;
 		this.id = id;
 	}
@@ -55,8 +56,8 @@ public class Shelf {
 		return null;
 	}
 	
-	public boolean addCell(List<Integer> coordinates) {
-		if(coordinates.size() == 2) {
+	public boolean addCell(Point coordinates) {
+		if(coordinates != null) {
 			this.cellCoordinates.add(coordinates);
 			return true;
 		}else {
@@ -64,8 +65,8 @@ public class Shelf {
 		}
 	}
 	
-	public boolean removeCell(List<Integer> coordinates) {
-		if(coordinates.size() == 2) {
+	public boolean removeCell(Point coordinates) {
+		if(coordinates != null) {
 			this.cellCoordinates.remove(coordinates);
 			return true;
 		}else {
@@ -73,7 +74,7 @@ public class Shelf {
 		}
 	}
 	
-	public ArrayList<List<Integer>> getCellCoordinates(){
+	public ArrayList<Point> getCellCoordinates(){
 		return this.cellCoordinates;
 	}
 	
