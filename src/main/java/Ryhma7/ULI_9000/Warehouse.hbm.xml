@@ -1,0 +1,59 @@
+<?xml version = "1.0" encoding = "utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC 
+"-//Hibernate/Hibernate Mapping DTD//EN"
+"http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"> 
+
+<hibernate-mapping>
+   <class name = "Item" table = "Item">
+      
+      <meta attribute = "class-description">
+         This class contains the item detail. 
+      </meta>
+      
+      <id name = "productID" type = "int" column = "ProductID">
+         <generator class="native"/>
+      </id>
+      
+      <property name = "name" column = "Name" type = "string"/>
+      <property name = "weight" column = "Weight" type = "int"/>
+      <property name = "salesprice" column = "Salesprice" type = "double"/>
+      <property name = "amount" column = "Amount" type = "int"/>
+      <property name = "unitprice" column = "unitprice" type = "double"/>
+      <property name = "coordinateX" column = "CoordinateX" type = "int"/>
+      <property name = "coordinateY" column = "CoordinateY" type = "int"/>
+      
+   </class>
+   <class name = "Shelf" table = "Shelf">
+      
+      <meta attribute = "class-description">
+         This class contains the shelf detail. 
+      </meta>
+      
+      <id name = "shelfID" type = "int" column = "ShelfID">
+         <generator class="native"/>
+      </id>
+      
+      <property name = "size" column = "Size" type = "int"/>
+      <property name = "capacity" column = "Capacity" type = "int"/>
+      <property name = "coordinateX" column = "CoordinateX" type = "int"/>
+      <property name = "coordinateY" column = "CoordinateY" type = "int"/>
+      
+   </class>
+   <class name = "Storage" table = "Storage">
+      
+      <meta attribute = "class-description">
+         This class contains the storage detail. 
+      </meta>
+      
+      <id name = "storageID" type = "int" column = "StorageID">
+         <generator class="native"/>
+      </id>
+      
+      <property name = "size" column = "Size" type = "int"/>
+      <property name = "capacity" column = "Capacity" type = "int"/>
+      <property name = "coordinateX" column = "CoordinateX" type = "int"/>
+      <property name = "coordinateY" column = "CoordinateY" type = "int"/>
+      
+   </class>
+   
+</hibernate-mapping>
