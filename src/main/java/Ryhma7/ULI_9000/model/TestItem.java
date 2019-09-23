@@ -7,7 +7,7 @@ import org.hibernate.Transaction;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
 
-public class ManageEmployee {
+public class TestItem {
    private static SessionFactory factory; 
    public static void main(String[] args) {
       
@@ -59,18 +59,18 @@ public class ManageEmployee {
    }
    
    /* Method to  READ all the employees */
-   public void listEmployees( ){
+   public void listItems( ){
       Session session = factory.openSession();
       Transaction tx = null;
       
       try {
          tx = session.beginTransaction();
-         List employees = session.createQuery("FROM Employee").list(); 
+         List items = session.createQuery("FROM Item").list(); 
          for (Iterator iterator = employees.iterator(); iterator.hasNext();){
-            Employee employee = (Employee) iterator.next(); 
-            System.out.print("First Name: " + employee.getFirstName()); 
-            System.out.print("  Last Name: " + employee.getLastName()); 
-            System.out.println("  Salary: " + employee.getSalary()); 
+            Item item = (Item) iterator.next(); 
+            System.out.print("Name: " + item.getName()); 
+            System.out.print("  Weight: " + item.getWeight()); 
+            System.out.println("  Salesprice: " + item.getSalesprice()); 
          }
          tx.commit();
       } catch (HibernateException e) {
@@ -82,13 +82,13 @@ public class ManageEmployee {
    }
    
    /* Method to UPDATE salary for an employee */
-   public void updateEmployee(Integer EmployeeID, int salary ){
+   public void updateItems(Integer ItemID, int salary ){
       Session session = factory.openSession();
       Transaction tx = null;
       
       try {
          tx = session.beginTransaction();
-         Employee employee = (Employee)session.get(Employee.class, EmployeeID); 
+         Item item = (Employee)session.get(Employee.class, EmployeeID); 
          employee.setSalary( salary );
 		 session.update(employee); 
          tx.commit();
@@ -101,13 +101,13 @@ public class ManageEmployee {
    }
    
    /* Method to DELETE an employee from the records */
-   public void deleteEmployee(Integer EmployeeID){
+   public void deleteItem(Integer ItemID){
       Session session = factory.openSession();
       Transaction tx = null;
       
       try {
          tx = session.beginTransaction();
-         Employee employee = (Employee)session.get(Employee.class, EmployeeID); 
+         Item item = (Employee)session.get(Employee.class, EmployeeID); 
          session.delete(employee); 
          tx.commit();
       } catch (HibernateException e) {

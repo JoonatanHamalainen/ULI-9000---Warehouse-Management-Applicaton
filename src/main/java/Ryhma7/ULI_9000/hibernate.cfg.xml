@@ -5,7 +5,7 @@
 
 		<!-- Yhteyden perustiedot: ajuri, palvelin käyttäjätunnus/salasana -->
 		<property name="hibernate.connection.driver_class">com.mysql.jdbc.Driver</property>
-		<property name="hibernate.connection.url">jdbc:mysql://localhost:3306/WAREHOUSE</property>
+		<property name="hibernate.connection.url">jdbc:mysql://localhost:2206/WAREHOUSE</property>
 		<property name="hibernate.connection.username">root</property>
 		<property name="hibernate.connection.password">ryhma8password</property>
 
