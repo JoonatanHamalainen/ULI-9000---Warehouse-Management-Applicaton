@@ -28,7 +28,7 @@
                   <Insets bottom="2.0" top="2.0" />
                </padding>
             </TextField>
-            <Button layoutX="97.0" layoutY="75.0" mnemonicParsing="false" onAction="#createStorage" prefHeight="20.0" prefWidth="55.0" text="Create" AnchorPane.topAnchor="70.0">
+            <Button layoutX="97.0" layoutY="75.0" mnemonicParsing="false" onAction="#handleCreateStorage" prefHeight="20.0" prefWidth="55.0" text="Create" AnchorPane.topAnchor="70.0">
                <padding>
                   <Insets bottom="2.0" left="2.0" right="2.0" top="2.0" />
                </padding>

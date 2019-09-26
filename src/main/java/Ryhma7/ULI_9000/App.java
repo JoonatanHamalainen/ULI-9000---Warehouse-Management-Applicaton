@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import Ryhma7.ULI_9000.controller.RootLayoutController;
 import Ryhma7.ULI_9000.controller.StorageController;
+import Ryhma7.ULI_9000.model.Storage;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
@@ -23,6 +24,8 @@ public class App extends Application {
 	private Stage primaryStage;
 	private BorderPane rootLayout;
 	
+	//Väliaikaiset muuttujat tallennusta varten(Kunnes tietokanta pelittää).
+	private Storage storage;
 	public App() {
 		
 	}
@@ -32,9 +35,9 @@ public class App extends Application {
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("Uli-9000");
 
-		initRootLayout();
+		this.storage = new Storage();
 		
-		showStorageLayout();
+		initRootLayout();
 		
 	}
 	
@@ -61,70 +64,21 @@ public class App extends Application {
 	}
 	
 	public void showStorageLayout() {
-		//final ArrayList<Point> shelfPanes = new ArrayList<Point>();
 		try {
 			int height = 300;
 			int width = 600;
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(App.class.getResource("view/StorageLayout.fxml"));
 			
-			/*StorageController controller = loader.getController();
-			controller.setMainApp(this);*/
-			
 			BorderPane page = (BorderPane) loader.load();
 			
-			//page.setCenter(grid);
 			this.rootLayout.setCenter(page);
 			
 			final StorageController controller = loader.getController();
 			controller.setMainApp(this);
-			
-			final GridPane grid = new GridPane();
-			grid.getStyleClass().add("storage-grid");
-			
-			for (int i = 0;i<15;i++) {
-				ColumnConstraints column = new ColumnConstraints(30);
-				grid.getColumnConstraints().add(column);
-			}
-			
-			for (int i = 0; i<10; i++) {
-				RowConstraints row = new RowConstraints(30);
-				grid.getRowConstraints().add(row);
-			}
-			
-			for (int i = 0; i<15;i++) {
-				for(int j = 0; j<10; j++) {					
-					final Pane pane = new Pane();
-
-					pane.getStyleClass().add("storage-grid-cell");
-										
-					pane.setOnMouseClicked(new EventHandler<MouseEvent>(){
-						public void handle(MouseEvent event) {
-							if(pane.getStyleClass().contains("storage-grid-cell")) {
-								pane.getStyleClass().remove("storage-grid-cell");
-								pane.getStyleClass().add("storage-grid-cell-selected");
-								Point coordinateXY = new Point(grid.getColumnIndex(pane), grid.getRowIndex(pane));
-								controller.cellSelected(coordinateXY);
-							}else if(pane.getStyleClass().contains("storage-grid-cell-selected")) {
-								pane.getStyleClass().remove("storage-grid-cell-selected");
-								pane.getStyleClass().add("storage-grid-cell");
-								controller.cellSelected(new Point(grid.getColumnIndex(pane), grid.getRowIndex(pane)));
-								//shelfPanes.remove(new Point(grid.getColumnIndex(pane), grid.getRowIndex(pane)));
-								//System.out.println(shelfPanes);
-								//System.out.println(shelfPanes.size());
-							}
-						}						
-					});
-					
-					grid.add(pane, i, j);
-				}
-			}
-			page.setCenter(grid);
-			/*page.setCenter(grid);
-			this.rootLayout.setCenter(page);
-			
-			StorageController controller = loader.getController();
-			controller.setMainApp(this);*/
+			controller.setStorage(this.storage);
+			controller.setPane(page);
+			controller.loadStorageLayout();
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
