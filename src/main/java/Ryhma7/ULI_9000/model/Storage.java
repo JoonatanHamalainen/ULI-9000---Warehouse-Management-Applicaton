@@ -5,26 +5,27 @@ import java.util.List;
 
 public class Storage {
 	
-	private List<Integer> storageSize;
+	private int width;
+	private int length;
 	private ArrayList<Shelf> shelves;
+	
+	public Storage () {
+		this.shelves = new ArrayList<Shelf>();
+	}
 	
 	public Storage(int widthX, int lengthY) {
 		this.shelves = new ArrayList<Shelf>();
-		this.storageSize.add(widthX);
-		this.storageSize.add(lengthY);
+		this.width = widthX;
+		this.length = lengthY;
 	}
 	/*
-	 * setSize-metodi ottaa vastaan varaston uudet mitat parametreinä
+	 * getDimensions-funktio palauttaa varaston koon x,y -koodrdinaatteina
 	 */
-	/*public void setStorageSize(int widthX, int lengthY) {
-		this.storageSize.set(0, widthX);
-		this.storageSize.set(1, lengthY);
-	}*/
-	/*
-	 * getSize-metodi palauttaa varaston koon x,y -koodrdinaatteina
-	 */
-	public List<Integer> getSize(){
-		return this.storageSize;
+	public List<Integer> getDimensions(){
+		List<Integer> storageDimensions = new ArrayList<Integer>();
+		storageDimensions.add(this.width);
+		storageDimensions.add(this.length);
+		return storageDimensions;
 	}
 	/*
 	 * addShelf-metodi ottaa vastaan parametrina hyllyn ja lisää sen shelves-listaan
@@ -56,5 +57,9 @@ public class Storage {
 			}
 		}
 		return null;
+	}
+	public void setDimensions(int width, int length) {
+		this.width = width;
+		this.length = length;
 	}
 }
