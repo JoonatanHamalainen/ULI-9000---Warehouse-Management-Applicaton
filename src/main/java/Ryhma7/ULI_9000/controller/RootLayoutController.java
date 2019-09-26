@@ -12,6 +12,12 @@ public class RootLayoutController {
 	
 	@FXML
 	private void handleShowStorageLayout() {
+		System.out.println("Storage Layout");
 		mainApp.showStorageLayout();
+	}
+	
+	@FXML
+	private void handleExit() {
+		System.exit(0);
 	}
 }

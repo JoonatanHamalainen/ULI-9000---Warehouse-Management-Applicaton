@@ -17,13 +17,13 @@ public class Shelf {
 		this.id = id;
 	}
 	/*
-	 * addItem-metodi vaatii parametrinä tavaran (item), joka lisätään hyllyn sisältöön
+	 * addItem-funktio vaatii parametrinä tavaran (item), joka lisätään hyllyn sisältöön
 	 */
 	public void addItem(Item item) {
 		this.items.add(item);
 	}
 	/*
-	 * removeItem-metodi ottaa vastaan parametrinä poistettavan tuotteen ID:n, minkä jälkeen
+	 * removeItem-funktio ottaa vastaan parametrinä poistettavan tuotteen ID:n, minkä jälkeen
 	 * tarkistetaan löytyykö kyseinen tuote hyllyltä. Jos tuote löytyy metodi palauttaa boolean arvon true,
 	 * mikäli tuotteen poisto epäonnistui metodi palauttaa boolean arvon false. 
 	 */
@@ -43,7 +43,7 @@ public class Shelf {
 		}
 	}
 	/*
-	 * getItem-metodi ottaa vastaan parametrinä haettavan tuotteen ID:n,minkä jälkeen
+	 * getItem-funktio ottaa vastaan parametrinä haettavan tuotteen ID:n,minkä jälkeen
 	 *  tarkistetaan löytyykö kyseinen tuote hyllyltä. Jos tuote löytyy metodi palauttaa kyseisen tavara,
 	 *  mikäli tuotetta ei lyöydy metodi palauttaa arvon null.
 	 */
@@ -55,7 +55,10 @@ public class Shelf {
 		}
 		return null;
 	}
-	
+	/*
+	 * addCell-funktio lisää hyllyyn yksittäisen solun, jos lisäys epäonnistuu palauttaa 
+	 * funktio boolean arvon false
+	 */
 	public boolean addCell(Point coordinates) {
 		if(coordinates != null) {
 			this.cellCoordinates.add(coordinates);
@@ -64,7 +67,10 @@ public class Shelf {
 			return false;
 		}
 	}
-	
+	/*
+	 * removeCell-funktio poistaa hyllystä yksittäisen solun. Mikäli toiminto epäonnistuu
+	 *  funktio palauttaa boolean arvon false
+	 */
 	public boolean removeCell(Point coordinates) {
 		if(coordinates != null) {
 			this.cellCoordinates.remove(coordinates);
@@ -73,7 +79,9 @@ public class Shelf {
 			return false;
 		}
 	}
-	
+	/*
+	 * getCellCoordinates-funktio palauttaa hyllyn solukoordinaatit ArrayList<Point> muodossa
+	 */
 	public ArrayList<Point> getCellCoordinates(){
 		return this.cellCoordinates;
 	}
