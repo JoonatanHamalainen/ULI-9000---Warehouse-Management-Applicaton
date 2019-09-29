@@ -6,6 +6,7 @@ import java.util.ArrayList;
 
 import Ryhma7.ULI_9000.controller.RootLayoutController;
 import Ryhma7.ULI_9000.controller.StorageController;
+import Ryhma7.ULI_9000.controller.StorageEditController;
 import Ryhma7.ULI_9000.model.Storage;
 import javafx.application.Application;
 import javafx.event.EventHandler;
@@ -65,8 +66,6 @@ public class App extends Application {
 	
 	public void showStorageLayout() {
 		try {
-			int height = 300;
-			int width = 600;
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(App.class.getResource("view/StorageLayout.fxml"));
 			
@@ -74,7 +73,7 @@ public class App extends Application {
 			
 			this.rootLayout.setCenter(page);
 			
-			final StorageController controller = loader.getController();
+			StorageController controller = loader.getController();
 			controller.setMainApp(this);
 			controller.setStorage(this.storage);
 			controller.setPane(page);
@@ -83,6 +82,23 @@ public class App extends Application {
 			e.printStackTrace();
 		}
 	}
+	
+	public void showEditStorageLayout() {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(App.class.getResource("view/StorageEdit.fxml"));
+			
+			BorderPane page = (BorderPane) loader.load();
+			
+			this.rootLayout.setCenter(page);
+			
+			StorageEditController controller = loader.getController();
+			controller.setMainApp(this);
+		}catch(IOException e) {
+			System.out.println(e);
+		}
+	}
+	
 
 	public static void main(String[]args) {
 		launch();
