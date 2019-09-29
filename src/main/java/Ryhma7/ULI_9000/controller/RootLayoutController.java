@@ -17,6 +17,12 @@ public class RootLayoutController {
 	}
 	
 	@FXML
+	private void handleShowStorageEdit() {
+		System.out.println("Edit Storage");
+		mainApp.showEditStorageLayout();
+	}
+	
+	@FXML
 	private void handleExit() {
 		System.exit(0);
 	}

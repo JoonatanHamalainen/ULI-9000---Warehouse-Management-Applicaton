@@ -2,6 +2,8 @@ package Ryhma7.ULI_9000.controller;
 
 import java.awt.Point;
 import java.util.ArrayList;
+import java.util.Collections;
+
 import Ryhma7.ULI_9000.App;
 
 import Ryhma7.ULI_9000.model.Shelf;
@@ -94,23 +96,24 @@ public class StorageController {
 	
 	public void loadStorageLayout() {
 		if(this.storage.getDimensions().get(0) != null && this.storage.getDimensions().get(1) != null) {
-			int gridColums = this.storage.getDimensions().get(0);
+			int gridColumns = this.storage.getDimensions().get(0);
 			int gridRows = this.storage.getDimensions().get(1);
+			double cellWallLength = calculateCellWallLength(gridColumns, gridRows);
 			
 			final GridPane grid = new GridPane();
 			grid.getStyleClass().add("storage-grid");
 			
-			for (int i = 0;i<gridColums;i++) {
-				ColumnConstraints column = new ColumnConstraints(30);
+			for (int i = 0;i<gridColumns;i++) {
+				ColumnConstraints column = new ColumnConstraints(cellWallLength);
 				grid.getColumnConstraints().add(column);
 			}
 			
 			for (int i = 0; i<gridRows; i++) {
-				RowConstraints row = new RowConstraints(30);
+				RowConstraints row = new RowConstraints(cellWallLength);
 				grid.getRowConstraints().add(row);
 			}
 			
-			for (int i = 0; i<gridColums;i++) {
+			for (int i = 0; i<gridColumns;i++) {
 				for(int j = 0; j<gridRows; j++) {					
 					final Pane pane = new Pane();
 	
@@ -136,5 +139,16 @@ public class StorageController {
 			}
 			page.setCenter(grid);
 		}
+	}
+	
+	private double calculateCellWallLength(int columns, int rows) {
+		double maxGridWidthPixels  = 600;
+		double maxGridHeightPixels = 300;
+		ArrayList<Double> maxCellWallLengthPx = new ArrayList<Double>();
+		
+		maxCellWallLengthPx.add(maxGridWidthPixels / columns);
+		maxCellWallLengthPx.add(maxGridHeightPixels / rows);
+		
+		return Collections.min(maxCellWallLengthPx);
 	}
 }
