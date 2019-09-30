@@ -1,4 +1,5 @@
 package Ryhma7.ULI_9000.model;
+
 import java.util.List; 
 import java.util.Iterator; 
  
@@ -7,8 +8,6 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
-
-import Ryhma7.ULI_9000.model.Item;
 
 public class TestItem {
    private static SessionFactory factory; 
