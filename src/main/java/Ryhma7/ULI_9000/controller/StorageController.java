@@ -142,7 +142,7 @@ public class StorageController {
 	}
 	
 	private double calculateCellWallLength(int columns, int rows) {
-		double maxGridWidthPixels  = 600;
+		double maxGridWidthPixels  = 550;
 		double maxGridHeightPixels = 300;
 		ArrayList<Double> maxCellWallLengthPx = new ArrayList<Double>();
 		
