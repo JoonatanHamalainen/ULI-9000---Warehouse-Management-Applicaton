@@ -25,7 +25,7 @@
     
    </class>
    <!--
-   <class name = "Shelf" table = "Shelf">
+   <class name = "Ryhma7.ULI_9000.model.Shelf" table = "Shelf">
       
       <meta attribute = "class-description">
          This class contains the shelf detail. 
@@ -41,7 +41,7 @@
       <property name = "coordinateY" column = "CoordinateY" type = "int"/>
       
    </class>
-   <class name = "Storage" table = "Storage">
+   <class name = "Ryhma7.ULI_9000.model.Storage" table = "Storage">
       
       <meta attribute = "class-description">
          This class contains the storage detail. 
