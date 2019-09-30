@@ -6,14 +6,14 @@ public class Item {
 	private int weight, amount, coordinateX, coordinateY;
 	
 	private double salesprice, unitprice;
+	private int itemID;
 	
-	public Item(String name, int weight, int amount, String productID, int coordinateX, int coordinateY, double salesprice,
+	public Item(String name, int weight, int amount, int coordinateX, int coordinateY, double salesprice,
 			double unitprice) {
 		super();
 		this.name = name;
 		this.weight = weight;
 		this.amount = amount;
-		this.productID = productID;
 		this.coordinateX = coordinateX;
 		this.coordinateY = coordinateY;
 		this.salesprice = salesprice;
