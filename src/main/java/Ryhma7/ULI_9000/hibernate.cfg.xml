@@ -1,9 +1,9 @@
 <?xml version="1.0"?>
 
--<hibernate-configuration>
+<hibernate-configuration>
 
 
--<session-factory>
+<session-factory>
 
 <!-- Käytä MySQL-tietokantaa -->
 

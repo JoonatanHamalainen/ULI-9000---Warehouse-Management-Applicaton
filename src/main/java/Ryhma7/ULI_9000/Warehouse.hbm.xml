@@ -21,8 +21,10 @@
       <property name = "unitprice" column = "unitprice" type = "double"/>
       <property name = "coordinateX" column = "CoordinateX" type = "int"/>
       <property name = "coordinateY" column = "CoordinateY" type = "int"/>
-      
+   
+    
    </class>
+   <!--
    <class name = "Shelf" table = "Shelf">
       
       <meta attribute = "class-description">
@@ -54,6 +56,6 @@
       <property name = "coordinateX" column = "CoordinateX" type = "int"/>
       <property name = "coordinateY" column = "CoordinateY" type = "int"/>
       
-   </class>
+   </class>-->
    
 </hibernate-mapping>

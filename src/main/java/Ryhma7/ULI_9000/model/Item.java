@@ -2,7 +2,7 @@ package Ryhma7.ULI_9000.model;
 
 public class Item {
 	
-	private String name, productID;
+	private String name;
 	private int weight, amount, coordinateX, coordinateY;
 	
 	private double salesprice, unitprice;
@@ -36,8 +36,8 @@ public class Item {
 		this.amount = amount;
 	}
 
-	public String getProductID() {
-		return productID;
+	public int getItemID() {
+		return itemID;
 	}
 
 	public int getCoordinateX() {

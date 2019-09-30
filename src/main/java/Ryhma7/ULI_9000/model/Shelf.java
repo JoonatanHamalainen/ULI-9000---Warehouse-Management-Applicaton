@@ -6,12 +6,12 @@ import java.util.List;
 
 public class Shelf {
 	
-	private String id;
+	private int id;
 	private ArrayList<Item> items;
 	private ArrayList<Point> cellCoordinates;
 
 	//Kopioidaan konstruktorin parametrinä saatu lista solukoordinaateista ja ID
-	public Shelf(ArrayList<Point> cellCoordinates, String id) {
+	public Shelf(ArrayList<Point> cellCoordinates, int id) {
 		this.items = new ArrayList<Item>();
 		this.cellCoordinates = cellCoordinates;
 		this.id = id;
@@ -27,10 +27,10 @@ public class Shelf {
 	 * tarkistetaan löytyykö kyseinen tuote hyllyltä. Jos tuote löytyy metodi palauttaa boolean arvon true,
 	 * mikäli tuotteen poisto epäonnistui metodi palauttaa boolean arvon false. 
 	 */
-	public boolean removeItem(String itemID) {
+	public boolean removeItem(int itemID) {
 		Item tempItem = null;
 		for (Item item : items) {
-			if(item.getProductID() == itemID) {
+			if(item.getItemID() == itemID) {
 				tempItem = item;
 			}
 		}
@@ -47,9 +47,9 @@ public class Shelf {
 	 *  tarkistetaan löytyykö kyseinen tuote hyllyltä. Jos tuote löytyy metodi palauttaa kyseisen tavara,
 	 *  mikäli tuotetta ei lyöydy metodi palauttaa arvon null.
 	 */
-	public Item getItem(String itemID) {
+	public Item getItem(int itemID) {
 		for(Item item : items) {
-			if(item.getProductID() == itemID) {
+			if(item.getItemID() == itemID) {
 				return item;
 			}
 		}
@@ -86,10 +86,10 @@ public class Shelf {
 		return this.cellCoordinates;
 	}
 	
-	public String getID() {
+	public int getID() {
 		return this.id;
 	}
-	public void setID(String id) {
+	public void setID(int id) {
 		this.id = id;
 	}
 	
