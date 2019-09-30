@@ -1,3 +1,4 @@
+
 import java.util.List; 
 import java.util.Iterator; 
  
@@ -6,6 +7,8 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.SessionFactory;
 import org.hibernate.cfg.Configuration;
+
+import Ryhma7.ULI_9000.model.Item;
 
 public class TestItem {
    private static SessionFactory factory; 
@@ -18,36 +21,35 @@ public class TestItem {
          throw new ExceptionInInitializerError(ex); 
       }
       
-      ManageEmployee ME = new ManageEmployee();
+      TestItem ME = new TestItem();
 
       /* Add few employee records in database */
-      Integer empID1 = ME.addEmployee("Zara", "Ali", 1000);
-      Integer empID2 = ME.addEmployee("Daisy", "Das", 5000);
-      Integer empID3 = ME.addEmployee("John", "Paul", 10000);
+      int empID1 = ME.addItem("Olut", 500, 1000, 4, 6, 3.5, 1.1);
+      int empID2 = ME.addItem("Kalja", 500, 1000, 5, 8, 4.2, 1.1);
+      int empID3 = ME.addItem("Bisse", 500, 1000, 1, 2, 2.6, 0.8);
 
       /* List down all the employees */
-      ME.listEmployees();
-
+      ME.listItems();
       /* Update employee's records */
-      ME.updateEmployee(empID1, 5000);
+      ME.updateItem(empID1, 0.27);
 
       /* Delete an employee from the database */
-      ME.deleteEmployee(empID2);
+      ME.deleteItem(empID2);
 
       /* List down new list of the employees */
-      ME.listEmployees();
+      ME.listItems();
    }
    
    /* Method to CREATE an employee in the database */
-   public Integer addEmployee(String fname, String lname, int salary){
+   public int addItem(String name, int weight, int amount, int coordinateX, int coordinateY, double salesprice, double unitprice) {
       Session session = factory.openSession();
       Transaction tx = null;
-      Integer employeeID = null;
+      Integer itemID = null;
       
       try {
          tx = session.beginTransaction();
-         Employee employee = new Employee(fname, lname, salary);
-         employeeID = (Integer) session.save(employee); 
+         Item item = new Item(name, weight, amount, coordinateX, coordinateY, salesprice, unitprice);
+         itemID = (Integer) session.save(item); 
          tx.commit();
       } catch (HibernateException e) {
          if (tx!=null) tx.rollback();
@@ -55,7 +57,7 @@ public class TestItem {
       } finally {
          session.close(); 
       }
-      return employeeID;
+      return itemID;
    }
    
    /* Method to  READ all the employees */
@@ -66,11 +68,15 @@ public class TestItem {
       try {
          tx = session.beginTransaction();
          List items = session.createQuery("FROM Item").list(); 
-         for (Iterator iterator = employees.iterator(); iterator.hasNext();){
+         for (Iterator iterator = items.iterator(); iterator.hasNext();){
             Item item = (Item) iterator.next(); 
             System.out.print("Name: " + item.getName()); 
-            System.out.print("  Weight: " + item.getWeight()); 
-            System.out.println("  Salesprice: " + item.getSalesprice()); 
+            System.out.print("  Weight: " + item.getWeight());
+            System.out.print("  Amount: " + item.getAmount());
+            System.out.print("  CoordinateX: " + item.getCoordinateX());
+            System.out.print("  CoordinateY: " + item.getCoordinateY());
+            System.out.print("  Salesprice: " + item.getSalesprice());
+            System.out.println("  Unitprice: " + item.getUnitprice());
          }
          tx.commit();
       } catch (HibernateException e) {
@@ -82,15 +88,15 @@ public class TestItem {
    }
    
    /* Method to UPDATE salary for an employee */
-   public void updateItems(Integer ItemID, int salary ){
+   public void updateItem(Integer ItemID, double unitprice){
       Session session = factory.openSession();
       Transaction tx = null;
       
       try {
          tx = session.beginTransaction();
-         Item item = (Employee)session.get(Employee.class, EmployeeID); 
-         employee.setSalary( salary );
-		 session.update(employee); 
+         Item item = (Item)session.get(Item.class, ItemID); 
+         item.setUnitprice(unitprice);
+		 session.update(item); 
          tx.commit();
       } catch (HibernateException e) {
          if (tx!=null) tx.rollback();
@@ -107,8 +113,8 @@ public class TestItem {
       
       try {
          tx = session.beginTransaction();
-         Item item = (Employee)session.get(Employee.class, EmployeeID); 
-         session.delete(employee); 
+         Item item = (Item)session.get(Item.class, ItemID); 
+         session.delete(item); 
          tx.commit();
       } catch (HibernateException e) {
          if (tx!=null) tx.rollback();
