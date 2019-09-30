@@ -60,7 +60,7 @@ public class StorageController {
 	
 	@FXML
 	public void handleCreateShelf() {
-		Shelf shelf = new Shelf(this.selectedCells, "123");
+		Shelf shelf = new Shelf(this.selectedCells, 123);
 		System.out.println(shelf.getCellCoordinates() + ", " + shelf.getID());
 	}
 	
