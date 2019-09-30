@@ -10,7 +10,7 @@
          This class contains the item detail. 
       </meta>
       
-      <id name = "productID" type = "int" column = "ProductID">
+      <id name = "itemID" type = "int" column = "ItemID">
          <generator class="native"/>
       </id>
       
