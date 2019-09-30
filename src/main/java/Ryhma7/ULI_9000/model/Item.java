@@ -2,12 +2,28 @@ package Ryhma7.ULI_9000.model;
 
 public class Item {
 	
+	public Item() {
+		
+	}
+	
 	private String name;
 	private int weight, amount, coordinateX, coordinateY;
 	
 	private double salesprice, unitprice;
 	private int itemID;
 	
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public void setWeight(int weight) {
+		this.weight = weight;
+	}
+
+	public void setItemID(int itemID) {
+		this.itemID = itemID;
+	}
+
 	public Item(String name, int weight, int amount, int coordinateX, int coordinateY, double salesprice,
 			double unitprice) {
 		super();

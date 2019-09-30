@@ -4,7 +4,7 @@
 "http://www.hibernate.org/dtd/hibernate-mapping-3.0.dtd"> 
 
 <hibernate-mapping>
-   <class name = "Item" table = "Item">
+   <class name = "Ryhma7.ULI_9000.model.Item" table = "Item">
       
       <meta attribute = "class-description">
          This class contains the item detail. 
@@ -18,7 +18,7 @@
       <property name = "weight" column = "Weight" type = "int"/>
       <property name = "salesprice" column = "Salesprice" type = "double"/>
       <property name = "amount" column = "Amount" type = "int"/>
-      <property name = "unitprice" column = "unitprice" type = "double"/>
+      <property name = "unitprice" column = "Unitprice" type = "double"/>
       <property name = "coordinateX" column = "CoordinateX" type = "int"/>
       <property name = "coordinateY" column = "CoordinateY" type = "int"/>
    
