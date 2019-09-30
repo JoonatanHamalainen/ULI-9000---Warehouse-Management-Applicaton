@@ -50,7 +50,7 @@ public class Storage {
 	 * getShelf-metodi ottaa vastaan haettavan hyllyn ID:n, minkä jälkeen se etsii kyseistä hyllyä
 	 * shelves-listalta. Jos haku tuottaa tulosta, palautetaan haettu hylly, muutoin palautetaan null.
 	 */
-	public Shelf getShelf(String shelfID) {
+	public Shelf getShelf(int shelfID) {
 		for(Shelf shelf : this.shelves) {
 			if(shelf.getID() == shelfID) {
 				return shelf;
