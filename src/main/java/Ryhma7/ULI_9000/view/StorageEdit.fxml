@@ -20,7 +20,7 @@
             <Label fx:id="warning" alignment="CENTER" layoutX="114.0" layoutY="18.0" prefWidth="90.0" text="Select a shelf" />
             <TextField fx:id="shelfID" layoutX="355.0" layoutY="27.0" prefHeight="25.0" prefWidth="70.0" text="(MyShelf)" />
             <TextField fx:id="shelfSize" layoutX="355.0" layoutY="62.0" prefWidth="70.0" text="(6 units)" />
-            <TextField fx:id="shelfCapacity" layoutX="477.0" layoutY="27.0" prefWidth="70.0" text="(2/6)" />
+            <TextField fx:id="shelfSpace" layoutX="477.0" layoutY="27.0" prefWidth="70.0" text="(2/6)" />
          </children>
       </AnchorPane>
    </bottom>

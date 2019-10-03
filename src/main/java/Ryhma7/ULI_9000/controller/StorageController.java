@@ -60,7 +60,7 @@ public class StorageController {
 	
 	@FXML
 	public void handleCreateShelf() {
-		Shelf shelf = new Shelf(this.selectedCells, 123);
+		Shelf shelf = new Shelf(this.selectedCells);
 		System.out.println(shelf.getCellCoordinates() + ", " + shelf.getID());
 	}
 	
@@ -71,6 +71,7 @@ public class StorageController {
 	/*public void changeStorageSize(int width, int length) {
 		storage.setStorageSize(width, length);
 	}*/
+	
 	@FXML
 	public void removeShelf() {
 		System.out.println("Shelf removed!");
@@ -142,7 +143,7 @@ public class StorageController {
 	}
 	
 	private double calculateCellWallLength(int columns, int rows) {
-		double maxGridWidthPixels  = 550;
+		double maxGridWidthPixels  = 500;
 		double maxGridHeightPixels = 300;
 		ArrayList<Double> maxCellWallLengthPx = new ArrayList<Double>();
 		

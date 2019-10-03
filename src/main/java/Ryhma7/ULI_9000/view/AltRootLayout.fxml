@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.BorderPane?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
+
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="500.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Ryhma7.ULI_9000.controller.AltRootLayoutController">
+   <left>
+      <VBox prefHeight="200.0" prefWidth="100.0" BorderPane.alignment="CENTER">
+         <children>
+            <Button maxWidth="1.7976931348623157E308" minHeight="50.0" mnemonicParsing="false" onAction="#handleCreateStorage" prefWidth="100.0" text="Create New Storage" textAlignment="CENTER" wrapText="true" />
+            <Label alignment="CENTER" maxWidth="1.7976931348623157E308" text="Your Storages">
+               <font>
+                  <Font size="14.0" />
+               </font>
+            </Label>
+            <Button maxWidth="1.7976931348623157E308" minHeight="50.0" mnemonicParsing="false" onAction="#handleExit" prefWidth="100.0" text="Exit" />
+         </children>
+         <padding>
+            <Insets left="10.0" top="10.0" />
+         </padding>
+      </VBox>
+   </left>
+   <center>
+      <Label alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="Welcome to Uli-9000! Please start by clicking on the Create New Storage button!" BorderPane.alignment="CENTER" />
+   </center>
+</BorderPane>
