@@ -24,7 +24,7 @@ public class Item {
 		this.itemID = itemID;
 	}
 
-	public Item(String name, int weight, int amount, int coordinateX, int coordinateY, double salesprice,
+	public Item(int itemID, String name, int weight, int amount, int coordinateX, int coordinateY, double salesprice,
 			double unitprice) {
 		super();
 		this.name = name;
@@ -88,11 +88,11 @@ public class Item {
 		this.unitprice = unitprice;
 	}
 	
-	public void increaseAmount(int amount) {
+	public void increaseAmount(int itemID, int amount) {
 		this.amount += amount;
 	}
 	
-	public boolean decreaseAmount(int amount) {
+	public boolean decreaseAmount(int itemID, int amount) {
 		//Jos koittaa vähentää enemmän kuin tuotetta on, palauttaa false.
 		if(this.amount < amount) {
 			return false;
