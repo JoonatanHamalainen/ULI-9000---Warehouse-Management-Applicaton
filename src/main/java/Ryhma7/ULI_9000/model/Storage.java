@@ -5,6 +5,9 @@ import java.util.List;
 
 public class Storage {
 	
+	
+	private String name;
+	private String address;
 	private int width;
 	private int length;
 	private ArrayList<Shelf> shelves;
@@ -61,5 +64,21 @@ public class Storage {
 	public void setDimensions(int width, int length) {
 		this.width = width;
 		this.length = length;
+	}
+
+	public String getAddress() {
+		return address;
+	}
+
+	public void setAddress(String address) {
+		this.address = address;
+	}
+
+	public String getName() {
+		return name;
+	}
+
+	public void setName(String name) {
+		this.name = name;
 	}
 }
