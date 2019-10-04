@@ -11,10 +11,12 @@ public class Shelf {
 	private ArrayList<Point> cellCoordinates;
 
 	//Kopioidaan konstruktorin parametrinä saatu lista solukoordinaateista ja ID
-	public Shelf(ArrayList<Point> cellCoordinates, int id) {
+	public Shelf() {
+	}
+	
+	public Shelf(ArrayList<Point> cellCoordinates) {
 		this.items = new ArrayList<Item>();
 		this.cellCoordinates = cellCoordinates;
-		this.id = id;
 	}
 	/*
 	 * addItem-funktio vaatii parametrinä tavaran (item), joka lisätään hyllyn sisältöön
@@ -84,6 +86,10 @@ public class Shelf {
 	 */
 	public ArrayList<Point> getCellCoordinates(){
 		return this.cellCoordinates;
+	}
+	
+	public int getSize() {
+		return this.cellCoordinates.size();
 	}
 	
 	public int getID() {
