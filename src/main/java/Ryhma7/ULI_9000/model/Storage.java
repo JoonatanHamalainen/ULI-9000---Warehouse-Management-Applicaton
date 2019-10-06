@@ -5,7 +5,16 @@ import java.util.List;
 
 public class Storage {
 	
+	private int storageID;
 	
+	public int getStorageID() {
+		return storageID;
+	}
+
+	public void setStorageID(int storageID) {
+		this.storageID = storageID;
+	}
+
 	private String name;
 	private String address;
 	private int width;
@@ -55,7 +64,7 @@ public class Storage {
 	 */
 	public Shelf getShelf(int shelfID) {
 		for(Shelf shelf : this.shelves) {
-			if(shelf.getID() == shelfID) {
+			if(shelf.getShelfID() == shelfID) {
 				return shelf;
 			}
 		}
@@ -80,5 +89,29 @@ public class Storage {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public int getWidth() {
+		return width;
+	}
+
+	public void setWidth(int width) {
+		this.width = width;
+	}
+
+	public int getLength() {
+		return length;
+	}
+
+	public void setLength(int length) {
+		this.length = length;
+	}
+
+	public ArrayList<Shelf> getShelves() {
+		return shelves;
+	}
+
+	public void setShelves(ArrayList<Shelf> shelves) {
+		this.shelves = shelves;
 	}
 }

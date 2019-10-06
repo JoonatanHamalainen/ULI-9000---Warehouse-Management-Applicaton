@@ -6,34 +6,45 @@ public class Item {
 		
 	}
 	
-	private String name;
-	private int weight, amount, coordinateX, coordinateY;
+	private String name, itemNumber;
+	private int itemID, weight, amount, shelfID, storageID;
 	
-	private double salesprice, unitprice;
-	private int itemID;
-	
-	public void setName(String name) {
-		this.name = name;
-	}
-
-	public void setWeight(int weight) {
-		this.weight = weight;
+	public int getItemID() {
+		return itemID;
 	}
 
 	public void setItemID(int itemID) {
 		this.itemID = itemID;
 	}
 
-	public Item(int itemID, String name, int weight, int amount, int coordinateX, int coordinateY, double salesprice,
-			double unitprice) {
+	private double salesprice, unitprice;
+	
+	public void setName(String name) {
+		this.name = name;
+	}
+
+	public String getItemNumber() {
+		return itemNumber;
+	}
+
+	public void setItemNumber(String itemNumber) {
+		this.itemNumber = itemNumber;
+	}
+
+	public void setWeight(int weight) {
+		this.weight = weight;
+	}
+
+	public Item(String itemNumber, String name, int weight, int amount, double salesprice, double unitprice, int shelfID, int storageID) {
 		super();
+		this.itemNumber = itemNumber;
 		this.name = name;
 		this.weight = weight;
 		this.amount = amount;
-		this.coordinateX = coordinateX;
-		this.coordinateY = coordinateY;
 		this.salesprice = salesprice;
 		this.unitprice = unitprice;
+		this.shelfID = shelfID;
+		this.storageID = storageID;
 	}
 
 	public String getName() {
@@ -52,24 +63,20 @@ public class Item {
 		this.amount = amount;
 	}
 
-	public int getItemID() {
-		return itemID;
+	public int getShelfID() {
+		return shelfID;
 	}
 
-	public int getCoordinateX() {
-		return coordinateX;
+	public void setShelfID(int shelfID) {
+		this.shelfID = shelfID;
 	}
 
-	public void setCoordinateX(int coordinateX) {
-		this.coordinateX = coordinateX;
+	public int getStorageID() {
+		return storageID;
 	}
 
-	public int getCoordinateY() {
-		return coordinateY;
-	}
-
-	public void setCoordinateY(int coordinateY) {
-		this.coordinateY = coordinateY;
+	public void setStorageID(int storageID) {
+		this.storageID = storageID;
 	}
 
 	public double getSalesprice() {

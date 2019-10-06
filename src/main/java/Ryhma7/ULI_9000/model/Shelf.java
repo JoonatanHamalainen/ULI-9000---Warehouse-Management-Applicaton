@@ -6,7 +6,24 @@ import java.util.List;
 
 public class Shelf {
 	
-	private int id;
+	private int shelfID, capacity, coordinateX, coordinateY, storageID;
+	
+	public int getStorageID() {
+		return storageID;
+	}
+
+	public void setStorageID(int storageID) {
+		this.storageID = storageID;
+	}
+
+	public int getCapacity() {
+		return capacity;
+	}
+
+	public void setCapacity(int capacity) {
+		this.capacity = capacity;
+	}
+
 	private ArrayList<Item> items;
 	private ArrayList<Point> cellCoordinates;
 
@@ -88,15 +105,44 @@ public class Shelf {
 		return this.cellCoordinates;
 	}
 	
+	public int getCoordinateX() {
+		return coordinateX;
+	}
+
+	public void setCoordinateX(int coordinateX) {
+		this.coordinateX = coordinateX;
+	}
+
+	public int getCoordinateY() {
+		return coordinateY;
+	}
+
+	public void setCoordinateY(int coordinateY) {
+		this.coordinateY = coordinateY;
+	}
+
 	public int getSize() {
 		return this.cellCoordinates.size();
 	}
-	
-	public int getID() {
-		return this.id;
+
+	public int getShelfID() {
+		return shelfID;
 	}
-	public void setID(int id) {
-		this.id = id;
+
+	public void setShelfID(int shelfID) {
+		this.shelfID = shelfID;
+	}
+
+	public ArrayList<Item> getItems() {
+		return items;
+	}
+
+	public void setItems(ArrayList<Item> items) {
+		this.items = items;
+	}
+
+	public void setCellCoordinates(ArrayList<Point> cellCoordinates) {
+		this.cellCoordinates = cellCoordinates;
 	}
 	
 }
