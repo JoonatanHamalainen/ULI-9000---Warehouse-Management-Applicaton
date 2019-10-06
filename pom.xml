@@ -29,9 +29,9 @@
         <scope>test</scope>
     </dependency>
     <dependency>
-    	<groupId>org.openjfx</groupId>
-    	<artifactId>javafx-controls</artifactId>
-    	<version>12.0.2</version>
+        <groupId>org.openjfx</groupId>
+      	<artifactId>javafx-controls</artifactId>
+      	<version>13</version>
     </dependency>
   </dependencies>
   <build>
