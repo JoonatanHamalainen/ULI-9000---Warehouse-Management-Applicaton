@@ -58,12 +58,12 @@ public class StorageController {
 		}
 	}
 	
-	@FXML
+	/*@FXML
 	public void handleCreateShelf() {
 		Shelf shelf = new Shelf(this.selectedCells);
 		System.out.println(shelf.getCellCoordinates() + ", " + shelf.getID());
 	}
-	
+	*/
 	public void createShelf(ArrayList<Point> cellCoordinates) {
 		
 	}
