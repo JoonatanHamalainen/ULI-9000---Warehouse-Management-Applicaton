@@ -5,8 +5,8 @@ import java.util.ArrayList;
 
 import Ryhma7.ULI_9000.App;
 import Ryhma7.ULI_9000.model.Storage;
-//import javafx.beans.value.ChangeListener;
-//import javafx.beans.value.ObservableValue;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -71,7 +71,7 @@ public class AltRootLayoutController {
 				save.setDisable(true);
 				
 				//Listener CheckBoxille (seurataan Boxin tilaa): merkittynä tietojen muokkaus ei ole mahdollista tyhjänä puolestaan on
-				/*statusBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
+				statusBox.selectedProperty().addListener(new ChangeListener<Boolean>() {
 
 					public void changed(ObservableValue<? extends Boolean> arg0, Boolean arg1, Boolean arg2) {
 						if(statusBox.isSelected()) {
@@ -89,7 +89,7 @@ public class AltRootLayoutController {
 						}					
 					}
 				});
-				*/
+				
 				//samalla kuin TilePanea painetaan hiirellä, sen oikealle puolelle avautuu varastonäkymä
 				storageInfo.setOnMouseClicked(new EventHandler<MouseEvent>() {
 					public void handle(MouseEvent event) {
