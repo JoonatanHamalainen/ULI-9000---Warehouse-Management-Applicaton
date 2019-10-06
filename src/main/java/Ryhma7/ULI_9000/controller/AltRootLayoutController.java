@@ -5,8 +5,8 @@ import java.util.ArrayList;
 
 import Ryhma7.ULI_9000.App;
 import Ryhma7.ULI_9000.model.Storage;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+//import javafx.beans.value.ChangeListener;
+//import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
