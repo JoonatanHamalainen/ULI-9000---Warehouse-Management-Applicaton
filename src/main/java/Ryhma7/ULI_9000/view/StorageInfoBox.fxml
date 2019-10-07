@@ -7,7 +7,7 @@
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<TitledPane animated="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="200.0" text="untitled" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Ryhma7.ULI_9000.controller.AltRootLayoutController">
+<TitledPane animated="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="200.0" text="untitled" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Ryhma7.ULI_9000.controller.AltRootLayoutController">
   <content>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="198.0">
          <children>
