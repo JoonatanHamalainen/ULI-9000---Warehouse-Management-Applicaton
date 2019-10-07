@@ -23,7 +23,6 @@ public class DatabaseConnection {
 	         throw new ExceptionInInitializerError(ex); 
 	      }
 	}
-	
 	public void addItem(String itemNumber, String name, int weight, int amount, double salesprice, double unitprice, int shelfID, int storageID) {
 	      Session session = factory.openSession();
 	      Transaction tx = null;
@@ -41,23 +40,25 @@ public class DatabaseConnection {
 	         session.close(); 
 	      }
 	   }
-	public void updateName(Integer ItemID, String name){
+	public void updateName(String itemNumber, String name){
 	      Session session = factory.openSession();
 	      Transaction tx = null;
 	      
 	      try {
-	         tx = session.beginTransaction();
-	         Item item = (Item)session.get(Item.class, ItemID); 
-	         item.setName(name);
-			 session.update(item); 
-	         tx.commit();
-	      } catch (HibernateException e) {
-	         if (tx!=null) tx.rollback();
-	         e.printStackTrace(); 
-	      } finally {
-	         session.close(); 
-	      }
-	   }
+	    	  tx = session.beginTransaction();
+		         String hql = "UPDATE Item set name = :name WHERE itemNumber = :itemNumber";
+		         Query query = session.createQuery(hql);
+		         query.setParameter("name", name);
+		         query.setParameter("itemNumber", itemNumber);
+		         int result = query.executeUpdate(); 
+		         System.out.println("Rows affected: " + result);
+		      } catch (HibernateException e) {
+		         if (tx!=null) tx.rollback();
+		         e.printStackTrace(); 
+		      } finally {
+		         session.close(); 
+		      }
+		   }
 	public void updateLocation(String itemNumber, int shelfID, int storageID){
 	      Session session = factory.openSession();
 	      Transaction tx = null;
@@ -78,40 +79,44 @@ public class DatabaseConnection {
 	         session.close(); 
 	      }
 	   }
-	public void updateWeight(int itemID, int weight){
+	public void updateWeight(String itemNumber, int weight){
 	      Session session = factory.openSession();
 	      Transaction tx = null;
 	      
 	      try {
-	         tx = session.beginTransaction();
-	         Item item = (Item)session.get(Item.class, itemID); 
-	         item.setWeight(weight);
-			 session.update(item); 
-	         tx.commit();
-	      } catch (HibernateException e) {
-	         if (tx!=null) tx.rollback();
-	         e.printStackTrace(); 
-	      } finally {
-	         session.close(); 
-	      }
-	   }
-	public void updateSalesprice(int itemID, double salesprice){
+	    	  tx = session.beginTransaction();
+		         String hql = "UPDATE Item set weight = :weight WHERE itemNumber = :itemNumber";
+		         Query query = session.createQuery(hql);
+		         query.setParameter("weight", weight);
+		         query.setParameter("itemNumber", itemNumber);
+		         int result = query.executeUpdate(); 
+		         System.out.println("Rows affected: " + result);
+		      } catch (HibernateException e) {
+		         if (tx!=null) tx.rollback();
+		         e.printStackTrace(); 
+		      } finally {
+		         session.close(); 
+		      }
+		   }
+	public void updateSalesprice(String itemNumber, double salesprice){
 	      Session session = factory.openSession();
 	      Transaction tx = null;
 	      
 	      try {
-	         tx = session.beginTransaction();
-	         Item item = (Item)session.get(Item.class, itemID); 
-	         item.setSalesprice(salesprice);
-			 session.update(item); 
-	         tx.commit();
-	      } catch (HibernateException e) {
-	         if (tx!=null) tx.rollback();
-	         e.printStackTrace(); 
-	      } finally {
-	         session.close(); 
-	      }
-	   }
+	    	  tx = session.beginTransaction();
+		         String hql = "UPDATE Item set salesprice = :salesprice WHERE itemNumber = :itemNumber";
+		         Query query = session.createQuery(hql);
+		         query.setParameter("salesprice", salesprice);
+		         query.setParameter("itemNumber", itemNumber);
+		         int result = query.executeUpdate(); 
+		         System.out.println("Rows affected: " + result);
+		      } catch (HibernateException e) {
+		         if (tx!=null) tx.rollback();
+		         e.printStackTrace(); 
+		      } finally {
+		         session.close(); 
+		      }
+		   }
 	public void updateUnitprice(String itemNumber, double unitprice){
 	      Session session = factory.openSession();
 	      Transaction tx = null;
@@ -131,6 +136,26 @@ public class DatabaseConnection {
 	         session.close(); 
 	      }
 	   }
+	public void updateAmount(String itemNumber, int amount){
+	      Session session = factory.openSession();
+	      Transaction tx = null;
+	      
+	      try {
+	         tx = session.beginTransaction();
+	         String hql = "UPDATE Item set amount = :amount WHERE itemNumber = :itemNumber";
+	         Query query = session.createQuery(hql);
+	         query.setParameter("amount", amount);
+	         query.setParameter("itemNumber", itemNumber);
+	         int result = query.executeUpdate(); 
+	         System.out.println("Rows affected: " + result);
+	      } catch (HibernateException e) {
+	         if (tx!=null) tx.rollback();
+	         e.printStackTrace(); 
+	      } finally {
+	         session.close(); 
+	      }
+	   }
+	
 	public void deleteItem(String itemNumber){
 	      Session session = factory.openSession();
 	      Transaction tx = null;
@@ -152,7 +177,7 @@ public class DatabaseConnection {
 	// funktiolle annetaan parametriksi sen hyllyn ID ja varaston ID, jonka tuotteet halutaan listata.
 	public void getItemsInShelf(int shelfID, int storageID) {
 		Session session = factory.openSession();
-	      Transaction tx = null;
+	    Transaction tx = null;
 	      
 	      try {
 	         tx = session.beginTransaction();
@@ -177,6 +202,31 @@ public class DatabaseConnection {
 	         session.close(); 
 	      }
 	      }
+	public void getShelvesInStorage(int storageID) {
+		Session session = factory.openSession();
+	    Transaction tx = null;
+	      
+	      try {
+	         tx = session.beginTransaction();
+	         String hql = ("FROM Shelf WHERE storageID = :storageID");
+	         Query query = session.createQuery(hql);
+	         query.setParameter("storageID", storageID);
+	         List items = query.list();
+	         for (Iterator iterator = items.iterator(); iterator.hasNext();){
+	            Storage storage = (Storage) iterator.next(); 
+	            System.out.print("Name: " + storage.getName()); 
+	            System.out.print("  Address: " + storage.getAddress());
+	            System.out.print("  Width: " + storage.getWidth());
+	            System.out.print("  Length: " + storage.getLength());
+	         }
+	         tx.commit();
+	      } catch (HibernateException e) {
+	         if (tx!=null) tx.rollback();
+	         e.printStackTrace(); 
+	      } finally {
+	         session.close(); 
+	      }
+	}
 	public void listItems(){
 	      Session session = factory.openSession();
 	      Transaction tx = null;
@@ -205,4 +255,57 @@ public class DatabaseConnection {
 	         session.close(); 
 	      }
 	   }
+	public void listShelves() {
+		Session session = factory.openSession();
+	    Transaction tx = null;
+	      
+	      try {
+	         tx = session.beginTransaction();
+	         List items = session.createQuery("FROM Shelf").list(); 
+	         for (Iterator iterator = items.iterator(); iterator.hasNext();){
+	            Shelf shelf = (Shelf) iterator.next(); 
+	            System.out.println();
+	            System.out.println("ShelfID: " + shelf.getShelfID());
+	            System.out.print("  Capacity: " + shelf.getCapacity()); 
+	            System.out.print("  Coordinate X: " + shelf.getCoordinateX());
+	            System.out.print("  Coordinate Y: " + shelf.getCoordinateY());
+	            System.out.print("  StorageID: " + shelf.getStorageID());
+	            System.out.println();
+	            
+	         }
+	         tx.commit();
+	      } catch (HibernateException e) {
+	         if (tx!=null) tx.rollback();
+	         e.printStackTrace(); 
+	      } finally {
+	         session.close(); 
+	      }
 	}
+	public void listStorages() {
+		Session session = factory.openSession();
+	    Transaction tx = null;
+	      
+	      try {
+	         tx = session.beginTransaction();
+	         List items = session.createQuery("FROM Storage").list(); 
+	         for (Iterator iterator = items.iterator(); iterator.hasNext();){
+	            Storage storage = (Storage) iterator.next(); 
+	            System.out.println();
+	            System.out.println("StorageID: " + storage.getStorageID());
+	            System.out.print("  Name: " + storage.getName()); 
+	            System.out.print("   Address: " + storage.getAddress());
+	            System.out.print("  Width: " + storage.getWidth());
+	            System.out.print("  Length: " + storage.getLength());
+	            System.out.println();
+	            
+	         }
+	         tx.commit();
+	      } catch (HibernateException e) {
+	         if (tx!=null) tx.rollback();
+	         e.printStackTrace(); 
+	      } finally {
+	         session.close(); 
+	      }
+	}
+	}
+
