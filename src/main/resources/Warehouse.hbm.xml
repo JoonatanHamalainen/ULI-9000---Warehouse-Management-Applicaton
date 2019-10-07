@@ -15,16 +15,17 @@
       </id>
       
       <property name = "name" column = "Name" type = "string"/>
-      <property name = "weight" column = "Weight" type = "int"/>
-      <property name = "salesprice" column = "Salesprice" type = "double"/>
       <property name = "amount" column = "Amount" type = "int"/>
+      <property name = "salesprice" column = "Salesprice" type = "double"/>
       <property name = "unitprice" column = "Unitprice" type = "double"/>
-      <property name = "coordinateX" column = "CoordinateX" type = "int"/>
-      <property name = "coordinateY" column = "CoordinateY" type = "int"/>
+      <property name = "weight" column = "Weight" type = "int"/>
+      <property name = "shelfID" column = "ShelfID" type = "int"/>
+      <property name = "storageID" column = "StorageID" type = "int"/>
+      <property name = "itemNumber" column = "ItemNumber" type = "string"/>
+      
    
     
    </class>
-   <!--
    <class name = "Ryhma7.ULI_9000.model.Shelf" table = "Shelf">
       
       <meta attribute = "class-description">
@@ -35,10 +36,10 @@
          <generator class="native"/>
       </id>
       
-      <property name = "size" column = "Size" type = "int"/>
       <property name = "capacity" column = "Capacity" type = "int"/>
       <property name = "coordinateX" column = "CoordinateX" type = "int"/>
       <property name = "coordinateY" column = "CoordinateY" type = "int"/>
+      <property name = "storageID" column = "StorageID" type = "int"/>
       
    </class>
    <class name = "Ryhma7.ULI_9000.model.Storage" table = "Storage">
@@ -51,11 +52,11 @@
          <generator class="native"/>
       </id>
       
-      <property name = "size" column = "Size" type = "int"/>
-      <property name = "capacity" column = "Capacity" type = "int"/>
-      <property name = "coordinateX" column = "CoordinateX" type = "int"/>
-      <property name = "coordinateY" column = "CoordinateY" type = "int"/>
+      <property name = "name" column = "Name" type = "string"/>
+      <property name = "address" column = "Address" type = "string"/>
+      <property name = "width" column = "Width" type = "int"/>
+      <property name = "length" column = "Length" type = "int"/>
       
-   </class>-->
+   </class>
    
 </hibernate-mapping>
