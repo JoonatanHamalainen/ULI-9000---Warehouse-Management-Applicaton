@@ -25,7 +25,7 @@ public class Shelf {
 	}
 
 	private ArrayList<Item> items;
-	private ArrayList<Point> cellCoordinates;
+	
 	private Item item;
 	private Point cellCoordinates;
 
@@ -34,7 +34,7 @@ public class Shelf {
 	}
 	
 	public Shelf(Point cellCoordinates) {
-		this.cellCoordinates = cellCoordinates;
+		this.cellCoordinates = (Point) cellCoordinates;
 	}
 	/*
 	 * addItem-funktio vaatii parametrinä tavaran (item), joka lisätään hyllyn sisältöön
@@ -86,7 +86,7 @@ public class Shelf {
 	 * getCellCoordinates-funktio palauttaa hyllyn solukoordinaatit ArrayList<Point> muodossa
 	 */
 	public Point getCellCoordinates(){
-		return this.cellCoordinates;
+		return (Point) this.cellCoordinates;
 	}
 	
 	public int getCoordinateX() {
@@ -105,10 +105,6 @@ public class Shelf {
 		this.coordinateY = coordinateY;
 	}
 
-	public int getSize() {
-		return this.cellCoordinates.size();
-	}
-
 	public int getShelfID() {
 		return shelfID;
 	}
@@ -123,10 +119,6 @@ public class Shelf {
 
 	public void setItems(ArrayList<Item> items) {
 		this.items = items;
-	}
-
-	public void setCellCoordinates(ArrayList<Point> cellCoordinates) {
-		this.cellCoordinates = cellCoordinates;
 	}
 	
 }
