@@ -23,13 +23,5 @@ class ShelfTest {
 			fail("Failed to create new shelf!");
 		}	
 	}
-	
-	/*@Test
-	void testGetCellCoordinates() {
-		ArrayList<Point> tempList  = new ArrayList<Point>();
-		tempList.add(new Point(1,1));
-		assertEquals("Hyllyn koordinaatit väärin", tempList, shelf.getCellCoordinates());
-		
-	}*/
 
 }
