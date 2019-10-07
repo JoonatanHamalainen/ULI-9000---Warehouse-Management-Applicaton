@@ -114,13 +114,10 @@ public class Storage {
 		this.length = length;
 	}
 
-	public ArrayList<Shelf> getShelves() {
-		return shelves;
-	}
-
 	public void setShelves(ArrayList<Shelf> shelves) {
 		this.shelves = shelves;
-    
+	}
+	
 	public ArrayList<Item> getItems() {
 		return items;
 	}
