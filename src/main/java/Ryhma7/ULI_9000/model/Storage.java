@@ -11,15 +11,18 @@ public class Storage {
 	private int width;
 	private int length;
 	private ArrayList<Shelf> shelves;
+	private ArrayList<Item> items;
 	
 	public Storage () {
 		this.shelves = new ArrayList<Shelf>();
+		this.items = new ArrayList<Item>();
 	}
 	
 	public Storage(int widthX, int lengthY) {
 		this.shelves = new ArrayList<Shelf>();
+		this.items = new ArrayList<Item>();
 		this.width = widthX;
-		this.length = lengthY;
+		this.length = lengthY;		
 	}
 	/*
 	 * getDimensions-funktio palauttaa varaston koon x,y -koodrdinaatteina
@@ -61,6 +64,10 @@ public class Storage {
 		}
 		return null;
 	}
+	
+	public ArrayList<Shelf> getShelves(){
+		return this.shelves;
+	}
 	public void setDimensions(int width, int length) {
 		this.width = width;
 		this.length = length;
@@ -80,5 +87,17 @@ public class Storage {
 
 	public void setName(String name) {
 		this.name = name;
+	}
+
+	public ArrayList<Item> getItems() {
+		return items;
+	}
+
+	public void setItems(ArrayList<Item> items) {
+		this.items = items;
+	}
+	
+	public void addItemToStorage(Item item) {
+		this.items.add(item);
 	}
 }
