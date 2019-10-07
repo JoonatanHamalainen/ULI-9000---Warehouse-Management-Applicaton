@@ -26,27 +26,37 @@ public class Shelf {
 
 	private ArrayList<Item> items;
 	private ArrayList<Point> cellCoordinates;
+	private Item item;
+	private Point cellCoordinates;
 
 	//Kopioidaan konstruktorin parametrinä saatu lista solukoordinaateista ja ID
 	public Shelf() {
 	}
 	
-	public Shelf(ArrayList<Point> cellCoordinates) {
-		this.items = new ArrayList<Item>();
+	public Shelf(Point cellCoordinates) {
 		this.cellCoordinates = cellCoordinates;
 	}
 	/*
 	 * addItem-funktio vaatii parametrinä tavaran (item), joka lisätään hyllyn sisältöön
 	 */
 	public void addItem(Item item) {
-		this.items.add(item);
+		this.item = item;
 	}
 	/*
 	 * removeItem-funktio ottaa vastaan parametrinä poistettavan tuotteen ID:n, minkä jälkeen
 	 * tarkistetaan löytyykö kyseinen tuote hyllyltä. Jos tuote löytyy metodi palauttaa boolean arvon true,
 	 * mikäli tuotteen poisto epäonnistui metodi palauttaa boolean arvon false. 
 	 */
-	public boolean removeItem(int itemID) {
+	public boolean removeItem() {
+		if(this.item != null) {
+			this.item = null;
+			return true;
+		}
+		return false;
+	}
+	
+	
+	/*public boolean removeItem(int itemID) {
 		Item tempItem = null;
 		for (Item item : items) {
 			if(item.getItemID() == itemID) {
@@ -60,48 +70,22 @@ public class Shelf {
 		}else {
 			return false;
 		}
-	}
+	}*/
+	
+	
 	/*
 	 * getItem-funktio ottaa vastaan parametrinä haettavan tuotteen ID:n,minkä jälkeen
 	 *  tarkistetaan löytyykö kyseinen tuote hyllyltä. Jos tuote löytyy metodi palauttaa kyseisen tavara,
 	 *  mikäli tuotetta ei lyöydy metodi palauttaa arvon null.
 	 */
-	public Item getItem(int itemID) {
-		for(Item item : items) {
-			if(item.getItemID() == itemID) {
-				return item;
-			}
-		}
-		return null;
+	public Item getItem() {
+		return this.item;
 	}
-	/*
-	 * addCell-funktio lisää hyllyyn yksittäisen solun, jos lisäys epäonnistuu palauttaa 
-	 * funktio boolean arvon false
-	 */
-	public boolean addCell(Point coordinates) {
-		if(coordinates != null) {
-			this.cellCoordinates.add(coordinates);
-			return true;
-		}else {
-			return false;
-		}
-	}
-	/*
-	 * removeCell-funktio poistaa hyllystä yksittäisen solun. Mikäli toiminto epäonnistuu
-	 *  funktio palauttaa boolean arvon false
-	 */
-	public boolean removeCell(Point coordinates) {
-		if(coordinates != null) {
-			this.cellCoordinates.remove(coordinates);
-			return true;
-		}else {
-			return false;
-		}
-	}
+	
 	/*
 	 * getCellCoordinates-funktio palauttaa hyllyn solukoordinaatit ArrayList<Point> muodossa
 	 */
-	public ArrayList<Point> getCellCoordinates(){
+	public Point getCellCoordinates(){
 		return this.cellCoordinates;
 	}
 	

@@ -5,10 +5,12 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import Ryhma7.ULI_9000.controller.AltRootLayoutController;
+import Ryhma7.ULI_9000.controller.NewItemDialogController;
 import Ryhma7.ULI_9000.controller.NewStorageDialogController;
 import Ryhma7.ULI_9000.controller.RootLayoutController;
 import Ryhma7.ULI_9000.controller.StorageController;
 import Ryhma7.ULI_9000.controller.StorageEditController;
+import Ryhma7.ULI_9000.model.Item;
 import Ryhma7.ULI_9000.model.Shelf;
 import Ryhma7.ULI_9000.model.Storage;
 import javafx.application.Application;
@@ -87,12 +89,12 @@ public class App extends Application {
 	public void showStorageLayout(Storage storage) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(App.class.getResource("view/StorageLayout.fxml"));
+			loader.setLocation(App.class.getResource("view/AltStorageLayout.fxml"));
 			
-			BorderPane page = (BorderPane) loader.load();
+			AnchorPane page = (AnchorPane) loader.load();
 			this.rootLayout.setCenter(page);
 			
-			StorageController controller = loader.getController();
+			StorageEditController controller = loader.getController();
 			
 			controller.setMainApp(this);
 			controller.setStorage(storage);
@@ -108,7 +110,7 @@ public class App extends Application {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(App.class.getResource("view/StorageEdit.fxml"));
 			
-			BorderPane page = (BorderPane) loader.load();
+			AnchorPane page = (AnchorPane) loader.load();
 			
 			this.rootLayout.setCenter(page);
 			
@@ -140,6 +142,34 @@ public class App extends Application {
 			
 			NewStorageDialogController controller = loader.getController();
 			controller.setStorage(storage);
+			controller.setDialogStage(dialogStage);
+			
+			dialogStage.showAndWait();
+			
+			return controller.getIsOkClicked();			
+		}catch(IOException e) {
+			System.out.println(e);
+			return false;
+		}
+	}
+	
+	public boolean showNewItemDialog(Item item) {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(App.class.getResource("view/NewItemDialog.fxml"));
+			
+			AnchorPane page = (AnchorPane) loader.load();
+			
+			Stage dialogStage = new Stage();
+			dialogStage.setTitle("Create New Item");
+			dialogStage.initModality(Modality.WINDOW_MODAL);
+			dialogStage.initOwner(primaryStage);
+			
+			Scene scene = new Scene(page);
+			dialogStage.setScene(scene);
+			
+			NewItemDialogController controller = loader.getController();
+			controller.setItem(item);
 			controller.setDialogStage(dialogStage);
 			
 			dialogStage.showAndWait();
