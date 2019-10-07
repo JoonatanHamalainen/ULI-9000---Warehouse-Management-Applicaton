@@ -69,7 +69,7 @@ public class App extends Application {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(App.class.getResource("view/Rootlayout.fxml"));
 		
-			this.rootLayout =(BorderPane) loader.load();
+			this.rootLayout = (BorderPane) loader.load();
 			Scene scene = new Scene(this.rootLayout);
 			scene.getStylesheets().add("StoragePalette.css");
 			
