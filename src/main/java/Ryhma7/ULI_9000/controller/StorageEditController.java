@@ -227,7 +227,7 @@ public class StorageEditController {
 	 * saveChanges-funktio tallentaa hyllyyn tehdyt muutokset
 	 */
 	private void saveChanges(Shelf shelf) {
-		shelf.setID(Integer.parseInt(this.shelfID.getText()));
+		shelf.setShelfID(Integer.parseInt(this.shelfID.getText()));
 	}
 	
 	private double calculateCellWallLength(int columns, int rows) {
