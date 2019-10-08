@@ -6,7 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class NewStorageDialogController {
+public class NewStorageDialogController implements ControllerInterfaceModalView {
 	@FXML
 	private TextField name;
 	@FXML

@@ -129,4 +129,8 @@ public class Storage {
 	public void addItemToStorage(Item item) {
 		this.items.add(item);
 	}
+	
+	public void removeItemFromStorage(Item item) {
+		items.remove(item);
+	}
 }
