@@ -117,7 +117,6 @@ public class App extends Application {
 			StorageEditController controller = loader.getController();
 			controller.setMainApp(this);
 			controller.setStorage(this.storage);
-			controller.setShelves(this.shelves);
 			controller.setPane(page);
 			controller.loadStorageLayout();
 		}catch(IOException e) {
