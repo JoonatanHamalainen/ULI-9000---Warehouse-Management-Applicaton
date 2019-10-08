@@ -15,7 +15,12 @@
 	-fx-insets:0, 0 1 1 0;
 	
 }
-
+.storage-grid-cell-shelf{
+	-fx-background-color:green;
+	-fx-border-color: black;
+	-fx-border-width:0.1;
+	-fx-insets:0, 0 1 1 0;
+}
 .storage-grid-cell:hover, .storage-grid-cell-selected:hover{
 	-fx-opacity:0.5;
 }

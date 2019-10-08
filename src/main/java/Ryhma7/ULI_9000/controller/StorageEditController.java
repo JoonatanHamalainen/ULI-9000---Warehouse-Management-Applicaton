@@ -12,6 +12,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
+import javafx.scene.Node;
 import javafx.scene.control.Accordion;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
@@ -28,7 +29,8 @@ import javafx.scene.layout.RowConstraints;
 import javafx.util.Callback;
 import net.bytebuddy.asm.Advice.This;
 
-public class StorageEditController {
+public class StorageEditController implements ControllerInterfaceView {
+	
 	private static class ItemCellList extends ListCell<Item> {		
 		@Override
 		protected void updateItem(Item item, boolean empty) {
@@ -40,7 +42,19 @@ public class StorageEditController {
 		}
 	}
 	
-	private ObservableList<Item> storageItemList; 
+	private static class ShelfCellList extends ListCell<Shelf>{
+		@Override
+		protected void updateItem (Shelf shelf, boolean empty) {
+			super.updateItem(shelf, empty);
+			if (shelf == null || empty) {
+				
+			}else {
+				setText(Integer.toString(shelf.getShelfID()));
+			}
+		}
+	}
+	private ObservableList<Item> storageItemList;
+	private ObservableList<Shelf> storageShelfList;
 	@FXML
 	private TextField shelfID;
 	@FXML
@@ -53,15 +67,19 @@ public class StorageEditController {
 	private TextField containedItem;
 	@FXML
 	private ComboBox<Item> itemsInStorageBox;
+	@FXML
+	private ComboBox<Shelf> shelvesInStorageBox;
 	
+	//väliaikainen muuttuja:
+	private int shelfIdCounter = 0;
 	
 	private ArrayList<Point> selectedCells = new ArrayList<Point>();
 	
 	private App mainApp;
 	private AnchorPane page;
 	private Storage storage;
-	private ArrayList<Shelf> shelves;
 	private Shelf selectedShelf;
+	private GridPane storageGrid;
 	
 	public StorageEditController() {	
 	}
@@ -72,7 +90,6 @@ public class StorageEditController {
 	
 	public void setStorage(Storage storage) {
 		this.storage = storage;
-		this.shelves = this.storage.getShelves();
 		if(this.storage.getItems().size() != 0) {	
 			this.storageItemList = FXCollections.observableArrayList(this.storage.getItems());
 			this.itemsInStorageBox.setCellFactory(new Callback<ListView<Item>, ListCell<Item>>(){
@@ -82,9 +99,22 @@ public class StorageEditController {
 				}
 				
 			});
+			
 			this.itemsInStorageBox.setItems(this.storageItemList);
 			this.itemsInStorageBox.setButtonCell(new ItemCellList());
-			//this.itemsInStorageBox.setItems(this.storageItemList);
+		}
+		if(this.storage.getShelves().size() != 0) {
+			this.storageShelfList = FXCollections.observableArrayList(this.storage.getShelves());
+			System.out.println(this.shelvesInStorageBox);
+			this.shelvesInStorageBox.setCellFactory(new Callback<ListView<Shelf>, ListCell<Shelf>>(){
+				
+				public ListCell<Shelf> call(ListView<Shelf> list) {
+					return new ShelfCellList();
+				}
+				
+			});
+			this.shelvesInStorageBox.setItems(this.storageShelfList);
+			this.shelvesInStorageBox.setButtonCell(new ShelfCellList());
 		}
 	}
 	
@@ -92,18 +122,35 @@ public class StorageEditController {
 		this.page = page;
 	}
 	
-	public void setShelves(ArrayList<Shelf> shelves) {
-		this.shelves = shelves;
-	}
-	
 	@FXML
 	public void handleAddShelf() {
 		for(Point cellCoordinate : this.selectedCells) {
 			Shelf tempShelf = new Shelf(cellCoordinate);
-			this.shelves.add(tempShelf);
+			tempShelf.setShelfID(this.shelfIdCounter);
+			this.shelfIdCounter++;
+			System.out.println(tempShelf.getShelfID());
+			this.storage.getShelves().add(tempShelf);
 		}
 		this.selectedCells.clear();
-		System.out.println("Storage contains: " + this.shelves.size() + " shelves");
+		System.out.println("Storage contains: " + this.storage.getShelves().size() + " shelves");
+	}
+	
+	@FXML
+	public void handleRemoveShelf() {
+		System.out.println("Shelf removed");
+		if(this.shelvesInStorageBox.getItems() != null) {
+			Shelf tempShelf = (Shelf) this.shelvesInStorageBox.getValue();
+			int column = (int) tempShelf.getCellCoordinates().getX();
+			int row = (int) tempShelf.getCellCoordinates().getY();
+			for (Node node : this.storageGrid.getChildren()) {
+				if(this.storageGrid.getColumnIndex(node) == column && this.storageGrid.getRowIndex(node) == row) {
+					node.getStyleClass().clear();;
+					node.getStyleClass().add("storage-grid-cell");
+				}
+			}
+			this.storage.removeShelf(tempShelf);
+		}
+		System.out.println("Shelf removed");		
 	}
 	
 	@FXML
@@ -118,13 +165,13 @@ public class StorageEditController {
 	}
 	
 	@FXML
-	public void handleRemoveShelf() {
-		this.shelfID.setText("Bing");
-		this.shelfSpace.setText("Bong");
-		this.shelfSize.setText("Blip");
-		System.out.println("Shelf removed");
-		
-		//TODO
+	public void handleRemoveItemFromStrorage() {
+		if(this.itemsInStorageBox.getValue() != null) {
+			Item tempItem = (Item) this.itemsInStorageBox.getValue();
+			this.storage.removeItemFromStorage(tempItem);
+		}else {
+			System.out.println("No item selected");
+		}
 	}
 	
 	@FXML
@@ -149,33 +196,42 @@ public class StorageEditController {
 	
 	public void loadStorageLayout() {
 		if(this.storage.getDimensions().get(0) != null && this.storage.getDimensions().get(1) != null) {
+			ArrayList<Point> shelves = new ArrayList<Point>();
+			for (Shelf shelf: this.storage.getShelves()) {
+				shelves.add(shelf.getCellCoordinates());
+			}
 			int gridColumns = this.storage.getDimensions().get(0);
 			int gridRows = this.storage.getDimensions().get(1);
 			double cellWallLength = calculateCellWallLength(gridColumns, gridRows);
 			//Create the gridpane, which represets the storage(number of columns represents width, and rows - length)
-			final GridPane grid = new GridPane();
-			grid.getStyleClass().add("storage-grid");
+			this.storageGrid = new GridPane();
+			storageGrid.getStyleClass().add("storage-grid");
 			//create the columns
 			for (int i = 0;i<gridColumns;i++) {
 				ColumnConstraints column = new ColumnConstraints(cellWallLength);
-				grid.getColumnConstraints().add(column);
+				storageGrid.getColumnConstraints().add(column);
 			}
 			//create the rows
 			for (int i = 0; i<gridRows; i++) {
 				RowConstraints row = new RowConstraints(cellWallLength);
-				grid.getRowConstraints().add(row);
+				storageGrid.getRowConstraints().add(row);
 			}
 			//add panes to the gridcells
 			for (int i = 0; i<gridColumns;i++) {
 				for(int j = 0; j<gridRows; j++) {					
 					final Pane pane = new Pane();
-	
-					pane.getStyleClass().add("storage-grid-cell");
+					Point point = new Point(i,j);
+					if(shelves.contains(point)) {
+						pane.getStyleClass().add("storage-grid-cell-shelf");
+					}else {
+						pane.getStyleClass().add("storage-grid-cell");
+					}
+					//pane.getStyleClass().add("storage-grid-cell");
 					//add on click funtionality to each pane
 					pane.setOnMouseClicked(new EventHandler<MouseEvent>(){
 						public void handle(MouseEvent event) {
 							//if the clicked cell is a cell
-							if(isShelf(new Point(grid.getColumnIndex(pane), grid.getRowIndex(pane)))) {
+							if(pane.getStyleClass().contains("storage-grid-cell-shelf")) {
 								
 								System.out.println("works");
 										
@@ -183,22 +239,22 @@ public class StorageEditController {
 							}else if(pane.getStyleClass().contains("storage-grid-cell")) {
 								pane.getStyleClass().remove("storage-grid-cell");
 								pane.getStyleClass().add("storage-grid-cell-selected");
-								Point coordinateXY = new Point(grid.getColumnIndex(pane), grid.getRowIndex(pane));
+								Point coordinateXY = new Point(storageGrid.getColumnIndex(pane), storageGrid.getRowIndex(pane));
 								cellSelected(coordinateXY);
 							//or if the cell is not a shelf but is selected
 							}else if(pane.getStyleClass().contains("storage-grid-cell-selected")) {
 								pane.getStyleClass().remove("storage-grid-cell-selected");
 								pane.getStyleClass().add("storage-grid-cell");
-								cellSelected(new Point(grid.getColumnIndex(pane), grid.getRowIndex(pane)));
+								cellSelected(new Point(storageGrid.getColumnIndex(pane), storageGrid.getRowIndex(pane)));
 							}
 						}						
 					});
 					
-					grid.add(pane, i, j);
+					storageGrid.add(pane, i, j);
 				}
 			}
 			BorderPane tempPane = (BorderPane) page.getChildren().get(0);
-			tempPane.setTop(grid);
+			tempPane.setTop(storageGrid);
 		}
 	}
 	/*
@@ -206,8 +262,8 @@ public class StorageEditController {
 	 * palauttaa true, jos solussa on hylly, ja false, jos ei.
 	 */
 	private boolean isShelf(Point coordinateXY) {
-		if(shelves != null) {
-			for(Shelf shelf : shelves) {
+		if(this.storage.getShelves() != null) {
+			for(Shelf shelf : this.storage.getShelves()) {
 				if (shelf.getCellCoordinates() == coordinateXY) {
 					this.selectedShelf = shelf;
 					this.displaySelectedShelf(shelf);

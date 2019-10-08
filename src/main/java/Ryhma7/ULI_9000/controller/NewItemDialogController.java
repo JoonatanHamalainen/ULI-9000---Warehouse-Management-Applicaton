@@ -6,7 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class NewItemDialogController {
+public class NewItemDialogController implements ControllerInterfaceModalView {
 	@FXML
 	private TextField name;
 	@FXML
