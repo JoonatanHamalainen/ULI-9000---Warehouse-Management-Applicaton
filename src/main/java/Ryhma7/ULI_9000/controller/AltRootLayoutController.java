@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import Ryhma7.ULI_9000.App;
-import Ryhma7.ULI_9000.model.Storage;
+import Ryhma7.ULI_9000.model.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
@@ -24,6 +24,8 @@ public class AltRootLayoutController implements ControllerInterfaceView {
 	private App mainApp;
 	private ArrayList<Storage> storages;
 	private VBox vbox;
+	
+	DatabaseConnection database = new DatabaseConnection();
 	
 	public void setMainApp(App mainApp) {
 		this.mainApp = mainApp;
@@ -101,6 +103,7 @@ public class AltRootLayoutController implements ControllerInterfaceView {
 					public void handle(MouseEvent event) {
 						accordion.getPanes().remove(storage);
 						storages.remove(storage);
+						database.deleteStorage(storage);
 						try {
 							Accordion tempAccordion = (Accordion) vbox.getChildren().get(2);
 							vbox.getChildren().remove(2);
@@ -143,7 +146,8 @@ public class AltRootLayoutController implements ControllerInterfaceView {
 
 		boolean isOkClicked = mainApp.showNewStorageDialog(tempStorage);
 		if (isOkClicked) {
-			mainApp.getStorages().add(tempStorage);
+			database.addStorage(tempStorage);
+			mainApp.getStorages().add(database.getStorage(tempStorage.getName()));
 			try {
 				Accordion tempAccordion = (Accordion) vbox.getChildren().get(2);
 				vbox.getChildren().remove(2);
