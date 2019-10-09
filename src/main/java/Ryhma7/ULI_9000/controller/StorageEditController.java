@@ -8,8 +8,11 @@ import Ryhma7.ULI_9000.App;
 import Ryhma7.ULI_9000.model.Item;
 import Ryhma7.ULI_9000.model.Shelf;
 import Ryhma7.ULI_9000.model.Storage;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
@@ -115,6 +118,13 @@ public class StorageEditController implements ControllerInterfaceView {
 			});
 			this.shelvesInStorageBox.setItems(this.storageShelfList);
 			this.shelvesInStorageBox.setButtonCell(new ShelfCellList());
+			this.shelvesInStorageBox.setOnAction(new EventHandler<ActionEvent>() {
+				public void handle(ActionEvent e) {
+					if(shelvesInStorageBox.getValue().getItem() != null && shelvesInStorageBox.getValue() != null) {
+						containedItem.setText(shelvesInStorageBox.getValue().getItem().getName());
+					}
+				}
+			});
 		}
 	}
 	
@@ -151,6 +161,30 @@ public class StorageEditController implements ControllerInterfaceView {
 			this.storage.removeShelf(tempShelf);
 		}
 		System.out.println("Shelf removed");		
+	}
+	
+	@FXML
+	public void handleAddItemToShelf() {
+		if(this.itemsInStorageBox.getValue() != null && this.shelvesInStorageBox.getValue() != null) {
+			Item tempItem = (Item) this.itemsInStorageBox.getValue();
+			Shelf tempShelf = (Shelf) this.shelvesInStorageBox.getValue();
+			tempShelf.addItem(tempItem);
+			System.out.println(tempShelf.getItem().getName());
+		}else {
+			System.out.println("Select an Item and a Shelf");
+		}
+	}
+	
+	@FXML
+	public void handleRemoveItemFromShelf() {
+		if(this.shelvesInStorageBox.getValue() != null && this.shelvesInStorageBox.getValue().getItem() != null) {
+			Shelf tempShelf = this.shelvesInStorageBox.getValue();
+			Item tempItem = this.shelvesInStorageBox.getValue().getItem();
+			tempShelf.removeItem();
+			tempShelf.getItem();
+			System.out.println(tempShelf.getItem());
+		}
+		System.out.println("Remove");
 	}
 	
 	@FXML
@@ -197,6 +231,7 @@ public class StorageEditController implements ControllerInterfaceView {
 	public void loadStorageLayout() {
 		if(this.storage.getDimensions().get(0) != null && this.storage.getDimensions().get(1) != null) {
 			ArrayList<Point> shelves = new ArrayList<Point>();
+			//Haetaan varastossa olevien hyllyjen koordinaatit shelves-listaan
 			for (Shelf shelf: this.storage.getShelves()) {
 				shelves.add(shelf.getCellCoordinates());
 			}
@@ -221,12 +256,12 @@ public class StorageEditController implements ControllerInterfaceView {
 				for(int j = 0; j<gridRows; j++) {					
 					final Pane pane = new Pane();
 					Point point = new Point(i,j);
+					//Tarkistetaan sijaitseeko kyseisessä solulla hylly. Jos sijaitsee, tehdään hylly merkintä
 					if(shelves.contains(point)) {
 						pane.getStyleClass().add("storage-grid-cell-shelf");
 					}else {
 						pane.getStyleClass().add("storage-grid-cell");
 					}
-					//pane.getStyleClass().add("storage-grid-cell");
 					//add on click funtionality to each pane
 					pane.setOnMouseClicked(new EventHandler<MouseEvent>(){
 						public void handle(MouseEvent event) {
