@@ -1,6 +1,5 @@
 package Ryhma7.ULI_9000.model;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.awt.Point;
@@ -23,6 +22,13 @@ class ShelfTest {
 		}catch(Exception e) {
 			fail("Failed to create new shelf!");
 		}	
+	}
+	
+	@Test
+	void removeItemTest() {
+		Item item = new Item();
+		shelf.addItem(item);
+		assertTrue(shelf.removeItem(), "Item removal unsuccesful!");
 	}
 
 }

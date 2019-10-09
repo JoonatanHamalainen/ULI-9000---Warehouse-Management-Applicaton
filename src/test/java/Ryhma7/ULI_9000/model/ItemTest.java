@@ -19,8 +19,17 @@ class ItemTest {
 	}
 	
 	@Test
-	void test() {
-		fail("Not yet implemented");
+	void increaseAmountTest() {
+		item.setAmount(5);
+		item.increaseAmount(1, 2);
+		assertEquals(7, item.getAmount(), "Increasing amount not working!");
 	}
 
+	@Test
+	void decreaseAmountTest() {
+		item.setAmount(5);
+		item.decreaseAmount(1, 3);
+		assertEquals(2, item.getAmount(), "Decreasing amount not working!");
+		assertFalse(item.decreaseAmount(1, 3), "Amount decreased past 0!");
+	}
 }
