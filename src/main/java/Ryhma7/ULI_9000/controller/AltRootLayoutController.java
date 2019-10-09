@@ -43,6 +43,7 @@ public class AltRootLayoutController implements ControllerInterfaceView {
 	 */
 	public void loadStorages(final VBox vbox) {
 		final Accordion accordion = new Accordion();
+		storages = database.getStorages();
 		for(final Storage storage : storages) {
 			try {
 				//ladataan infoboxin resurssit, ja tallennetaan ne muuttujiin
@@ -120,6 +121,9 @@ public class AltRootLayoutController implements ControllerInterfaceView {
 						storage.setAddress(addressField.getText());
 						try {
 							storage.setDimensions(Integer.parseInt(widthField.getText()), Integer.parseInt(lengthField.getText()));
+							database.updateStorageAddress(storage.getStorageID(), storage.getAddress());
+							database.updateStorageWidth(storage.getStorageID(), storage.getWidth());
+							database.updateStorageLength(storage.getStorageID(), storage.getLength());
 							//päivitetään varastonäkymä vastaamaan esim. uusia varaston mittoja
 							mainApp.showStorageLayout(storage);
 						}catch(NumberFormatException e) {
