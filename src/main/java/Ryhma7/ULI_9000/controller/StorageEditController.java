@@ -8,6 +8,7 @@ import Ryhma7.ULI_9000.App;
 import Ryhma7.ULI_9000.model.Item;
 import Ryhma7.ULI_9000.model.Shelf;
 import Ryhma7.ULI_9000.model.Storage;
+import Ryhma7.ULI_9000.model.DatabaseConnection;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -33,6 +34,8 @@ import javafx.util.Callback;
 import net.bytebuddy.asm.Advice.This;
 
 public class StorageEditController implements ControllerInterfaceView {
+	
+	DatabaseConnection database = new DatabaseConnection();
 	
 	private static class ItemCellList extends ListCell<Item> {		
 		@Override
@@ -136,10 +139,10 @@ public class StorageEditController implements ControllerInterfaceView {
 	public void handleAddShelf() {
 		for(Point cellCoordinate : this.selectedCells) {
 			Shelf tempShelf = new Shelf(cellCoordinate);
-			tempShelf.setShelfID(this.shelfIdCounter);
-			this.shelfIdCounter++;
-			System.out.println(tempShelf.getShelfID());
-			this.storage.getShelves().add(tempShelf);
+			tempShelf.setStorageID(this.storage.getStorageID());
+			database.addShelf(tempShelf);
+			this.storage.getShelves().add(database.getShelf(tempShelf.getCellCoordinates(), tempShelf.getStorageID()));
+			
 		}
 		this.selectedCells.clear();
 		System.out.println("Storage contains: " + this.storage.getShelves().size() + " shelves");
