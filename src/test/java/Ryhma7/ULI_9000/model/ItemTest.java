@@ -14,7 +14,7 @@ class ItemTest {
 		try {
 			item = new Item();
 		}catch(Exception e) {
-			fail("Failed to create new shelf!");
+			fail("Failed to create new item!");
 		}
 	}
 	

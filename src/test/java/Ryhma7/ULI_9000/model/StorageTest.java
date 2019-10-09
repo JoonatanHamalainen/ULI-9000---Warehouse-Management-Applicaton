@@ -14,7 +14,7 @@ class StorageTest {
 		try {
 			storage = new Storage();
 		}catch(Exception e) {
-			fail("Failed to create new shelf!");
+			fail("Failed to create new storage!");
 		}	
 	}
 	
