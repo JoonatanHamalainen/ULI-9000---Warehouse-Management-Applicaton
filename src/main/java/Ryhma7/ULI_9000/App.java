@@ -57,14 +57,14 @@ public class App extends Application {
 		this.storages.get(1).setAddress("Pikkulan kuja 1");
 		
 		
-		initAltRootLayout();
+		initRootLayout();
 		
 	}
 	
 	public void showStorageLayout(Storage storage) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(App.class.getResource("view/AltStorageLayout.fxml"));
+			loader.setLocation(App.class.getResource("view/StorageLayout.fxml"));
 			
 			AnchorPane page = (AnchorPane) loader.load();
 			this.rootLayout.setCenter(page);
@@ -155,10 +155,10 @@ public class App extends Application {
 		}
 	}
 	
-	public void initAltRootLayout() {
+	public void initRootLayout() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(App.class.getResource("view/AltRootlayout.fxml"));
+			loader.setLocation(App.class.getResource("view/Rootlayout.fxml"));
 		
 			this.rootLayout =(BorderPane) loader.load();
 			Scene scene = new Scene(this.rootLayout);
