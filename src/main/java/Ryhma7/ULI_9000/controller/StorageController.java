@@ -31,7 +31,7 @@ import javafx.scene.layout.RowConstraints;
 import javafx.util.Callback;
 import net.bytebuddy.asm.Advice.This;
 
-public class StorageEditController implements ControllerInterfaceView {
+public class StorageController implements ControllerInterfaceView {
 	
 	DatabaseConnection database = new DatabaseConnection();
 	
@@ -101,7 +101,7 @@ public class StorageEditController implements ControllerInterfaceView {
 	/** Empty Constructor
 	 * 
 	 */
-	public StorageEditController() {	
+	public StorageController() {	
 	}
 	
 	/**Sets the mainApp for the controller
