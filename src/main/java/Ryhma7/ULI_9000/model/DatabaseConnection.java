@@ -13,9 +13,17 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
+/**
+ * Class used for adding information to database tables and creating database queries
+ *
+ */
 public class DatabaseConnection {
+
 	public static SessionFactory factory;
 	
+	/**
+	 * Constructor used for creating a connection to hibernate
+	 */
 	public DatabaseConnection() {
 		
 		try {
@@ -25,6 +33,13 @@ public class DatabaseConnection {
 	         throw new ExceptionInInitializerError(ex); 
 	      }
 	}
+	/**
+	 * Gets the specified shelf from database
+	 * 
+	 * @param n
+	 * @param storageID
+	 * @return
+	 */
 	public Shelf getShelf(Point n, int storageID) {
 		Session session = factory.openSession();
 	    Transaction tx = null;
@@ -54,6 +69,12 @@ public class DatabaseConnection {
 		
 		return tempShelf;
 	}
+	/**
+	 * Gets the specified storage from database
+	 * 
+	 * @param name
+	 * @return
+	 */
 	public Storage getStorage(String name) {
 		Session session = factory.openSession();
 	    Transaction tx = null;
@@ -76,7 +97,11 @@ public class DatabaseConnection {
 		
 		return tempStorage;
 	}
-	// method for creating new item and adding it to database
+	/**
+	 * Creates a new item and adds it to database
+	 * 
+	 * @param item
+	 */
 	public void addItem(Item item) {
 	      Session session = factory.openSession();
 	      Transaction tx = null;
@@ -93,6 +118,11 @@ public class DatabaseConnection {
 	         session.close(); 
 	      }
 	   }
+	/**
+	 * Creates a new storage and adds it to database
+	 * 
+	 * @param storage
+	 */
 	public void addStorage(Storage storage) {
 	      Session session = factory.openSession();
 	      Transaction tx = null;
@@ -109,6 +139,11 @@ public class DatabaseConnection {
 	         session.close(); 
 	      }
 	   }
+	/**
+	 * Creates a new storage and adds it to database
+	 * 
+	 * @param shelf
+	 */
 	public void addShelf(Shelf shelf) {
 	      Session session = factory.openSession();
 	      Transaction tx = null;
@@ -128,17 +163,22 @@ public class DatabaseConnection {
 	      }
 	   }
 	
-	// method for updating item name with new one
-	public void updateName(String itemNumber, String name){
+	/**
+	 * Method for updating item name with a new one
+	 * 
+	 * @param itemID
+	 * @param name
+	 */
+	public void updateName(int itemID, String name){
 	      Session session = factory.openSession();
 	      Transaction tx = null;
 	      
 	      try {
 	    	  tx = session.beginTransaction();
-		         String hql = "UPDATE Item set name = :name WHERE itemNumber = :itemNumber";
+		         String hql = "UPDATE Item set name = :name WHERE itemID = :itemID";
 		         Query query = session.createQuery(hql);
 		         query.setParameter("name", name);
-		         query.setParameter("itemNumber", itemNumber);
+		         query.setParameter("itemID", itemID);
 		         int result = query.executeUpdate(); 
 		         System.out.println("Rows affected: " + result);
 		      } catch (HibernateException e) {
@@ -148,18 +188,24 @@ public class DatabaseConnection {
 		         session.close(); 
 		      }
 		   }
-	// method for updating item location with new one
-	public void updateLocation(String itemNumber, int shelfID, int storageID){
+	/**
+	 * Method for updating item location with a new one
+	 * 
+	 * @param itemID
+	 * @param shelfID
+	 * @param storageID
+	 */
+	public void updateLocation(int itemID, int shelfID, int storageID){
 	      Session session = factory.openSession();
 	      Transaction tx = null;
 	      
 	      try {
 	    	  tx = session.beginTransaction();
-		      String hql = "UPDATE Item set shelfID = :shelfID, storageID = :storageID WHERE itemNumber = :itemNumber";
+		      String hql = "UPDATE Item set shelfID = :shelfID, storageID = :storageID WHERE itemID = :itemID";
 		      Query query = session.createQuery(hql);
 		      query.setParameter("shelfID", shelfID);
 		      query.setParameter("storageID", storageID);
-		      query.setParameter("itemNumber", itemNumber);
+		      query.setParameter("itemID", itemID);
 		      int result = query.executeUpdate(); 
 		      System.out.println("Rows affected: " + result);
 	      } catch (HibernateException e) {
@@ -169,17 +215,22 @@ public class DatabaseConnection {
 	         session.close(); 
 	      }
 	   }
-	// method for updating item weight with new one
-	public void updateWeight(String itemNumber, int weight){
+	/**
+	 * Method for updating item weight with a new one
+	 * 
+	 * @param itemID
+	 * @param weight
+	 */
+	public void updateWeight(int itemID, int weight){
 	      Session session = factory.openSession();
 	      Transaction tx = null;
 	      
 	      try {
 	    	  tx = session.beginTransaction();
-		         String hql = "UPDATE Item set weight = :weight WHERE itemNumber = :itemNumber";
+		         String hql = "UPDATE Item set weight = :weight WHERE itemID = :itemID";
 		         Query query = session.createQuery(hql);
 		         query.setParameter("weight", weight);
-		         query.setParameter("itemNumber", itemNumber);
+		         query.setParameter("itemID", itemID);
 		         int result = query.executeUpdate(); 
 		         System.out.println("Rows affected: " + result);
 		      } catch (HibernateException e) {
@@ -189,17 +240,22 @@ public class DatabaseConnection {
 		         session.close(); 
 		      }
 		   }
-	// method for updating item salesprice with new one
-	public void updateSalesprice(String itemNumber, double salesprice){
+	/**
+	 * Method for updating item salesprice with a new one
+	 * 
+	 * @param itemID
+	 * @param salesprice
+	 */
+	public void updateSalesprice(int itemID, double salesprice){
 	      Session session = factory.openSession();
 	      Transaction tx = null;
 	      
 	      try {
 	    	  tx = session.beginTransaction();
-		         String hql = "UPDATE Item set salesprice = :salesprice WHERE itemNumber = :itemNumber";
+		         String hql = "UPDATE Item set salesprice = :salesprice WHERE itemID = :itemID";
 		         Query query = session.createQuery(hql);
 		         query.setParameter("salesprice", salesprice);
-		         query.setParameter("itemNumber", itemNumber);
+		         query.setParameter("itemID", itemID);
 		         int result = query.executeUpdate(); 
 		         System.out.println("Rows affected: " + result);
 		      } catch (HibernateException e) {
@@ -209,17 +265,22 @@ public class DatabaseConnection {
 		         session.close(); 
 		      }
 		   }
-	// method for updating item unitprice with new one
-	public void updateUnitprice(String itemNumber, double unitprice){
+	/**
+	 * Method for updating item unitprice with a new one
+	 * 
+	 * @param itemID
+	 * @param unitprice
+	 */
+	public void updateUnitprice(int itemID, double unitprice){
 	      Session session = factory.openSession();
 	      Transaction tx = null;
 	      
 	      try {
 	         tx = session.beginTransaction();
-	         String hql = "UPDATE Item set unitprice = :unitprice WHERE itemNumber = :itemNumber";
+	         String hql = "UPDATE Item set unitprice = :unitprice WHERE itemID = :itemID";
 	         Query query = session.createQuery(hql);
 	         query.setParameter("unitprice", unitprice);
-	         query.setParameter("itemNumber", itemNumber);
+	         query.setParameter("itemID", itemID);
 	         int result = query.executeUpdate(); 
 	         System.out.println("Rows affected: " + result);
 	      } catch (HibernateException e) {
@@ -229,17 +290,22 @@ public class DatabaseConnection {
 	         session.close(); 
 	      }
 	   }
-	// method for updating item amount with new one
-	public void updateAmount(String itemNumber, int amount){
+	/**
+	 * Method for updating item amount with a new one
+	 * 
+	 * @param itemID
+	 * @param amount
+	 */
+	public void updateAmount(int itemID, int amount){
 	      Session session = factory.openSession();
 	      Transaction tx = null;
 	      
 	      try {
 	         tx = session.beginTransaction();
-	         String hql = "UPDATE Item set amount = :amount WHERE itemNumber = :itemNumber";
+	         String hql = "UPDATE Item set amount = :amount WHERE itemID = :itemID";
 	         Query query = session.createQuery(hql);
 	         query.setParameter("amount", amount);
-	         query.setParameter("itemNumber", itemNumber);
+	         query.setParameter("itemID", itemID);
 	         int result = query.executeUpdate(); 
 	         System.out.println("Rows affected: " + result);
 	      } catch (HibernateException e) {
@@ -249,6 +315,12 @@ public class DatabaseConnection {
 	         session.close(); 
 	      }
 	   }
+	/**
+	 * Method for updating storage address with a new one
+	 * 
+	 * @param storageID
+	 * @param address
+	 */
 	public void updateStorageAddress(int storageID, String address) {
 		Session session = factory.openSession();
 	      Transaction tx = null;
@@ -268,6 +340,12 @@ public class DatabaseConnection {
 	         session.close(); 
 	      }
 	   }
+	/**
+	 * Method for updating storage width with a new one
+	 * 
+	 * @param storageID
+	 * @param width
+	 */
 	public void updateStorageWidth(int storageID, int width) {
 		Session session = factory.openSession();
 	      Transaction tx = null;
@@ -287,6 +365,12 @@ public class DatabaseConnection {
 	         session.close(); 
 	      }
 	   }
+	/**
+	 * Method for updating storage length with a new one
+	 * 
+	 * @param storageID
+	 * @param length
+	 */
 	public void updateStorageLength(int storageID, int length) {
 		Session session = factory.openSession();
 	      Transaction tx = null;
@@ -306,7 +390,11 @@ public class DatabaseConnection {
 	         session.close(); 
 	      }
 	   }
-	// method for deleting item
+	/**
+	 * Method for deleting an item
+	 * 
+	 * @param item
+	 */
 	public void deleteItem(Item item){
 	      Session session = factory.openSession();
 	      Transaction tx = null;
@@ -322,7 +410,11 @@ public class DatabaseConnection {
 	         session.close(); 
 	      }
 	   }
-
+	/**
+	 * Method for deleting a storage
+	 * 
+	 * @param storage
+	 */
 	public void deleteStorage(Storage storage) {
 		Session session = factory.openSession();
 	      Transaction tx = null;
@@ -338,7 +430,12 @@ public class DatabaseConnection {
 	         session.close(); 
 	      }
 	}
-	// method for getting all items within specified shelf
+	/**
+	 * Method for getting all items within specified shelf
+	 * 
+	 * @param shelfID
+	 * @param storageID
+	 */
 	public void getItemsInShelf(int shelfID, int storageID) {
 		Session session = factory.openSession();
 	    Transaction tx = null;
@@ -366,7 +463,11 @@ public class DatabaseConnection {
 	         session.close(); 
 	      }
 	      }
-	// method for getting all shelves within specified storage
+	/**
+	 * Method for getting all shelves within specified storage
+	 * 
+	 * @param storageID
+	 */
 	public void getShelvesInStorage(int storageID) {
 		Session session = factory.openSession();
 	    Transaction tx = null;
@@ -392,7 +493,10 @@ public class DatabaseConnection {
 	         session.close(); 
 	      }
 	}
-	// method for listing all items in database
+	/**
+	 * Method for listing all items in database
+	 * 
+	 */
 	public void listItems(){
 	      Session session = factory.openSession();
 	      Transaction tx = null;
@@ -421,7 +525,10 @@ public class DatabaseConnection {
 	         session.close(); 
 	      }
 	   }
-	// method for listing all shelves in database
+	/**
+	 * Method for listing all shelves in database
+	 * 
+	 */
 	public void listShelves() {
 		Session session = factory.openSession();
 	    Transaction tx = null;
@@ -448,6 +555,11 @@ public class DatabaseConnection {
 	         session.close(); 
 	      }
 	}
+	/**
+	 * Gets all storages from the database
+	 * 
+	 * @return
+	 */
 	public ArrayList<Storage> getStorages() {
 		Session session = factory.openSession();
 	    Transaction tx = null;
@@ -462,9 +574,14 @@ public class DatabaseConnection {
 	         e.printStackTrace(); 
 	      } finally {
 	         session.close(); 
-	      }
-		return storages;
+	      }	return storages;
 	}
+	/**
+	 * Gets all shelfs from the specified storage from database
+	 * 
+	 * @param storageID
+	 * @return
+	 */
 	public ArrayList<Point> getShelves(int storageID) {
 		Session session = factory.openSession();
 	    Transaction tx = null;
@@ -492,7 +609,10 @@ public class DatabaseConnection {
 	      }
 	      return null;
 	}
-	// method for listing all storages in database
+	/**
+	 * Method for listing all storages in database
+	 * 
+	 */
 	public void listStorages() {
 		Session session = factory.openSession();
 	    Transaction tx = null;

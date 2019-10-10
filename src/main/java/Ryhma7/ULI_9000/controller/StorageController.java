@@ -30,13 +30,14 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
 import javafx.util.Callback;
 import net.bytebuddy.asm.Advice.This;
-
+/**Controller for StorageLayout
+*
+*/
 public class StorageController implements ControllerInterfaceView {
 	
 	DatabaseConnection database = new DatabaseConnection();
 	
-	/**
-	 * @author Torsti
+	/**Inner class which defines value of a Item-object shown inside a combobox
 	 *
 	 */
 	private static class ItemCellList extends ListCell<Item> {		
@@ -51,7 +52,6 @@ public class StorageController implements ControllerInterfaceView {
 	}
 	
 	/**Inner class which defines value of a shelf-object shown inside a combobox
-	 * @author Torsti
 	 *
 	 */
 	private static class ShelfCellList extends ListCell<Shelf>{
@@ -352,13 +352,10 @@ public class StorageController implements ControllerInterfaceView {
 			tempPane.setTop(storageGrid);
 		}
 	}
-	/*
-	 * isShelf-funtiota käytetään tarkistamaan on kyseisessä solussa hylly
-	 * palauttaa true, jos solussa on hylly, ja false, jos ei.
-	 */
-	/**
+
+	/**Checks if there is a shelf in the given set of coordinates
 	 * @param coordinateXY
-	 * @return
+	 * @return boolean
 	 */
 	private boolean isShelf(Point coordinateXY) {
 		if(this.storage.getShelves() != null) {
@@ -372,26 +369,21 @@ public class StorageController implements ControllerInterfaceView {
 		}
 		return false;
 	}
-	/*
-	 * displaySelectedShelf-funktio päivittää valittuna olevan hyllyn tiedot näkymään
-	 */
-	/**
+	
+	/**Updates the selected item on the selected shelf
 	 * @param shelf
 	 */
 	private void displaySelectedShelf(Shelf shelf) {
 		this.containedItem.setText(shelf.getItem().getName());		
 	}
-	/*
-	 * saveChanges-funktio tallentaa hyllyyn tehdyt muutokset
-	 */
-	/**
+	/**Saves changed made to contents of a shelf
 	 * @param shelf
 	 */
 	private void saveChanges(Shelf shelf) {
 		shelf.setShelfID(Integer.parseInt(this.shelfID.getText()));
 	}
 	
-	/**
+	/**Calculates the maximum cell wall length to be used in storage grid
 	 * @param columns
 	 * @param rows
 	 * @return
