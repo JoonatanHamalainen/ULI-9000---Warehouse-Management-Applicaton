@@ -4,7 +4,9 @@ import Ryhma7.ULI_9000.model.Storage;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
+/**Controller for NewStorageDialog
+*
+*/
 public class NewStorageDialogController implements ControllerInterfaceModalView {
 
 	@FXML
