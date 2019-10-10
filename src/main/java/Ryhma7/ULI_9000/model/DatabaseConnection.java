@@ -2,6 +2,7 @@ package Ryhma7.ULI_9000.model;
 
 
 import java.awt.Point;
+import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
 
@@ -248,6 +249,63 @@ public class DatabaseConnection {
 	         session.close(); 
 	      }
 	   }
+	public void updateStorageAddress(int storageID, String address) {
+		Session session = factory.openSession();
+	      Transaction tx = null;
+	      
+	      try {
+	         tx = session.beginTransaction();
+	         String hql = "UPDATE Storage set address = :address WHERE storageID = :storageID";
+	         Query query = session.createQuery(hql);
+	         query.setParameter("address", address);
+	         query.setParameter("storageID", storageID);
+	         int result = query.executeUpdate(); 
+	         System.out.println("Rows affected: " + result);
+	      } catch (HibernateException e) {
+	         if (tx!=null) tx.rollback();
+	         e.printStackTrace(); 
+	      } finally {
+	         session.close(); 
+	      }
+	   }
+	public void updateStorageWidth(int storageID, int width) {
+		Session session = factory.openSession();
+	      Transaction tx = null;
+	      
+	      try {
+	         tx = session.beginTransaction();
+	         String hql = "UPDATE Storage set width = :width WHERE storageID = :storageID";
+	         Query query = session.createQuery(hql);
+	         query.setParameter("width", width);
+	         query.setParameter("storageID", storageID);
+	         int result = query.executeUpdate(); 
+	         System.out.println("Rows affected: " + result);
+	      } catch (HibernateException e) {
+	         if (tx!=null) tx.rollback();
+	         e.printStackTrace(); 
+	      } finally {
+	         session.close(); 
+	      }
+	   }
+	public void updateStorageLength(int storageID, int length) {
+		Session session = factory.openSession();
+	      Transaction tx = null;
+	      
+	      try {
+	         tx = session.beginTransaction();
+	         String hql = "UPDATE Storage set length = :length WHERE storageID = :storageID";
+	         Query query = session.createQuery(hql);
+	         query.setParameter("length", length);
+	         query.setParameter("storageID", storageID);
+	         int result = query.executeUpdate(); 
+	         System.out.println("Rows affected: " + result);
+	      } catch (HibernateException e) {
+	         if (tx!=null) tx.rollback();
+	         e.printStackTrace(); 
+	      } finally {
+	         session.close(); 
+	      }
+	   }
 	// method for deleting item
 	public void deleteItem(Item item){
 	      Session session = factory.openSession();
@@ -370,8 +428,8 @@ public class DatabaseConnection {
 	      
 	      try {
 	         tx = session.beginTransaction();
-	         List items = session.createQuery("FROM Shelf").list(); 
-	         for (Iterator iterator = items.iterator(); iterator.hasNext();){
+	         List shelves = session.createQuery("FROM Shelf").list();
+	         for (Iterator iterator = shelves.iterator(); iterator.hasNext();){
 	            Shelf shelf = (Shelf) iterator.next(); 
 	            System.out.println();
 	            System.out.println("ShelfID: " + shelf.getShelfID());
@@ -390,6 +448,50 @@ public class DatabaseConnection {
 	         session.close(); 
 	      }
 	}
+	public ArrayList<Storage> getStorages() {
+		Session session = factory.openSession();
+	    Transaction tx = null;
+	    ArrayList<Storage> storages = null;
+	      
+	      try {
+	         tx = session.beginTransaction();
+			storages = (ArrayList<Storage>) session.createQuery("FROM Storage").list(); 
+	         tx.commit();
+	      } catch (HibernateException e) {
+	         if (tx!=null) tx.rollback();
+	         e.printStackTrace(); 
+	      } finally {
+	         session.close(); 
+	      }
+		return storages;
+	}
+	public ArrayList<Point> getShelves(int storageID) {
+		Session session = factory.openSession();
+	    Transaction tx = null;
+	      
+	      try {
+	    	ArrayList<Point> shelves = null;
+	        tx = session.beginTransaction();
+			List tempShelves = session.createQuery("FROM Shelf WHERE storageID = :storageID").setParameter("storageID", storageID).list();
+			for (Iterator iterator = tempShelves.iterator(); iterator.hasNext();){
+				Shelf shelf = (Shelf) iterator.next();
+				System.out.println(shelf.getCoordinateX());
+				System.out.println(shelf.getCoordinateY());
+				Point tempPoint = new Point(shelf.getCoordinateX(), shelf.getCoordinateY());
+				System.out.println(tempPoint);
+				shelves.add(tempPoint);
+				System.out.println(shelves.get(0));
+			}
+	        tx.commit();
+	        return shelves;
+	      } catch (HibernateException e) {
+	         if (tx!=null) tx.rollback();
+	         e.printStackTrace(); 
+	      } finally {
+	         session.close();
+	      }
+	      return null;
+	}
 	// method for listing all storages in database
 	public void listStorages() {
 		Session session = factory.openSession();
@@ -397,8 +499,8 @@ public class DatabaseConnection {
 	      
 	      try {
 	         tx = session.beginTransaction();
-	         List items = session.createQuery("FROM Storage").list(); 
-	         for (Iterator iterator = items.iterator(); iterator.hasNext();){
+	         List storages = session.createQuery("FROM Storage").list(); 
+	         for (Iterator iterator = storages.iterator(); iterator.hasNext();){
 	            Storage storage = (Storage) iterator.next(); 
 	            System.out.println();
 	            System.out.println("StorageID: " + storage.getStorageID());
