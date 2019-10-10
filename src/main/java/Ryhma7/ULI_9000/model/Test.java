@@ -40,6 +40,6 @@ public class Test {
 	connection.deleteItem("1");
 	connection.deleteItem("3");
 	System.out.println("Pitaisi olla tyhja");
-	connection.listItems();	
+	connection.listItems();
 }
 }
