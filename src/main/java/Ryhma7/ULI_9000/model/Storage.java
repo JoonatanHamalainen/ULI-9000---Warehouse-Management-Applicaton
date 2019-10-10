@@ -3,38 +3,34 @@ package Ryhma7.ULI_9000.model;
 import java.util.ArrayList;
 import java.util.List;
 
+/**The storage Model
+ *
+ */
 public class Storage {
 	
-	private int storageID;
-	
-	public int getStorageID() {
-		return storageID;
-	}
-
-	public void setStorageID(int storageID) {
-		this.storageID = storageID;
-	}
-
-	private String name;
-	private String address;
-	private int width;
-	private int length;
+	private int storageID, width, length;
+	private String name, address;
 	private ArrayList<Shelf> shelves;
 	private ArrayList<Item> items;
-	
+
 	public Storage () {
 		this.shelves = new ArrayList<Shelf>();
 		this.items = new ArrayList<Item>();
 	}
 	
+	/**
+	 * @param widthX
+	 * @param lengthY
+	 */
 	public Storage(int widthX, int lengthY) {
 		this.shelves = new ArrayList<Shelf>();
 		this.items = new ArrayList<Item>();
 		this.width = widthX;
 		this.length = lengthY;		
 	}
-	/*
-	 * getDimensions-funktio palauttaa varaston koon x,y -koodrdinaatteina
+	
+	/**Returns storage dimensions
+	 * @return
 	 */
 	public List<Integer> getDimensions(){
 		List<Integer> storageDimensions = new ArrayList<Integer>();
@@ -42,15 +38,17 @@ public class Storage {
 		storageDimensions.add(this.length);
 		return storageDimensions;
 	}
-	/*
-	 * addShelf-metodi ottaa vastaan parametrina hyllyn ja lisää sen shelves-listaan
+	
+	/** Adds a shelf to the storage
+	 * @param shelf
 	 */
 	public void addShelf(Shelf shelf) {
 		this.shelves.add(shelf);
 	}
-	/*
-	 * removeShelf-metodi ottaa poistettavan hyllyn paramatrina, minkä jälkeen tarkastetaan
-	 * lötyykö hyllyä shelves-listalta. Jos hylly löytyy se poistetaan ja palautetaan true, muutoin palautetaan false.
+	
+	/** Removes a shelf from the storage
+	 * @param shelf
+	 * @return
 	 */
 	public boolean removeShelf(Shelf shelf) {
 		if(this.shelves.contains(shelf)) {
@@ -61,9 +59,10 @@ public class Storage {
 		}
 		
 	}
-	/*
-	 * getShelf-metodi ottaa vastaan haettavan hyllyn ID:n, minkä jälkeen se etsii kyseistä hyllyä
-	 * shelves-listalta. Jos haku tuottaa tulosta, palautetaan haettu hylly, muutoin palautetaan null.
+	
+	/**Returns a shelf of given ID-attribute
+	 * @param shelfID
+	 * @return
 	 */
 	public Shelf getShelf(int shelfID) {
 		for(Shelf shelf : this.shelves) {
@@ -74,63 +73,123 @@ public class Storage {
 		return null;
 	}
 	
+	/**
+	 * @return
+	 */
 	public ArrayList<Shelf> getShelves(){
 		return this.shelves;
 	}
+	/**
+	 * @param width
+	 * @param length
+	 */
 	public void setDimensions(int width, int length) {
 		this.width = width;
 		this.length = length;
 	}
 
+	/**
+	 * @return
+	 */
 	public String getAddress() {
 		return address;
 	}
 
+	/**
+	 * @param address
+	 */
 	public void setAddress(String address) {
 		this.address = address;
 	}
 
+	/**
+	 * @return
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * @param name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/**
+	 * @return
+	 */
 	public int getWidth() {
 		return width;
 	}
 
+	/**
+	 * @param width
+	 */
 	public void setWidth(int width) {
 		this.width = width;
 	}
 
+	/**
+	 * @return
+	 */
 	public int getLength() {
 		return length;
 	}
 
+	/**
+	 * @param length
+	 */
 	public void setLength(int length) {
 		this.length = length;
 	}
 
+	/**
+	 * @param shelves
+	 */
 	public void setShelves(ArrayList<Shelf> shelves) {
 		this.shelves = shelves;
 	}
 	
+	/**
+	 * @return
+	 */
 	public ArrayList<Item> getItems() {
 		return items;
 	}
 
+	/**
+	 * @param items
+	 */
 	public void setItems(ArrayList<Item> items) {
 		this.items = items;
 	}
 	
+	/**
+	 * @param item
+	 */
 	public void addItemToStorage(Item item) {
 		this.items.add(item);
 	}
 	
+	/**
+	 * @param item
+	 */
 	public void removeItemFromStorage(Item item) {
 		items.remove(item);
+	}
+	/**
+	 * 
+	 * @return
+	 */
+	public int getStorageID() {
+		return storageID;
+	}
+	/**
+	 * 
+	 * @param storageID
+	 */
+	public void setStorageID(int storageID) {
+		this.storageID = storageID;
 	}
 }
