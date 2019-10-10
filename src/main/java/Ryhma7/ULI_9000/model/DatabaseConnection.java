@@ -13,10 +13,12 @@ import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
+/**
+ * Used for adding information to database tables and creating database queries
+ *
+ */
 public class DatabaseConnection {
-	/**
-	 * Used for adding information to database tables and creating database queries
-	 */
+
 	public static SessionFactory factory;
 	
 	/**
