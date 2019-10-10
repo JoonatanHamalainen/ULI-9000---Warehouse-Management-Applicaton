@@ -11,7 +11,7 @@ public class Test {
 	
 	System.out.println();
 	System.out.println("Lisataan tuote");
-	connection.addItem("1", "Pulla", 10, 900, 1.00, 0.5, 1, 1);
+	connection.addItem("Pulla", 10, 900, 1.00, 0.5, 1, 1);
 	System.out.println("Lisataan tuote");
 	connection.addItem("3", "Viineri", 28, 90, 1.00, 0.9, 2, 2);
 	System.out.println("Lisataan tuote");
@@ -40,10 +40,6 @@ public class Test {
 	connection.deleteItem("1");
 	connection.deleteItem("3");
 	System.out.println("Pitaisi olla tyhja");
-	connection.listItems();
-	
-	
-	
+	connection.listItems();	
 }
-
 }

@@ -6,7 +6,7 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
-public class NewItemDialogController implements ControllerInterfaceModalView {
+public class NewItemDialogController {
 	@FXML
 	private TextField name;
 	@FXML
@@ -21,6 +21,8 @@ public class NewItemDialogController implements ControllerInterfaceModalView {
 	private Stage dialogStage;
 	private Item item;
 	private boolean isOkClicked = false;
+	
+	
 	
 	public void setDialogStage(Stage dialogStage) {
 		this.dialogStage = dialogStage;

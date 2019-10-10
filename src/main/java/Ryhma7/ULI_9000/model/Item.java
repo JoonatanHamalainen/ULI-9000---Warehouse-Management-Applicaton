@@ -35,7 +35,7 @@ public class Item {
 		this.weight = weight;
 	}
 
-	public Item(String itemNumber, String name, int weight, int amount, double salesprice, double unitprice, int shelfID, int storageID) {
+	public Item(String name, int weight, int amount, double salesprice, double unitprice, int shelfID, int storageID) {
 		super();
 		this.itemNumber = itemNumber;
 		this.name = name;
