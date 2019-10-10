@@ -30,15 +30,16 @@ public class App extends Application {
 
 	private Stage primaryStage;
 	private BorderPane rootLayout;
-	
-	//Väliaikaiset muuttujat tallennusta varten(Kunnes tietokanta pelittää).
 	private Storage storage;
 	private ArrayList<Storage> storages;
 	private ArrayList<Shelf> shelves;
-	
+
 	public App() {
 	}
 
+	/**Initial setup for the program
+	 * 
+	 */
 	@Override
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
@@ -61,6 +62,9 @@ public class App extends Application {
 		
 	}
 	
+	/**Brings the Storage Layout of a specific storage to center of primaryStage
+	 * @param storage
+	 */
 	public void showStorageLayout(Storage storage) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
@@ -80,10 +84,13 @@ public class App extends Application {
 		}
 	}
 	
+	/**Brings the StorageLayout to center of primaryStage
+	 * 
+	 */
 	public void showEditStorageLayout() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(App.class.getResource("view/StorageEdit.fxml"));
+			loader.setLocation(App.class.getResource("view/StorageLayout.fxml"));
 			
 			AnchorPane page = (AnchorPane) loader.load();
 			
@@ -99,6 +106,10 @@ public class App extends Application {
 		}
 	}
 	
+	/**Opens NewStorage Modal window
+	 * @param storage
+	 * @return
+	 */
 	public boolean showNewStorageDialog(Storage storage) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
@@ -127,6 +138,10 @@ public class App extends Application {
 		}
 	}
 	
+	/**Opens new Item modal window
+	 * @param item
+	 * @return
+	 */
 	public boolean showNewItemDialog(Item item) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
@@ -155,6 +170,9 @@ public class App extends Application {
 		}
 	}
 	
+	/** Initializes the root layout
+	 * 
+	 */
 	public void initRootLayout() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
@@ -183,15 +201,24 @@ public class App extends Application {
 		}
 	}
 	
+	/**clears the center of border pane
+	 * 
+	 */
 	public void clearCenterPane() {
 		BorderPane page = new BorderPane();
 		this.rootLayout.setCenter(page);	
 	}
 	
+	/**Returns storages-List
+	 * @return
+	 */
 	public ArrayList<Storage> getStorages() {
 		return storages;
 	}
 	
+	/**Launches the program
+	 * @param args
+	 */
 	public static void main(String[]args) {
 		launch();
 	}

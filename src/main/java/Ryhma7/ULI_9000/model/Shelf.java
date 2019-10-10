@@ -55,24 +55,6 @@ public class Shelf {
 		return false;
 	}
 	
-	
-	/*public boolean removeItem(int itemID) {
-		Item tempItem = null;
-		for (Item item : items) {
-			if(item.getItemID() == itemID) {
-				tempItem = item;
-			}
-		}
-		
-		if(tempItem != null) {
-			items.remove(tempItem);
-			return true;
-		}else {
-			return false;
-		}
-	}*/
-	
-	
 	/*
 	 * getItem-funktio ottaa vastaan parametrinä haettavan tuotteen ID:n,minkä jälkeen
 	 *  tarkistetaan löytyykö kyseinen tuote hyllyltä. Jos tuote löytyy metodi palauttaa kyseisen tavara,
