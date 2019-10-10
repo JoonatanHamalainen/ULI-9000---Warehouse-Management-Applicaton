@@ -14,7 +14,7 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
 /**
- * Used for adding information to database tables and creating database queries
+ * Class used for adding information to database tables and creating database queries
  *
  */
 public class DatabaseConnection {

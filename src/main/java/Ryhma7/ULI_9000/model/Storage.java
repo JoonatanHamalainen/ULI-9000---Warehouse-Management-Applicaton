@@ -3,7 +3,9 @@ package Ryhma7.ULI_9000.model;
 import java.util.ArrayList;
 import java.util.List;
 
-/**The storage Model
+/**
+ *
+ * Class for model Storage
  *
  */
 public class Storage {
