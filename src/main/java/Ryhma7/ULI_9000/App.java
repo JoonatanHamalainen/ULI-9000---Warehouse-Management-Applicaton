@@ -3,12 +3,9 @@ package Ryhma7.ULI_9000;
 import java.awt.Point;
 import java.io.IOException;
 import java.util.ArrayList;
-
 import Ryhma7.ULI_9000.controller.AltRootLayoutController;
 import Ryhma7.ULI_9000.controller.NewItemDialogController;
 import Ryhma7.ULI_9000.controller.NewStorageDialogController;
-import Ryhma7.ULI_9000.controller.RootLayoutController;
-import Ryhma7.ULI_9000.controller.StorageController;
 import Ryhma7.ULI_9000.controller.StorageEditController;
 import Ryhma7.ULI_9000.model.Item;
 import Ryhma7.ULI_9000.model.Shelf;
@@ -59,31 +56,9 @@ public class App extends Application {
 		this.storages.get(1).setName("Pieni Varasto");
 		this.storages.get(1).setAddress("Pikkulan kuja 1");
 		
-		//initRootLayout();
+		
 		initAltRootLayout();
 		
-	}
-	
-	public void initRootLayout() {
-		try {
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(App.class.getResource("view/Rootlayout.fxml"));
-		
-			this.rootLayout = (BorderPane) loader.load();
-			Scene scene = new Scene(this.rootLayout);
-			scene.getStylesheets().add("StoragePalette.css");
-			
-			this.primaryStage.setScene(scene);
-			
-			RootLayoutController controller = loader.getController();
-			controller.setMainApp(this);
-			controller.setStorage(this.storages.get(1));
-			
-			this.primaryStage.show();
-						
-		}catch(IOException e) {
-			System.out.println("Noworks");
-		}
 	}
 	
 	public void showStorageLayout(Storage storage) {

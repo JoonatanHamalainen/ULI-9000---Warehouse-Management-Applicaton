@@ -89,6 +89,9 @@ public class Shelf {
 		return (Point) this.cellCoordinates;
 	}
 	
+	public void setCellCoordinates(Point n) {
+		this.cellCoordinates = n;
+	}
 	public int getCoordinateX() {
 		return coordinateX;
 	}

@@ -1,16 +1,16 @@
 package Ryhma7.ULI_9000.model;
 
-import static org.junit.Assert.assertEquals;
 import static org.junit.jupiter.api.Assertions.*;
 
 import java.awt.Point;
 import java.util.ArrayList;
-
+import Ryhma7.ULI_9000.model.Shelf;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 
 class ShelfTest {
+	
 	private static Shelf shelf;
 
 	@BeforeAll
@@ -24,12 +24,11 @@ class ShelfTest {
 		}	
 	}
 	
-	/*@Test
-	void testGetCellCoordinates() {
-		ArrayList<Point> tempList  = new ArrayList<Point>();
-		tempList.add(new Point(1,1));
-		assertEquals("Hyllyn koordinaatit väärin", tempList, shelf.getCellCoordinates());
-		
-	}*/
+	@Test
+	void removeItemTest() {
+		Item item = new Item();
+		shelf.addItem(item);
+		assertTrue(shelf.removeItem(), "Item removal unsuccesful!");
+	}
 
 }

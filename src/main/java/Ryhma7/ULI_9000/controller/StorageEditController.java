@@ -8,15 +8,14 @@ import Ryhma7.ULI_9000.App;
 import Ryhma7.ULI_9000.model.Item;
 import Ryhma7.ULI_9000.model.Shelf;
 import Ryhma7.ULI_9000.model.Storage;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
+import Ryhma7.ULI_9000.model.DatabaseConnection;
+
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.control.Accordion;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -34,6 +33,12 @@ import net.bytebuddy.asm.Advice.This;
 
 public class StorageEditController implements ControllerInterfaceView {
 	
+	DatabaseConnection database = new DatabaseConnection();
+	
+	/**
+	 * @author Torsti
+	 *
+	 */
 	private static class ItemCellList extends ListCell<Item> {		
 		@Override
 		protected void updateItem(Item item, boolean empty) {
@@ -45,6 +50,10 @@ public class StorageEditController implements ControllerInterfaceView {
 		}
 	}
 	
+	/**Inner class which defines value of a shelf-object shown inside a combobox
+	 * @author Torsti
+	 *
+	 */
 	private static class ShelfCellList extends ListCell<Shelf>{
 		@Override
 		protected void updateItem (Shelf shelf, boolean empty) {
@@ -56,25 +65,30 @@ public class StorageEditController implements ControllerInterfaceView {
 			}
 		}
 	}
+	
 	private ObservableList<Item> storageItemList;
 	private ObservableList<Shelf> storageShelfList;
+
 	@FXML
 	private TextField shelfID;
+
 	@FXML
 	private TextField shelfSize;
+
 	@FXML
 	private TextField shelfSpace;
+
 	@FXML 
 	private Label warning;
+
 	@FXML
 	private TextField containedItem;
+
 	@FXML
 	private ComboBox<Item> itemsInStorageBox;
+
 	@FXML
 	private ComboBox<Shelf> shelvesInStorageBox;
-	
-	//väliaikainen muuttuja:
-	private int shelfIdCounter = 0;
 	
 	private ArrayList<Point> selectedCells = new ArrayList<Point>();
 	
@@ -84,13 +98,22 @@ public class StorageEditController implements ControllerInterfaceView {
 	private Shelf selectedShelf;
 	private GridPane storageGrid;
 	
+	/** Empty Constructor
+	 * 
+	 */
 	public StorageEditController() {	
 	}
 	
+	/**Sets the mainApp for the controller
+	 * @param mainApp
+	 */
 	public void setMainApp(App mainApp) {
 		this.mainApp = mainApp;
 	}
 	
+	/**sets the storage for the controller
+	 * @param storage
+	 */
 	public void setStorage(Storage storage) {
 		this.storage = storage;
 		if(this.storage.getItems().size() != 0) {	
@@ -128,23 +151,32 @@ public class StorageEditController implements ControllerInterfaceView {
 		}
 	}
 	
+	/**sets the page for the controller
+	 * @param page
+	 */
 	public void setPane(AnchorPane page) {
 		this.page = page;
 	}
 	
+	/**Handler function for the userinterface 
+	 * 
+	 */
 	@FXML
 	public void handleAddShelf() {
 		for(Point cellCoordinate : this.selectedCells) {
 			Shelf tempShelf = new Shelf(cellCoordinate);
-			tempShelf.setShelfID(this.shelfIdCounter);
-			this.shelfIdCounter++;
-			System.out.println(tempShelf.getShelfID());
-			this.storage.getShelves().add(tempShelf);
+			tempShelf.setStorageID(this.storage.getStorageID());
+			database.addShelf(tempShelf);
+			this.storage.getShelves().add(database.getShelf(tempShelf.getCellCoordinates(), tempShelf.getStorageID()));
+			
 		}
 		this.selectedCells.clear();
 		System.out.println("Storage contains: " + this.storage.getShelves().size() + " shelves");
 	}
 	
+	/**Handler function for the userinterface 
+	 * 
+	 */
 	@FXML
 	public void handleRemoveShelf() {
 		System.out.println("Shelf removed");
@@ -163,6 +195,9 @@ public class StorageEditController implements ControllerInterfaceView {
 		System.out.println("Shelf removed");		
 	}
 	
+	/**Handler function for the userinterface 
+	 * 
+	 */
 	@FXML
 	public void handleAddItemToShelf() {
 		if(this.itemsInStorageBox.getValue() != null && this.shelvesInStorageBox.getValue() != null) {
@@ -175,6 +210,9 @@ public class StorageEditController implements ControllerInterfaceView {
 		}
 	}
 	
+	/**Handler function for the userinterface 
+	 * 
+	 */
 	@FXML
 	public void handleRemoveItemFromShelf() {
 		if(this.shelvesInStorageBox.getValue() != null && this.shelvesInStorageBox.getValue().getItem() != null) {
@@ -187,6 +225,9 @@ public class StorageEditController implements ControllerInterfaceView {
 		System.out.println("Remove");
 	}
 	
+	/**Handler function for the userinterface 
+	 * 
+	 */
 	@FXML
 	public void handleNewItem() {
 		Item tempItem = new Item();
@@ -198,6 +239,9 @@ public class StorageEditController implements ControllerInterfaceView {
 		}
 	}
 	
+	/**Handler function for the userinterface 
+	 * 
+	 */
 	@FXML
 	public void handleRemoveItemFromStrorage() {
 		if(this.itemsInStorageBox.getValue() != null) {
@@ -208,16 +252,27 @@ public class StorageEditController implements ControllerInterfaceView {
 		}
 	}
 	
+	/**Handler function for the userinterface 
+	 * 
+	 */
 	@FXML
 	public void handleEditShelf() {
 		this.saveChanges(this.selectedShelf);
 		System.out.println("Saved Changes");
 	}
 	
+	/**Unimplemented handler function for the userinterface 
+	 * 
+	 */
 	@FXML
 	public void handleSelectShelf() {
-		
+		//TODO
 	}
+	
+	/**Manages add and remove feature for selectedCells list.
+	 *Used primarily when the user selects / deselects cells in the storage layout 
+	 * @param coordinateXY
+	 */
 	public void cellSelected(Point coordinateXY) {
 		if(this.selectedCells.contains(coordinateXY)) {
 			this.selectedCells.remove(coordinateXY);
@@ -228,6 +283,11 @@ public class StorageEditController implements ControllerInterfaceView {
 		System.out.println(this.selectedCells);
 	}
 	
+	/**Loads the Storage to be displayed in the Userinterface and loads all the
+	 * associated shelves and intems to e displayed aswell.
+	 * Sets on click functionality of grid cells
+	 * 
+	 */
 	public void loadStorageLayout() {
 		if(this.storage.getDimensions().get(0) != null && this.storage.getDimensions().get(1) != null) {
 			ArrayList<Point> shelves = new ArrayList<Point>();
@@ -296,6 +356,10 @@ public class StorageEditController implements ControllerInterfaceView {
 	 * isShelf-funtiota käytetään tarkistamaan on kyseisessä solussa hylly
 	 * palauttaa true, jos solussa on hylly, ja false, jos ei.
 	 */
+	/**
+	 * @param coordinateXY
+	 * @return
+	 */
 	private boolean isShelf(Point coordinateXY) {
 		if(this.storage.getShelves() != null) {
 			for(Shelf shelf : this.storage.getShelves()) {
@@ -311,16 +375,27 @@ public class StorageEditController implements ControllerInterfaceView {
 	/*
 	 * displaySelectedShelf-funktio päivittää valittuna olevan hyllyn tiedot näkymään
 	 */
+	/**
+	 * @param shelf
+	 */
 	private void displaySelectedShelf(Shelf shelf) {
 		this.containedItem.setText(shelf.getItem().getName());		
 	}
 	/*
 	 * saveChanges-funktio tallentaa hyllyyn tehdyt muutokset
 	 */
+	/**
+	 * @param shelf
+	 */
 	private void saveChanges(Shelf shelf) {
 		shelf.setShelfID(Integer.parseInt(this.shelfID.getText()));
 	}
 	
+	/**
+	 * @param columns
+	 * @param rows
+	 * @return
+	 */
 	private double calculateCellWallLength(int columns, int rows) {
 		double maxGridWidthPixels  = 790;
 		double maxGridHeightPixels = 370;

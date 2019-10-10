@@ -4,7 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import Ryhma7.ULI_9000.App;
-import Ryhma7.ULI_9000.model.Storage;
+import Ryhma7.ULI_9000.model.*;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.event.EventHandler;
@@ -25,22 +25,32 @@ public class AltRootLayoutController implements ControllerInterfaceView {
 	private ArrayList<Storage> storages;
 	private VBox vbox;
 	
+	DatabaseConnection database = new DatabaseConnection();
+	/** Sets main application for the controller
+	 * @param mainApp
+	 */
 	public void setMainApp(App mainApp) {
 		this.mainApp = mainApp;
 	}
-	
+	/**
+	 * Sets storages-list for the controller
+	 * @param storages
+	 */
 	public void setStorages(ArrayList<Storage> storages) {
 		this.storages = storages;
 	}
-	
+	/** Sets the VBox in which the storage contents will be displayed
+	 * @param vbox
+	 */
 	public void setVBox(VBox vbox) {
 		this.vbox = vbox;		
 	}
-	/*
-	 * loadStorages-funktio hallinnoi varaston muutos- ja poisto operaatioita. 
+	/** Generates content for vbox-attribute and populates the textfields with the storage information 
+	 * @param vbox
 	 */
 	public void loadStorages(final VBox vbox) {
 		final Accordion accordion = new Accordion();
+		storages = database.getStorages();
 		for(final Storage storage : storages) {
 			try {
 				//ladataan infoboxin resurssit, ja tallennetaan ne muuttujiin
@@ -101,6 +111,7 @@ public class AltRootLayoutController implements ControllerInterfaceView {
 					public void handle(MouseEvent event) {
 						accordion.getPanes().remove(storage);
 						storages.remove(storage);
+						database.deleteStorage(storage);
 						try {
 							Accordion tempAccordion = (Accordion) vbox.getChildren().get(2);
 							vbox.getChildren().remove(2);
@@ -117,6 +128,9 @@ public class AltRootLayoutController implements ControllerInterfaceView {
 						storage.setAddress(addressField.getText());
 						try {
 							storage.setDimensions(Integer.parseInt(widthField.getText()), Integer.parseInt(lengthField.getText()));
+							database.updateStorageAddress(storage.getStorageID(), storage.getAddress());
+							database.updateStorageWidth(storage.getStorageID(), storage.getWidth());
+							database.updateStorageLength(storage.getStorageID(), storage.getLength());
 							//päivitetään varastonäkymä vastaamaan esim. uusia varaston mittoja
 							mainApp.showStorageLayout(storage);
 						}catch(NumberFormatException e) {
@@ -133,8 +147,9 @@ public class AltRootLayoutController implements ControllerInterfaceView {
 		//lisätään luotu accordion "your storages"-labelin ja "exit" buttonin väliin
 		vbox.getChildren().add(2, accordion);
 	}
-	/*
-	 * handleCreateStorage-funktiossa määritetään, mitä tapahtuu, kun käyttäjä painaa "Create New Storage"-painiketta
+	/** handler funktion for the interface
+	 * Creates a temporary storage object if its attributes are set isOkClicked receives value true,
+	 * and the temporary storage is made permanent
 	 */
 	@FXML
 	private void handleCreateStorage() {
@@ -143,7 +158,8 @@ public class AltRootLayoutController implements ControllerInterfaceView {
 
 		boolean isOkClicked = mainApp.showNewStorageDialog(tempStorage);
 		if (isOkClicked) {
-			mainApp.getStorages().add(tempStorage);
+			database.addStorage(tempStorage);
+			mainApp.getStorages().add(database.getStorage(tempStorage.getName()));
 			try {
 				Accordion tempAccordion = (Accordion) vbox.getChildren().get(2);
 				vbox.getChildren().remove(2);
@@ -154,21 +170,9 @@ public class AltRootLayoutController implements ControllerInterfaceView {
 		System.out.println("New Storage Created!");
 	}
 	
-	@FXML
-	private void handleRemoveStorage() {
-		
-	}
-	
-	@FXML
-	private void handleShowStorageLayout() {
-		System.out.println("Storage Layout");
-	}
-	
-	@FXML
-	private void handleShowStorageEdit() {
-		System.out.println("Edit Storage");
-	}
-	
+	/** handler funktion for the interface
+	 * 
+	 */
 	@FXML
 	private void handleExit() {
 		System.exit(0);
