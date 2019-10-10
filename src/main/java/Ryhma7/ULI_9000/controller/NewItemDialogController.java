@@ -4,7 +4,9 @@ import Ryhma7.ULI_9000.model.Item;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.stage.Stage;
-
+/**Controller for NewItemDialog
+ *
+ */
 public class NewItemDialogController {
 
 	@FXML
