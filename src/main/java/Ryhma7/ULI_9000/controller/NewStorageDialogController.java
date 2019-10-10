@@ -6,6 +6,7 @@ import javafx.scene.control.TextField;
 import javafx.stage.Stage;
 
 public class NewStorageDialogController implements ControllerInterfaceModalView {
+
 	@FXML
 	private TextField name;
 	@FXML
@@ -19,10 +20,16 @@ public class NewStorageDialogController implements ControllerInterfaceModalView 
 	private Storage storage;
 	private boolean isOkClicked = false;
 	
+	/**Sets the dialogStage for the controller
+	 * @param dialogStage
+	 */
 	public void setDialogStage(Stage dialogStage) {
 		this.dialogStage = dialogStage;
 	}
 	
+	/**Sets the storage for the controller
+	 * @param storage
+	 */
 	public void setStorage(Storage storage) {
 		this.storage = storage;
 		
@@ -36,21 +43,28 @@ public class NewStorageDialogController implements ControllerInterfaceModalView 
 		
 	}
 	
+	/**Returns the value of isOkClicked
+	 * 
+	 */
 	public boolean getIsOkClicked() {
 		return this.isOkClicked;
 	}
 	
+	/**Handler function for the user interface
+	 * sets isOkClicked value to true
+	 */
 	@FXML
 	private void handleCreateNewStorage() {
 		setStorage(storage);
 		this.isOkClicked = true;
 		this.dialogStage.close();
-		System.out.println("Storage Created");
 	}
 	
+	/**Handler function for the user interface
+	 * Closes the DialogStage
+	 */
 	@FXML
 	private void handleCancel() {
 		dialogStage.close();
-		System.out.println("Cancel");
 	}
 }
