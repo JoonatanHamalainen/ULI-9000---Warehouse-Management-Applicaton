@@ -35,9 +35,20 @@ public class Item {
 		this.weight = weight;
 	}
 
+	/**
+	 * 
+	 * Constructor creates a new item with given parameters
+	 * 
+	 * @param name
+	 * @param weight
+	 * @param amount
+	 * @param salesprice
+	 * @param unitprice
+	 * @param shelfID
+	 * @param storageID
+	 */
 	public Item(String name, int weight, int amount, double salesprice, double unitprice, int shelfID, int storageID) {
 		super();
-		this.itemNumber = itemNumber;
 		this.name = name;
 		this.weight = weight;
 		this.amount = amount;
@@ -94,11 +105,22 @@ public class Item {
 	public void setUnitprice(double unitprice) {
 		this.unitprice = unitprice;
 	}
-	// Method for increasing the amount variable
+	/**
+	 * Method for increasing the amount variable
+	 * 
+	 * @param itemID
+	 * @param amount
+	 */
 	public void increaseAmount(int itemID, int amount) {
 		this.amount += amount;
 	}
-	// Method for decreasing the amount variable
+	/**
+	 * Method for decreasing the amount variable
+	 * 
+	 * @param itemID
+	 * @param amount
+	 * @return
+	 */
 	public boolean decreaseAmount(int itemID, int amount) {
 		//Jos koittaa vähentää enemmän kuin tuotetta on, palauttaa false.
 		if(this.amount < amount) {

@@ -14,9 +14,14 @@ import org.hibernate.cfg.Configuration;
 import org.hibernate.query.Query;
 
 public class DatabaseConnection {
+	/**
+	 * Used for adding information to database tables and creating database queries
+	 */
 	public static SessionFactory factory;
 	
-	// Constructor creates a connection to hibernate
+	/**
+	 * Constructor used for creating a connection to hibernate
+	 */
 	public DatabaseConnection() {
 		
 		try {
@@ -26,7 +31,13 @@ public class DatabaseConnection {
 	         throw new ExceptionInInitializerError(ex); 
 	      }
 	}
-	// Gets the specified shelf from database
+	/**
+	 * Gets the specified shelf from database
+	 * 
+	 * @param n
+	 * @param storageID
+	 * @return
+	 */
 	public Shelf getShelf(Point n, int storageID) {
 		Session session = factory.openSession();
 	    Transaction tx = null;
@@ -56,7 +67,12 @@ public class DatabaseConnection {
 		
 		return tempShelf;
 	}
-	// Gets the specified storage from database
+	/**
+	 * Gets the specified storage from database
+	 * 
+	 * @param name
+	 * @return
+	 */
 	public Storage getStorage(String name) {
 		Session session = factory.openSession();
 	    Transaction tx = null;
@@ -79,7 +95,11 @@ public class DatabaseConnection {
 		
 		return tempStorage;
 	}
-	// Creates a new item and adds it to database
+	/**
+	 * Creates a new item and adds it to database
+	 * 
+	 * @param item
+	 */
 	public void addItem(Item item) {
 	      Session session = factory.openSession();
 	      Transaction tx = null;
@@ -96,7 +116,11 @@ public class DatabaseConnection {
 	         session.close(); 
 	      }
 	   }
-	// Creates a new storage and adds it to database
+	/**
+	 * Creates a new storage and adds it to database
+	 * 
+	 * @param storage
+	 */
 	public void addStorage(Storage storage) {
 	      Session session = factory.openSession();
 	      Transaction tx = null;
@@ -113,7 +137,11 @@ public class DatabaseConnection {
 	         session.close(); 
 	      }
 	   }
-	// Creates a new storage and adds it to database
+	/**
+	 * Creates a new storage and adds it to database
+	 * 
+	 * @param shelf
+	 */
 	public void addShelf(Shelf shelf) {
 	      Session session = factory.openSession();
 	      Transaction tx = null;
@@ -133,7 +161,12 @@ public class DatabaseConnection {
 	      }
 	   }
 	
-	// Method for updating item name with a new one
+	/**
+	 * Method for updating item name with a new one
+	 * 
+	 * @param itemID
+	 * @param name
+	 */
 	public void updateName(int itemID, String name){
 	      Session session = factory.openSession();
 	      Transaction tx = null;
@@ -153,7 +186,13 @@ public class DatabaseConnection {
 		         session.close(); 
 		      }
 		   }
-	// Method for updating item location with a new one
+	/**
+	 * Method for updating item location with a new one
+	 * 
+	 * @param itemID
+	 * @param shelfID
+	 * @param storageID
+	 */
 	public void updateLocation(int itemID, int shelfID, int storageID){
 	      Session session = factory.openSession();
 	      Transaction tx = null;
@@ -174,7 +213,12 @@ public class DatabaseConnection {
 	         session.close(); 
 	      }
 	   }
-	// Method for updating item weight with a new one
+	/**
+	 * Method for updating item weight with a new one
+	 * 
+	 * @param itemID
+	 * @param weight
+	 */
 	public void updateWeight(int itemID, int weight){
 	      Session session = factory.openSession();
 	      Transaction tx = null;
@@ -194,7 +238,12 @@ public class DatabaseConnection {
 		         session.close(); 
 		      }
 		   }
-	// Method for updating item salesprice with a new one
+	/**
+	 * Method for updating item salesprice with a new one
+	 * 
+	 * @param itemID
+	 * @param salesprice
+	 */
 	public void updateSalesprice(int itemID, double salesprice){
 	      Session session = factory.openSession();
 	      Transaction tx = null;
@@ -214,7 +263,12 @@ public class DatabaseConnection {
 		         session.close(); 
 		      }
 		   }
-	// Method for updating item unitprice with a new one
+	/**
+	 * Method for updating item unitprice with a new one
+	 * 
+	 * @param itemID
+	 * @param unitprice
+	 */
 	public void updateUnitprice(int itemID, double unitprice){
 	      Session session = factory.openSession();
 	      Transaction tx = null;
@@ -234,7 +288,12 @@ public class DatabaseConnection {
 	         session.close(); 
 	      }
 	   }
-	// Method for updating item amount with a new one
+	/**
+	 * Method for updating item amount with a new one
+	 * 
+	 * @param itemID
+	 * @param amount
+	 */
 	public void updateAmount(int itemID, int amount){
 	      Session session = factory.openSession();
 	      Transaction tx = null;
@@ -254,7 +313,12 @@ public class DatabaseConnection {
 	         session.close(); 
 	      }
 	   }
-	// Method for updating storage address with a new one
+	/**
+	 * Method for updating storage address with a new one
+	 * 
+	 * @param storageID
+	 * @param address
+	 */
 	public void updateStorageAddress(int storageID, String address) {
 		Session session = factory.openSession();
 	      Transaction tx = null;
@@ -274,7 +338,12 @@ public class DatabaseConnection {
 	         session.close(); 
 	      }
 	   }
-	// Method for updating storage width with a new one
+	/**
+	 * Method for updating storage width with a new one
+	 * 
+	 * @param storageID
+	 * @param width
+	 */
 	public void updateStorageWidth(int storageID, int width) {
 		Session session = factory.openSession();
 	      Transaction tx = null;
@@ -294,7 +363,12 @@ public class DatabaseConnection {
 	         session.close(); 
 	      }
 	   }
-	// Method for updating storage length with a new one
+	/**
+	 * Method for updating storage length with a new one
+	 * 
+	 * @param storageID
+	 * @param length
+	 */
 	public void updateStorageLength(int storageID, int length) {
 		Session session = factory.openSession();
 	      Transaction tx = null;
@@ -314,7 +388,11 @@ public class DatabaseConnection {
 	         session.close(); 
 	      }
 	   }
-	// Method for deleting an item
+	/**
+	 * Method for deleting an item
+	 * 
+	 * @param item
+	 */
 	public void deleteItem(Item item){
 	      Session session = factory.openSession();
 	      Transaction tx = null;
@@ -330,7 +408,11 @@ public class DatabaseConnection {
 	         session.close(); 
 	      }
 	   }
-	// Method for deleting a storage
+	/**
+	 * Method for deleting a storage
+	 * 
+	 * @param storage
+	 */
 	public void deleteStorage(Storage storage) {
 		Session session = factory.openSession();
 	      Transaction tx = null;
@@ -346,7 +428,12 @@ public class DatabaseConnection {
 	         session.close(); 
 	      }
 	}
-	// Method for getting all items within specified shelf
+	/**
+	 * Method for getting all items within specified shelf
+	 * 
+	 * @param shelfID
+	 * @param storageID
+	 */
 	public void getItemsInShelf(int shelfID, int storageID) {
 		Session session = factory.openSession();
 	    Transaction tx = null;
@@ -374,7 +461,11 @@ public class DatabaseConnection {
 	         session.close(); 
 	      }
 	      }
-	// Method for getting all shelves within specified storage
+	/**
+	 * Method for getting all shelves within specified storage
+	 * 
+	 * @param storageID
+	 */
 	public void getShelvesInStorage(int storageID) {
 		Session session = factory.openSession();
 	    Transaction tx = null;
@@ -400,7 +491,10 @@ public class DatabaseConnection {
 	         session.close(); 
 	      }
 	}
-	// Method for listing all items in database
+	/**
+	 * Method for listing all items in database
+	 * 
+	 */
 	public void listItems(){
 	      Session session = factory.openSession();
 	      Transaction tx = null;
@@ -429,7 +523,10 @@ public class DatabaseConnection {
 	         session.close(); 
 	      }
 	   }
-	// Method for listing all shelves in database
+	/**
+	 * Method for listing all shelves in database
+	 * 
+	 */
 	public void listShelves() {
 		Session session = factory.openSession();
 	    Transaction tx = null;
@@ -456,7 +553,11 @@ public class DatabaseConnection {
 	         session.close(); 
 	      }
 	}
-	// Gets all storages from the database
+	/**
+	 * Gets all storages from the database
+	 * 
+	 * @return
+	 */
 	public ArrayList<Storage> getStorages() {
 		Session session = factory.openSession();
 	    Transaction tx = null;
@@ -473,7 +574,12 @@ public class DatabaseConnection {
 	         session.close(); 
 	      }	return storages;
 	}
-	// Gets all shelfs from the specified storage from database
+	/**
+	 * Gets all shelfs from the specified storage from database
+	 * 
+	 * @param storageID
+	 * @return
+	 */
 	public ArrayList<Point> getShelves(int storageID) {
 		Session session = factory.openSession();
 	    Transaction tx = null;
@@ -501,7 +607,10 @@ public class DatabaseConnection {
 	      }
 	      return null;
 	}
-	// method for listing all storages in database
+	/**
+	 * Method for listing all storages in database
+	 * 
+	 */
 	public void listStorages() {
 		Session session = factory.openSession();
 	    Transaction tx = null;
