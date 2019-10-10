@@ -32,4 +32,5 @@ class ItemTest {
 		assertEquals(2, item.getAmount(), "Decreasing amount not working!");
 		assertFalse(item.decreaseAmount(1, 3), "Amount decreased past 0!");
 	}
+	
 }

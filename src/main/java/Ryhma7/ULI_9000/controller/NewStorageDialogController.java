@@ -1,6 +1,5 @@
 package Ryhma7.ULI_9000.controller;
 
-import Ryhma7.ULI_9000.App;
 import Ryhma7.ULI_9000.model.Storage;
 import javafx.fxml.FXML;
 import javafx.scene.control.TextField;

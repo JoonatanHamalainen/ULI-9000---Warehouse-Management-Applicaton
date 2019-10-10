@@ -7,7 +7,7 @@ import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
 class StorageTest {
-
+	
 	private static Storage storage;
 	
 	@BeforeAll
@@ -33,5 +33,6 @@ class StorageTest {
 		storage.removeItemFromStorage(item);
 		assertEquals(0, storage.getItems().size(), "Item removal unsuccesful!");
 	}
+	
 
 }
