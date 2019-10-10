@@ -94,11 +94,11 @@ public class Item {
 	public void setUnitprice(double unitprice) {
 		this.unitprice = unitprice;
 	}
-	
+	// Method for increasing the amount variable
 	public void increaseAmount(int itemID, int amount) {
 		this.amount += amount;
 	}
-	
+	// Method for decreasing the amount variable
 	public boolean decreaseAmount(int itemID, int amount) {
 		//Jos koittaa vähentää enemmän kuin tuotetta on, palauttaa false.
 		if(this.amount < amount) {
