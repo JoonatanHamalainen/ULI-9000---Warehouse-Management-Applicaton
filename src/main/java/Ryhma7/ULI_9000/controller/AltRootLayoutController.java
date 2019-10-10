@@ -26,20 +26,27 @@ public class AltRootLayoutController implements ControllerInterfaceView {
 	private VBox vbox;
 	
 	DatabaseConnection database = new DatabaseConnection();
-	
+	/** Sets main application for the controller
+	 * @param mainApp
+	 */
 	public void setMainApp(App mainApp) {
 		this.mainApp = mainApp;
 	}
-	
+	/**
+	 * Sets storages-list for the controller
+	 * @param storages
+	 */
 	public void setStorages(ArrayList<Storage> storages) {
 		this.storages = storages;
 	}
-	
+	/** Sets the VBox in which the storage contents will be displayed
+	 * @param vbox
+	 */
 	public void setVBox(VBox vbox) {
 		this.vbox = vbox;		
 	}
-	/*
-	 * loadStorages-funktio hallinnoi varaston muutos- ja poisto operaatioita. 
+	/** Generates content for vbox-attribute and populates the textfields with the storage information 
+	 * @param vbox
 	 */
 	public void loadStorages(final VBox vbox) {
 		final Accordion accordion = new Accordion();
@@ -140,8 +147,9 @@ public class AltRootLayoutController implements ControllerInterfaceView {
 		//lisätään luotu accordion "your storages"-labelin ja "exit" buttonin väliin
 		vbox.getChildren().add(2, accordion);
 	}
-	/*
-	 * handleCreateStorage-funktiossa määritetään, mitä tapahtuu, kun käyttäjä painaa "Create New Storage"-painiketta
+	/** handler funktion for the interface
+	 * Creates a temporary storage object if its attributes are set isOkClicked receives value true,
+	 * and the temporary storage is made permanent
 	 */
 	@FXML
 	private void handleCreateStorage() {
@@ -162,21 +170,9 @@ public class AltRootLayoutController implements ControllerInterfaceView {
 		System.out.println("New Storage Created!");
 	}
 	
-	@FXML
-	private void handleRemoveStorage() {
-		
-	}
-	
-	@FXML
-	private void handleShowStorageLayout() {
-		System.out.println("Storage Layout");
-	}
-	
-	@FXML
-	private void handleShowStorageEdit() {
-		System.out.println("Edit Storage");
-	}
-	
+	/** handler funktion for the interface
+	 * 
+	 */
 	@FXML
 	private void handleExit() {
 		System.exit(0);

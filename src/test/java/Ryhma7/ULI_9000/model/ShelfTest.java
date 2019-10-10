@@ -4,7 +4,7 @@ import static org.junit.jupiter.api.Assertions.*;
 
 import java.awt.Point;
 import java.util.ArrayList;
-
+import Ryhma7.ULI_9000.model.Shelf;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
 
