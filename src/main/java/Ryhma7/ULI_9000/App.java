@@ -3,10 +3,10 @@ package Ryhma7.ULI_9000;
 import java.awt.Point;
 import java.io.IOException;
 import java.util.ArrayList;
-import Ryhma7.ULI_9000.controller.AltRootLayoutController;
+import Ryhma7.ULI_9000.controller.RootLayoutController;
 import Ryhma7.ULI_9000.controller.NewItemDialogController;
 import Ryhma7.ULI_9000.controller.NewStorageDialogController;
-import Ryhma7.ULI_9000.controller.StorageEditController;
+import Ryhma7.ULI_9000.controller.StorageController;
 import Ryhma7.ULI_9000.model.Item;
 import Ryhma7.ULI_9000.model.Shelf;
 import Ryhma7.ULI_9000.model.Storage;
@@ -57,19 +57,19 @@ public class App extends Application {
 		this.storages.get(1).setAddress("Pikkulan kuja 1");
 		
 		
-		initAltRootLayout();
+		initRootLayout();
 		
 	}
 	
 	public void showStorageLayout(Storage storage) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(App.class.getResource("view/AltStorageLayout.fxml"));
+			loader.setLocation(App.class.getResource("view/StorageLayout.fxml"));
 			
 			AnchorPane page = (AnchorPane) loader.load();
 			this.rootLayout.setCenter(page);
 			
-			StorageEditController controller = loader.getController();
+			StorageController controller = loader.getController();
 			
 			controller.setMainApp(this);
 			controller.setStorage(storage);
@@ -89,7 +89,7 @@ public class App extends Application {
 			
 			this.rootLayout.setCenter(page);
 			
-			StorageEditController controller = loader.getController();
+			StorageController controller = loader.getController();
 			controller.setMainApp(this);
 			controller.setStorage(this.storage);
 			controller.setPane(page);
@@ -155,10 +155,10 @@ public class App extends Application {
 		}
 	}
 	
-	public void initAltRootLayout() {
+	public void initRootLayout() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(App.class.getResource("view/AltRootlayout.fxml"));
+			loader.setLocation(App.class.getResource("view/Rootlayout.fxml"));
 		
 			this.rootLayout =(BorderPane) loader.load();
 			Scene scene = new Scene(this.rootLayout);
@@ -167,7 +167,7 @@ public class App extends Application {
 			
 			this.primaryStage.setScene(scene);
 			
-			AltRootLayoutController controller = loader.getController();
+			RootLayoutController controller = loader.getController();
 			
 			controller.setMainApp(this);
 			controller.setStorages(this.storages);
