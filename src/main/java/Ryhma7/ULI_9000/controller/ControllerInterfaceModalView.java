@@ -3,6 +3,9 @@ package Ryhma7.ULI_9000.controller;
 import Ryhma7.ULI_9000.model.Item;
 import javafx.stage.Stage;
 
+/**Controller Interface
+ *
+ */
 public interface ControllerInterfaceModalView {
 	
 	boolean isOkClicked = false;
