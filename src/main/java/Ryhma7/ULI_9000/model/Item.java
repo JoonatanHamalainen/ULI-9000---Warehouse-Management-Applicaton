@@ -1,36 +1,62 @@
 package Ryhma7.ULI_9000.model;
 
+/**
+ * Class for model Item
+ *
+ */
 public class Item {
 	
+	/**
+	 * Empty constructor
+	 */
 	public Item() {
 		
 	}
 	
 	private String name, itemNumber;
+
 	private int itemID, weight, amount, shelfID, storageID;
 	
+	/**
+	 * @return
+	 */
 	public int getItemID() {
 		return itemID;
 	}
 
+	/**
+	 * @param itemID
+	 */
 	public void setItemID(int itemID) {
 		this.itemID = itemID;
 	}
 
 	private double salesprice, unitprice;
 	
+	/**
+	 * @param name
+	 */
 	public void setName(String name) {
 		this.name = name;
 	}
 
+	/**
+	 * @return
+	 */
 	public String getItemNumber() {
 		return itemNumber;
 	}
 
+	/**
+	 * @param itemNumber
+	 */
 	public void setItemNumber(String itemNumber) {
 		this.itemNumber = itemNumber;
 	}
 
+	/**
+	 * @param weight
+	 */
 	public void setWeight(int weight) {
 		this.weight = weight;
 	}
@@ -39,6 +65,15 @@ public class Item {
 	 * 
 	 * Constructor creates a new item with given parameters
 	 * 
+	 * @param name
+	 * @param weight
+	 * @param amount
+	 * @param salesprice
+	 * @param unitprice
+	 * @param shelfID
+	 * @param storageID
+	 */
+	/**
 	 * @param name
 	 * @param weight
 	 * @param amount
@@ -58,50 +93,86 @@ public class Item {
 		this.storageID = storageID;
 	}
 
+	/**
+	 * @return
+	 */
 	public String getName() {
 		return name;
 	}
 
+	/**
+	 * @return
+	 */
 	public int getWeight() {
 		return weight;
 	}
 
+	/**
+	 * @return
+	 */
 	public int getAmount() {
 		return amount;
 	}
 
+	/**
+	 * @param amount
+	 */
 	public void setAmount(int amount) {
 		this.amount = amount;
 	}
 
+	/**
+	 * @return
+	 */
 	public int getShelfID() {
 		return shelfID;
 	}
 
+	/**
+	 * @param shelfID
+	 */
 	public void setShelfID(int shelfID) {
 		this.shelfID = shelfID;
 	}
 
+	/**
+	 * @return
+	 */
 	public int getStorageID() {
 		return storageID;
 	}
 
+	/**
+	 * @param storageID
+	 */
 	public void setStorageID(int storageID) {
 		this.storageID = storageID;
 	}
 
+	/**
+	 * @return
+	 */
 	public double getSalesprice() {
 		return salesprice;
 	}	
 
+	/**
+	 * @param salesprice
+	 */
 	public void setSalesprice(double salesprice) {
 		this.salesprice = salesprice;
 	}
 
+	/**
+	 * @return
+	 */
 	public double getUnitprice() {
 		return unitprice;
 	}
 
+	/**
+	 * @param unitprice
+	 */
 	public void setUnitprice(double unitprice) {
 		this.unitprice = unitprice;
 	}
