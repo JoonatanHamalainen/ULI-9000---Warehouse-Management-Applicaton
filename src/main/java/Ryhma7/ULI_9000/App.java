@@ -63,7 +63,7 @@ public class App extends Application {
 	}
 	
 	/**Brings the Storage Layout of a specific storage to center of primaryStage
-	 * @param storage
+	 * @param storage is the storage to be displayed
 	 */
 	public void showStorageLayout(Storage storage) {
 		try {
@@ -108,7 +108,7 @@ public class App extends Application {
 	
 	/**Opens NewStorage Modal window
 	 * @param storage
-	 * @return
+	 * @return true if new storage is created, false if not
 	 */
 	public boolean showNewStorageDialog(Storage storage) {
 		try {
@@ -140,7 +140,7 @@ public class App extends Application {
 	
 	/**Opens new Item modal window
 	 * @param item
-	 * @return
+	 * @return true if new item is created, false if not
 	 */
 	public boolean showNewItemDialog(Item item) {
 		try {
@@ -210,7 +210,7 @@ public class App extends Application {
 	}
 	
 	/**Returns storages-List
-	 * @return
+	 * @return storages
 	 */
 	public ArrayList<Storage> getStorages() {
 		return storages;
