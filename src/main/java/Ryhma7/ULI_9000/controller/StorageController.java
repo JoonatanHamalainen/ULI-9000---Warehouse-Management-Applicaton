@@ -105,14 +105,14 @@ public class StorageController implements ControllerInterfaceView {
 	}
 	
 	/**Sets the mainApp for the controller
-	 * @param mainApp
+	 * @param mainApp is the main application
 	 */
 	public void setMainApp(App mainApp) {
 		this.mainApp = mainApp;
 	}
 	
 	/**sets the storage for the controller
-	 * @param storage
+	 * @param storage is the storage the controller is for
 	 */
 	public void setStorage(Storage storage) {
 		this.storage = storage;
@@ -152,7 +152,7 @@ public class StorageController implements ControllerInterfaceView {
 	}
 	
 	/**sets the page for the controller
-	 * @param page
+	 * @param page is the current page
 	 */
 	public void setPane(AnchorPane page) {
 		this.page = page;
@@ -271,7 +271,7 @@ public class StorageController implements ControllerInterfaceView {
 	
 	/**Manages add and remove feature for selectedCells list.
 	 *Used primarily when the user selects / deselects cells in the storage layout 
-	 * @param coordinateXY
+	 * @param coordinateXY is the Point that has been clicked on
 	 */
 	public void cellSelected(Point coordinateXY) {
 		if(this.selectedCells.contains(coordinateXY)) {
@@ -355,7 +355,7 @@ public class StorageController implements ControllerInterfaceView {
 
 	/**Checks if there is a shelf in the given set of coordinates
 	 * @param coordinateXY
-	 * @return boolean
+	 * @return true if a shelf exists, false if not
 	 */
 	private boolean isShelf(Point coordinateXY) {
 		if(this.storage.getShelves() != null) {
@@ -371,13 +371,13 @@ public class StorageController implements ControllerInterfaceView {
 	}
 	
 	/**Updates the selected item on the selected shelf
-	 * @param shelf
+	 * @param shelf is the shelf to be displayed
 	 */
 	private void displaySelectedShelf(Shelf shelf) {
 		this.containedItem.setText(shelf.getItem().getName());		
 	}
 	/**Saves changed made to contents of a shelf
-	 * @param shelf
+	 * @param shelf is the current shelf
 	 */
 	private void saveChanges(Shelf shelf) {
 		shelf.setShelfID(Integer.parseInt(this.shelfID.getText()));

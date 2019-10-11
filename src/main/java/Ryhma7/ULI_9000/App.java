@@ -63,7 +63,7 @@ public class App extends Application {
 	}
 	
 	/**Brings the Storage Layout of a specific storage to center of primaryStage
-	 * @param storage
+	 * @param storage is the storage to be displayed
 	 */
 	public void showStorageLayout(Storage storage) {
 		try {

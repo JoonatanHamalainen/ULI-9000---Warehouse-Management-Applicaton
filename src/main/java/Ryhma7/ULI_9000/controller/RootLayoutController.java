@@ -29,20 +29,20 @@ public class RootLayoutController implements ControllerInterfaceView {
 	
 	DatabaseConnection database = new DatabaseConnection();
 	/** Sets main application for the controller
-	 * @param mainApp
+	 * @param mainApp is the main app
 	 */
 	public void setMainApp(App mainApp) {
 		this.mainApp = mainApp;
 	}
 	/**
 	 * Sets storages-list for the controller
-	 * @param storages
+	 * @param storages is the list of all storages
 	 */
 	public void setStorages(ArrayList<Storage> storages) {
 		this.storages = storages;
 	}
 	/** Sets the VBox in which the storage contents will be displayed
-	 * @param vbox
+	 * @param vbox is the box in which storages-list will be displayed
 	 */
 	public void setVBox(VBox vbox) {
 		this.vbox = vbox;		

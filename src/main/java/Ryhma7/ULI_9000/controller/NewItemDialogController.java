@@ -25,14 +25,14 @@ public class NewItemDialogController {
 	private boolean isOkClicked = false;
 	
 	/**Sets the dialog stage for the controller
-	 * @param dialogStage
+	 * @param dialogStage is the stage currently in use
 	 */
 	public void setDialogStage(Stage dialogStage) {
 		this.dialogStage = dialogStage;
 	}
 	
 	/**Sets item for the Controller and updates the item's attributes to the ones given in the interface
-	 * @param item
+	 * @param item is the item that is being created
 	 */
 	public void setItem(Item item) {
 		this.item = item;		
