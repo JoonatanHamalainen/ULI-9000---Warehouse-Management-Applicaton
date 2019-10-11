@@ -386,7 +386,7 @@ public class StorageController implements ControllerInterfaceView {
 	/**Calculates the maximum cell wall length to be used in storage grid
 	 * @param columns
 	 * @param rows
-	 * @return
+	 * @return double is the maximum wall length that fits the view
 	 */
 	private double calculateCellWallLength(int columns, int rows) {
 		double maxGridWidthPixels  = 790;

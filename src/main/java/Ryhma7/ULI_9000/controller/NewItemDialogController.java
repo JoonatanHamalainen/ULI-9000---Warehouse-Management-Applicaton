@@ -49,7 +49,7 @@ public class NewItemDialogController {
 	}
 	
 	/**Returns isOkClicked attribute
-	 * @return
+	 * @return boolean
 	 */
 	public boolean getIsOkClicked() {
 		return this.isOkClicked;
