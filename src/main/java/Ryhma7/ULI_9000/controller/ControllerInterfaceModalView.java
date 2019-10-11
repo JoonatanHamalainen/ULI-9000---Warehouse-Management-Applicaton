@@ -16,7 +16,7 @@ public interface ControllerInterfaceModalView {
 	public void setDialogStage(Stage dialogStage);
 	
 	/**Getter for IsOkClicked attributed
-	 * @return
+	 * @return boolean
 	 */
 	public boolean getIsOkClicked();
 	

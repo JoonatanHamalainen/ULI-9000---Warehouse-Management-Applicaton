@@ -23,14 +23,14 @@ public class NewStorageDialogController implements ControllerInterfaceModalView 
 	private boolean isOkClicked = false;
 	
 	/**Sets the dialogStage for the controller
-	 * @param dialogStage
+	 * @param dialogStage is the current stage
 	 */
 	public void setDialogStage(Stage dialogStage) {
 		this.dialogStage = dialogStage;
 	}
 	
 	/**Sets the storage for the controller
-	 * @param storage
+	 * @param storage is the new storage being created
 	 */
 	public void setStorage(Storage storage) {
 		this.storage = storage;
