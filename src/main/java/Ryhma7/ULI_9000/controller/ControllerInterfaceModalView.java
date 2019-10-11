@@ -3,7 +3,7 @@ package Ryhma7.ULI_9000.controller;
 import Ryhma7.ULI_9000.model.Item;
 import javafx.stage.Stage;
 
-/**Controller Interface
+/**Controller Interface for ModalViews
  *
  */
 public interface ControllerInterfaceModalView {

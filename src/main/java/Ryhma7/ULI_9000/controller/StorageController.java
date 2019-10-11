@@ -30,7 +30,9 @@ import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
 import javafx.util.Callback;
 import net.bytebuddy.asm.Advice.This;
-
+/**Controller for StorageLayout
+*
+*/
 public class StorageController implements ControllerInterfaceView {
 	
 	DatabaseConnection database = new DatabaseConnection();

@@ -18,7 +18,9 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.VBox;
-
+/**Controller for RootLayout
+*
+*/
 public class RootLayoutController implements ControllerInterfaceView {
 	
 	private App mainApp;

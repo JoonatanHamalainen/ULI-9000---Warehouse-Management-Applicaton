@@ -1,7 +1,7 @@
 package Ryhma7.ULI_9000.controller;
 
 import Ryhma7.ULI_9000.App;
-/**Controller interface for view
+/**Controller interface for Views
  *
  */
 public interface ControllerInterfaceView {
