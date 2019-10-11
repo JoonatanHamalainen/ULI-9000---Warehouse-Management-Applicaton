@@ -36,9 +36,9 @@ public class DatabaseConnection {
 	/**
 	 * Gets the specified shelf from database
 	 * 
-	 * @param n
-	 * @param storageID
-	 * @return
+	 * @param n is used to identify the Point (x,y) of the shelf that needs to be returned
+	 * @param storageID is used to identify the storage, the shelf needs to be returned from
+	 * @return returns the specified shelf
 	 */
 	public Shelf getShelf(Point n, int storageID) {
 		Session session = factory.openSession();
@@ -72,8 +72,8 @@ public class DatabaseConnection {
 	/**
 	 * Gets the specified storage from database
 	 * 
-	 * @param name
-	 * @return
+	 * @param name is used to identify the storage that needs to be returned
+	 * @return returns the storage specified
 	 */
 	public Storage getStorage(String name) {
 		Session session = factory.openSession();
@@ -100,7 +100,7 @@ public class DatabaseConnection {
 	/**
 	 * Creates a new item and adds it to database
 	 * 
-	 * @param item
+	 * @param item is used to add the item to database
 	 */
 	public void addItem(Item item) {
 	      Session session = factory.openSession();
@@ -121,7 +121,7 @@ public class DatabaseConnection {
 	/**
 	 * Creates a new storage and adds it to database
 	 * 
-	 * @param storage
+	 * @param storage is used to add the storage to database
 	 */
 	public void addStorage(Storage storage) {
 	      Session session = factory.openSession();
@@ -142,7 +142,7 @@ public class DatabaseConnection {
 	/**
 	 * Creates a new storage and adds it to database
 	 * 
-	 * @param shelf
+	 * @param shelf is used to add the shelf to database
 	 */
 	public void addShelf(Shelf shelf) {
 	      Session session = factory.openSession();
@@ -166,8 +166,8 @@ public class DatabaseConnection {
 	/**
 	 * Method for updating item name with a new one
 	 * 
-	 * @param itemID
-	 * @param name
+	 * @param itemID is used to identify what item needs to be modified
+	 * @param name is used to identify the attribute that needs to be modified
 	 */
 	public void updateName(int itemID, String name){
 	      Session session = factory.openSession();
@@ -191,9 +191,9 @@ public class DatabaseConnection {
 	/**
 	 * Method for updating item location with a new one
 	 * 
-	 * @param itemID
-	 * @param shelfID
-	 * @param storageID
+	 * @param itemID is used to identify what item needs to be modified
+	 * @param shelfID is used to identify within what shelf item needs to be modified
+	 * @param storageID is used to identify within what storage item needs to be modified
 	 */
 	public void updateLocation(int itemID, int shelfID, int storageID){
 	      Session session = factory.openSession();
@@ -218,8 +218,8 @@ public class DatabaseConnection {
 	/**
 	 * Method for updating item weight with a new one
 	 * 
-	 * @param itemID
-	 * @param weight
+	 * @param itemID is used to identify what item needs to be modified
+	 * @param weight is used to identify the attribute that needs to be modified
 	 */
 	public void updateWeight(int itemID, int weight){
 	      Session session = factory.openSession();
@@ -243,8 +243,8 @@ public class DatabaseConnection {
 	/**
 	 * Method for updating item salesprice with a new one
 	 * 
-	 * @param itemID
-	 * @param salesprice
+	 * @param itemID is used to identify what item needs to be modified
+	 * @param salesprice is used to identify the attribute that needs to be modified
 	 */
 	public void updateSalesprice(int itemID, double salesprice){
 	      Session session = factory.openSession();
@@ -268,8 +268,8 @@ public class DatabaseConnection {
 	/**
 	 * Method for updating item unitprice with a new one
 	 * 
-	 * @param itemID
-	 * @param unitprice
+	 * @param itemID is used to identify what item needs to be modified
+	 * @param unitprice is used to identify the attribute that needs to be modified
 	 */
 	public void updateUnitprice(int itemID, double unitprice){
 	      Session session = factory.openSession();
@@ -293,8 +293,8 @@ public class DatabaseConnection {
 	/**
 	 * Method for updating item amount with a new one
 	 * 
-	 * @param itemID
-	 * @param amount
+	 * @param itemID is used to identify what item needs to be modified
+	 * @param amount is used to identify the attribute that needs to be modified
 	 */
 	public void updateAmount(int itemID, int amount){
 	      Session session = factory.openSession();
@@ -318,8 +318,8 @@ public class DatabaseConnection {
 	/**
 	 * Method for updating storage address with a new one
 	 * 
-	 * @param storageID
-	 * @param address
+	 * @param storageID is used to identify what storage needs to be modified
+	 * @param address is used to identify the attribute that needs to be modified
 	 */
 	public void updateStorageAddress(int storageID, String address) {
 		Session session = factory.openSession();
@@ -343,8 +343,8 @@ public class DatabaseConnection {
 	/**
 	 * Method for updating storage width with a new one
 	 * 
-	 * @param storageID
-	 * @param width
+	 * @param storageID is used to identify what storage needs to be modified
+	 * @param width is used to identify the attribute that needs to be modified
 	 */
 	public void updateStorageWidth(int storageID, int width) {
 		Session session = factory.openSession();
@@ -368,8 +368,8 @@ public class DatabaseConnection {
 	/**
 	 * Method for updating storage length with a new one
 	 * 
-	 * @param storageID
-	 * @param length
+	 * @param storageID is used to identify what storage needs to be modified
+	 * @param length is used to identify the attribute that needs to be modified
 	 */
 	public void updateStorageLength(int storageID, int length) {
 		Session session = factory.openSession();
@@ -393,7 +393,7 @@ public class DatabaseConnection {
 	/**
 	 * Method for deleting an item
 	 * 
-	 * @param item
+	 * @param item is used to identify what item needs to be deleted
 	 */
 	public void deleteItem(Item item){
 	      Session session = factory.openSession();
@@ -413,7 +413,7 @@ public class DatabaseConnection {
 	/**
 	 * Method for deleting a storage
 	 * 
-	 * @param storage
+	 * @param storage is used to identify what storage needs to be deleted
 	 */
 	public void deleteStorage(Storage storage) {
 		Session session = factory.openSession();
@@ -433,8 +433,8 @@ public class DatabaseConnection {
 	/**
 	 * Method for getting all items within specified shelf
 	 * 
-	 * @param shelfID
-	 * @param storageID
+	 * @param shelfID is used to identify the shelf, the items are wanted from.
+	 * @param storageID is used to identify the storage, the items are wanted from.
 	 */
 	public void getItemsInShelf(int shelfID, int storageID) {
 		Session session = factory.openSession();
@@ -466,7 +466,7 @@ public class DatabaseConnection {
 	/**
 	 * Method for getting all shelves within specified storage
 	 * 
-	 * @param storageID
+	 * @param storageID is used to identify the storage, the shelves are wanted from.
 	 */
 	public void getShelvesInStorage(int storageID) {
 		Session session = factory.openSession();
@@ -558,7 +558,7 @@ public class DatabaseConnection {
 	/**
 	 * Gets all storages from the database
 	 * 
-	 * @return
+	 * @return returns arrayList of Storages within the database.
 	 */
 	public ArrayList<Storage> getStorages() {
 		Session session = factory.openSession();
@@ -577,17 +577,17 @@ public class DatabaseConnection {
 	      }	return storages;
 	}
 	/**
-	 * Gets all shelfs from the specified storage from database
+	 * Gets all shelfs from the specified storage from database.
 	 * 
-	 * @param storageID
-	 * @return
+	 * @param storageID is used to identify the storage, the shelves are wanted from.
+	 * @return returns arrayList of Points from all the shelves in the database.
 	 */
 	public ArrayList<Point> getShelves(int storageID) {
 		Session session = factory.openSession();
 	    Transaction tx = null;
+	    ArrayList<Point> shelves = null;
 	      
 	      try {
-	    	ArrayList<Point> shelves = null;
 	        tx = session.beginTransaction();
 			List tempShelves = session.createQuery("FROM Shelf WHERE storageID = :storageID").setParameter("storageID", storageID).list();
 			for (Iterator iterator = tempShelves.iterator(); iterator.hasNext();){
@@ -607,7 +607,7 @@ public class DatabaseConnection {
 	      } finally {
 	         session.close();
 	      }
-	      return null;
+	      return shelves;
 	}
 	/**
 	 * Method for listing all storages in database
