@@ -33,6 +33,28 @@ public class DatabaseConnection {
 	         throw new ExceptionInInitializerError(ex); 
 	      }
 	}
+	public Item getItem(int itemID) {
+		Session session = factory.openSession();
+	    Transaction tx = null;
+	    Item tempItem = null;
+	    
+	    try {
+	    	tx = session.beginTransaction();
+	    	String hql = ("FROM Item WHERE itemID = :itemID");
+	    	Query query = session.createQuery(hql);
+	    	query.setParameter("itemID", itemID);
+	    	List item = query.list();
+	        System.out.println(item);
+	        tempItem = (Item) item.get(0);
+	    } catch (HibernateException e) {
+		         if (tx!=null) tx.rollback();
+		         e.printStackTrace(); 
+		      } finally {
+		         session.close(); 
+		      }
+	    
+		return tempItem;
+	}
 	/**
 	 * Gets the specified shelf from database
 	 * 
@@ -121,27 +143,6 @@ public class DatabaseConnection {
 	/**
 	 * Creates a new storage and adds it to database
 	 * 
-	 * @param storage is used to add the storage to database
-	 */
-	public void addStorage(Storage storage) {
-	      Session session = factory.openSession();
-	      Transaction tx = null;
-	      Integer storageID = null;
-	      
-	      try {
-	         tx = session.beginTransaction();
-	         storageID = (Integer) session.save(storage); 
-	         tx.commit();
-	      } catch (HibernateException e) {
-	         if (tx!=null) tx.rollback();
-	         e.printStackTrace(); 
-	      } finally {
-	         session.close(); 
-	      }
-	   }
-	/**
-	 * Creates a new storage and adds it to database
-	 * 
 	 * @param shelf is used to add the shelf to database
 	 */
 	public void addShelf(Shelf shelf) {
@@ -162,7 +163,27 @@ public class DatabaseConnection {
 	         session.close(); 
 	      }
 	   }
-	
+	/**
+	 * Creates a new storage and adds it to database
+	 * 
+	 * @param storage is used to add the storage to database
+	 */
+	public void addStorage(Storage storage) {
+	      Session session = factory.openSession();
+	      Transaction tx = null;
+	      Integer storageID = null;
+	      
+	      try {
+	         tx = session.beginTransaction();
+	         storageID = (Integer) session.save(storage); 
+	         tx.commit();
+	      } catch (HibernateException e) {
+	         if (tx!=null) tx.rollback();
+	         e.printStackTrace(); 
+	      } finally {
+	         session.close(); 
+	      }
+	   }
 	/**
 	 * Method for updating item name with a new one
 	 * 
@@ -290,6 +311,27 @@ public class DatabaseConnection {
 	         session.close(); 
 	      }
 	   }
+	public int getAmount(int itemID) {
+		Session session = factory.openSession();
+	    Transaction tx = null;
+	    int amount = -1;
+	      
+	      try {
+	    	  tx = session.beginTransaction();
+	    	  String hql = ("FROM Item WHERE shelfID = :shelfID AND storageID = :storageID");
+	    	  Query query = session.createQuery(hql);
+	    	  query.setParameter("itemID", itemID);
+	    	  List result = query.list();
+	    	  amount = (Integer) result.get(0);
+	      } catch (HibernateException e) {
+	         if (tx!=null) tx.rollback();
+	         e.printStackTrace(); 
+	      } finally {
+	         session.close(); 
+	      }
+	      
+	      return amount;
+	}
 	/**
 	 * Method for updating item amount with a new one
 	 * 
@@ -402,6 +444,21 @@ public class DatabaseConnection {
 	      try {
 	         tx = session.beginTransaction();
 	         session.delete(item); 
+	         tx.commit();
+	      } catch (HibernateException e) {
+	         if (tx!=null) tx.rollback();
+	         e.printStackTrace(); 
+	      } finally {
+	         session.close(); 
+	      }
+	   }
+	public void deleteShelf(Shelf shelf){
+	      Session session = factory.openSession();
+	      Transaction tx = null;
+	      
+	      try {
+	         tx = session.beginTransaction();
+	         session.delete(shelf); 
 	         tx.commit();
 	      } catch (HibernateException e) {
 	         if (tx!=null) tx.rollback();
@@ -638,5 +695,20 @@ public class DatabaseConnection {
 	      } finally {
 	         session.close(); 
 	      }
+	}
+	public void increaseAmount (int itemID, int addedAmount) {
+		int amount = getAmount(itemID);
+		amount += addedAmount;
+		updateAmount(itemID, amount);
+	}
+	public void decreaseAmount (int itemID, int takenAmount) {
+		int amount = getAmount(itemID);
+		if (amount - takenAmount < 0) {
+			System.out.println("Not enough units");
+		}
+		else {
+			amount -= takenAmount;
+			updateAmount(itemID, amount);
+		}
 	}
 	}
