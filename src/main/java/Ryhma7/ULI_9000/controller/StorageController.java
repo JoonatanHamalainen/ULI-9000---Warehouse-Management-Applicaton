@@ -116,8 +116,8 @@ public class StorageController implements ControllerInterfaceView {
 	 */
 	public void setStorage(Storage storage) {
 		this.storage = storage;
-		if(this.storage.getItems().size() != 0) {	
-			this.storageItemList = FXCollections.observableArrayList(this.storage.getItems());
+		if(database.getItemsInStorage(this.storage).size() != 0) {	
+			this.storageItemList = FXCollections.observableArrayList(database.getItemsInStorage(this.storage));
 			this.itemsInStorageBox.setCellFactory(new Callback<ListView<Item>, ListCell<Item>>(){
 				
 				public ListCell<Item> call(ListView<Item> list) {
@@ -129,8 +129,8 @@ public class StorageController implements ControllerInterfaceView {
 			this.itemsInStorageBox.setItems(this.storageItemList);
 			this.itemsInStorageBox.setButtonCell(new ItemCellList());
 		}
-		if(this.storage.getShelves().size() != 0) {
-			this.storageShelfList = FXCollections.observableArrayList(this.storage.getShelves());
+		if(database.getShelvesInStorage(this.storage).size() != 0) {
+			this.storageShelfList = FXCollections.observableArrayList(database.getShelvesInStorage(this.storage));
 			System.out.println(this.shelvesInStorageBox);
 			this.shelvesInStorageBox.setCellFactory(new Callback<ListView<Shelf>, ListCell<Shelf>>(){
 				

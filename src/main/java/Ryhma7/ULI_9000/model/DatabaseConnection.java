@@ -537,33 +537,24 @@ public class DatabaseConnection {
 	 * @param shelfID is used to identify the shelf, the items are wanted from.
 	 * @param storageID is used to identify the storage, the items are wanted from.
 	 */
-	public void getItemsInShelf(int shelfID, int storageID) {
+	public ArrayList<Item> getItemsInStorage(Storage storage) {
 		Session session = factory.openSession();
 	    Transaction tx = null;
+	    int storageID = storage.getStorageID();
+	    ArrayList<Item> items = null;
 	      
 	      try {
 	         tx = session.beginTransaction();
-	         String hql = ("FROM Item WHERE shelfID = :shelfID AND storageID = :storageID");
-	         Query query = session.createQuery(hql);
-	         query.setParameter("shelfID", shelfID);
-	         query.setParameter("storageID", storageID);
-	         List items = query.list();
-	         for (Iterator iterator = items.iterator(); iterator.hasNext();){
-	            Item item = (Item) iterator.next(); 
-	            System.out.print("Name: " + item.getName()); 
-	            System.out.print("  Amount: " + item.getAmount());
-	            System.out.print("  Weight: " + item.getWeight());
-	            System.out.print("  Salesprice: " + item.getSalesprice());
-	            System.out.println("  Unitprice: " + item.getUnitprice());
-	         }
+			items = (ArrayList<Item>) session.createQuery("FROM Item WHERE storageID = :storageID").setParameter("storageID", storageID).list(); 
 	         tx.commit();
 	      } catch (HibernateException e) {
 	         if (tx!=null) tx.rollback();
 	         e.printStackTrace(); 
 	      } finally {
 	         session.close(); 
-	      }
-	      }
+	      }	return items;
+	}
+	
 	/**
 	 * Method for getting all shelves within specified storage
 	 * 
