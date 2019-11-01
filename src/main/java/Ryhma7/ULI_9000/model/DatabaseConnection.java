@@ -1,6 +1,8 @@
 package Ryhma7.ULI_9000.model;
 
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -184,6 +186,48 @@ public class DatabaseConnection {
 	         session.close(); 
 	      }
 	   }
+	public void addItemToShelf(Item item, Shelf shelf) {
+		Session session = factory.openSession();
+	      Transaction tx = null;
+	      int itemID = item.getItemID();
+	      int shelfID = shelf.getShelfID();
+	      
+	      try {
+	    	  tx = session.beginTransaction();
+		         String hql = "UPDATE Item set shelfID = :shelfID WHERE itemID = :itemID";
+		         Query query = session.createQuery(hql);
+		         query.setParameter("shelfID", shelfID);
+		         query.setParameter("itemID", itemID);
+		         int result = query.executeUpdate(); 
+		         System.out.println("Rows affected: " + result);
+		      } catch (HibernateException e) {
+		         if (tx!=null) tx.rollback();
+		         e.printStackTrace(); 
+		      } finally {
+		         session.close(); 
+		      }
+		   }
+	public void deleteItemFromShelf(Item item) {
+		Session session = factory.openSession();
+	      Transaction tx = null;
+	      int itemID = item.getItemID();
+	      int shelfID = 0;
+	      
+	      try {
+	    	  tx = session.beginTransaction();
+		         String hql = "UPDATE Item set shelfID = :shelfID WHERE itemID = :itemID";
+		         Query query = session.createQuery(hql);
+		         query.setParameter("shelfID", shelfID);
+		         query.setParameter("itemID", itemID);
+		         int result = query.executeUpdate(); 
+		         System.out.println("Rows affected: " + result);
+		      } catch (HibernateException e) {
+		         if (tx!=null) tx.rollback();
+		         e.printStackTrace(); 
+		      } finally {
+		         session.close(); 
+		      }
+		   }
 	/**
 	 * Method for updating item name with a new one
 	 * 
@@ -525,30 +569,28 @@ public class DatabaseConnection {
 	 * 
 	 * @param storageID is used to identify the storage, the shelves are wanted from.
 	 */
-	public void getShelvesInStorage(int storageID) {
+	public ArrayList<Shelf> getShelvesInStorage(Storage storage) {
 		Session session = factory.openSession();
 	    Transaction tx = null;
+	    int storageID = storage.getStorageID();
+	    ArrayList<Shelf> shelves = null;
 	      
 	      try {
 	         tx = session.beginTransaction();
-	         String hql = ("FROM Shelf WHERE storageID = :storageID");
-	         Query query = session.createQuery(hql);
-	         query.setParameter("storageID", storageID);
-	         List items = query.list();
-	         for (Iterator iterator = items.iterator(); iterator.hasNext();){
-	            Storage storage = (Storage) iterator.next(); 
-	            System.out.print("Name: " + storage.getName()); 
-	            System.out.print("  Address: " + storage.getAddress());
-	            System.out.print("  Width: " + storage.getWidth());
-	            System.out.print("  Length: " + storage.getLength());
+			List list = session.createQuery("FROM Shelf WHERE storageID = :storageID").setParameter("storageID", storageID).list();
+			for (Iterator iterator = list.iterator(); iterator.hasNext();){
+	            Shelf shelf = (Shelf) iterator.next();
+	            shelf.setCellCoordinates(new Point(shelf.getCoordinateX(), shelf.getCoordinateY()));    
 	         }
+			shelves = (ArrayList<Shelf>) list;
+			
 	         tx.commit();
 	      } catch (HibernateException e) {
 	         if (tx!=null) tx.rollback();
 	         e.printStackTrace(); 
 	      } finally {
 	         session.close(); 
-	      }
+	      }	return shelves;
 	}
 	/**
 	 * Method for listing all items in database
