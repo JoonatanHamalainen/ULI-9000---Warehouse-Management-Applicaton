@@ -15,7 +15,7 @@ public class Item {
 	
 	private String name, itemNumber;
 
-	private int itemID, weight, amount, highestAmount, shelfID, storageID;
+	private int itemID, weight, amount, highestAmount = 0, shelfID, storageID;
 	
 	/**
 	 * @return returns itemID of Item-object
