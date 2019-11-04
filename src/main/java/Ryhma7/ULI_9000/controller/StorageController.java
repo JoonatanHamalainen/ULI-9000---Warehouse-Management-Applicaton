@@ -116,8 +116,8 @@ public class StorageController implements ControllerInterfaceView {
 	 */
 	public void setStorage(Storage storage) {
 		this.storage = storage;
-		if(this.storage.getItems().size() != 0) {	
-			this.storageItemList = FXCollections.observableArrayList(this.storage.getItems());
+		if(database.getItemsInStorage(this.storage).size() != 0) {	
+			this.storageItemList = FXCollections.observableArrayList(database.getItemsInStorage(this.storage));
 			this.itemsInStorageBox.setCellFactory(new Callback<ListView<Item>, ListCell<Item>>(){
 				
 				public ListCell<Item> call(ListView<Item> list) {
@@ -129,8 +129,8 @@ public class StorageController implements ControllerInterfaceView {
 			this.itemsInStorageBox.setItems(this.storageItemList);
 			this.itemsInStorageBox.setButtonCell(new ItemCellList());
 		}
-		if(this.storage.getShelves().size() != 0) {
-			this.storageShelfList = FXCollections.observableArrayList(this.storage.getShelves());
+		if(database.getShelvesInStorage(this.storage).size() != 0) {
+			this.storageShelfList = FXCollections.observableArrayList(database.getShelvesInStorage(this.storage));
 			System.out.println(this.shelvesInStorageBox);
 			this.shelvesInStorageBox.setCellFactory(new Callback<ListView<Shelf>, ListCell<Shelf>>(){
 				
@@ -182,6 +182,7 @@ public class StorageController implements ControllerInterfaceView {
 		System.out.println("Shelf removed");
 		if(this.shelvesInStorageBox.getItems() != null) {
 			Shelf tempShelf = (Shelf) this.shelvesInStorageBox.getValue();
+			database.deleteShelf(tempShelf);
 			int column = (int) tempShelf.getCellCoordinates().getX();
 			int row = (int) tempShelf.getCellCoordinates().getY();
 			for (Node node : this.storageGrid.getChildren()) {
@@ -203,6 +204,7 @@ public class StorageController implements ControllerInterfaceView {
 		if(this.itemsInStorageBox.getValue() != null && this.shelvesInStorageBox.getValue() != null) {
 			Item tempItem = (Item) this.itemsInStorageBox.getValue();
 			Shelf tempShelf = (Shelf) this.shelvesInStorageBox.getValue();
+			database.addItemToShelf(tempItem, tempShelf);
 			tempShelf.addItem(tempItem);
 			System.out.println(tempShelf.getItem().getName());
 		}else {
@@ -218,6 +220,7 @@ public class StorageController implements ControllerInterfaceView {
 		if(this.shelvesInStorageBox.getValue() != null && this.shelvesInStorageBox.getValue().getItem() != null) {
 			Shelf tempShelf = this.shelvesInStorageBox.getValue();
 			Item tempItem = this.shelvesInStorageBox.getValue().getItem();
+			database.deleteItemFromShelf(tempItem);
 			tempShelf.removeItem();
 			tempShelf.getItem();
 			System.out.println(tempShelf.getItem());
@@ -231,9 +234,11 @@ public class StorageController implements ControllerInterfaceView {
 	@FXML
 	public void handleNewItem() {
 		Item tempItem = new Item();
+		tempItem.setStorageID(this.storage.getStorageID());
 		boolean isOkClicked = mainApp.showNewItemDialog(tempItem);
 		if(isOkClicked) {
 			this.storage.addItemToStorage(tempItem);
+			database.addItem(tempItem);
 			System.out.println(this.storage.getItems().get(0).getName());
 			System.out.println("New Item Created!");
 		}
@@ -247,6 +252,7 @@ public class StorageController implements ControllerInterfaceView {
 		if(this.itemsInStorageBox.getValue() != null) {
 			Item tempItem = (Item) this.itemsInStorageBox.getValue();
 			this.storage.removeItemFromStorage(tempItem);
+			database.deleteItem(tempItem);
 		}else {
 			System.out.println("No item selected");
 		}
@@ -292,7 +298,7 @@ public class StorageController implements ControllerInterfaceView {
 		if(this.storage.getDimensions().get(0) != null && this.storage.getDimensions().get(1) != null) {
 			ArrayList<Point> shelves = new ArrayList<Point>();
 			//Haetaan varastossa olevien hyllyjen koordinaatit shelves-listaan
-			for (Shelf shelf: this.storage.getShelves()) {
+			for (Shelf shelf: database.getShelvesInStorage(this.storage)) {
 				shelves.add(shelf.getCellCoordinates());
 			}
 			int gridColumns = this.storage.getDimensions().get(0);
@@ -381,6 +387,7 @@ public class StorageController implements ControllerInterfaceView {
 	 */
 	private void saveChanges(Shelf shelf) {
 		shelf.setShelfID(Integer.parseInt(this.shelfID.getText()));
+		
 	}
 	
 	/**Calculates the maximum cell wall length to be used in storage grid

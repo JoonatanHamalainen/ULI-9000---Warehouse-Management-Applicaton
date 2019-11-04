@@ -1,6 +1,8 @@
 package Ryhma7.ULI_9000.model;
 
 
+import static org.junit.jupiter.api.Assertions.assertNotNull;
+
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Iterator;
@@ -32,6 +34,28 @@ public class DatabaseConnection {
 	         System.err.println("Failed to create sessionFactory object." + ex);
 	         throw new ExceptionInInitializerError(ex); 
 	      }
+	}
+	public Item getItem(int itemID) {
+		Session session = factory.openSession();
+	    Transaction tx = null;
+	    Item tempItem = null;
+	    
+	    try {
+	    	tx = session.beginTransaction();
+	    	String hql = ("FROM Item WHERE itemID = :itemID");
+	    	Query query = session.createQuery(hql);
+	    	query.setParameter("itemID", itemID);
+	    	List item = query.list();
+	        System.out.println(item);
+	        tempItem = (Item) item.get(0);
+	    } catch (HibernateException e) {
+		         if (tx!=null) tx.rollback();
+		         e.printStackTrace(); 
+		      } finally {
+		         session.close(); 
+		      }
+	    
+		return tempItem;
 	}
 	/**
 	 * Gets the specified shelf from database
@@ -121,27 +145,6 @@ public class DatabaseConnection {
 	/**
 	 * Creates a new storage and adds it to database
 	 * 
-	 * @param storage is used to add the storage to database
-	 */
-	public void addStorage(Storage storage) {
-	      Session session = factory.openSession();
-	      Transaction tx = null;
-	      Integer storageID = null;
-	      
-	      try {
-	         tx = session.beginTransaction();
-	         storageID = (Integer) session.save(storage); 
-	         tx.commit();
-	      } catch (HibernateException e) {
-	         if (tx!=null) tx.rollback();
-	         e.printStackTrace(); 
-	      } finally {
-	         session.close(); 
-	      }
-	   }
-	/**
-	 * Creates a new storage and adds it to database
-	 * 
 	 * @param shelf is used to add the shelf to database
 	 */
 	public void addShelf(Shelf shelf) {
@@ -162,7 +165,69 @@ public class DatabaseConnection {
 	         session.close(); 
 	      }
 	   }
-	
+	/**
+	 * Creates a new storage and adds it to database
+	 * 
+	 * @param storage is used to add the storage to database
+	 */
+	public void addStorage(Storage storage) {
+	      Session session = factory.openSession();
+	      Transaction tx = null;
+	      Integer storageID = null;
+	      
+	      try {
+	         tx = session.beginTransaction();
+	         storageID = (Integer) session.save(storage); 
+	         tx.commit();
+	      } catch (HibernateException e) {
+	         if (tx!=null) tx.rollback();
+	         e.printStackTrace(); 
+	      } finally {
+	         session.close(); 
+	      }
+	   }
+	public void addItemToShelf(Item item, Shelf shelf) {
+		Session session = factory.openSession();
+	      Transaction tx = null;
+	      int itemID = item.getItemID();
+	      int shelfID = shelf.getShelfID();
+	      
+	      try {
+	    	  tx = session.beginTransaction();
+		         String hql = "UPDATE Item set shelfID = :shelfID WHERE itemID = :itemID";
+		         Query query = session.createQuery(hql);
+		         query.setParameter("shelfID", shelfID);
+		         query.setParameter("itemID", itemID);
+		         int result = query.executeUpdate(); 
+		         System.out.println("Rows affected: " + result);
+		      } catch (HibernateException e) {
+		         if (tx!=null) tx.rollback();
+		         e.printStackTrace(); 
+		      } finally {
+		         session.close(); 
+		      }
+		   }
+	public void deleteItemFromShelf(Item item) {
+		Session session = factory.openSession();
+	      Transaction tx = null;
+	      int itemID = item.getItemID();
+	      int shelfID = 0;
+	      
+	      try {
+	    	  tx = session.beginTransaction();
+		         String hql = "UPDATE Item set shelfID = :shelfID WHERE itemID = :itemID";
+		         Query query = session.createQuery(hql);
+		         query.setParameter("shelfID", shelfID);
+		         query.setParameter("itemID", itemID);
+		         int result = query.executeUpdate(); 
+		         System.out.println("Rows affected: " + result);
+		      } catch (HibernateException e) {
+		         if (tx!=null) tx.rollback();
+		         e.printStackTrace(); 
+		      } finally {
+		         session.close(); 
+		      }
+		   }
 	/**
 	 * Method for updating item name with a new one
 	 * 
@@ -290,6 +355,27 @@ public class DatabaseConnection {
 	         session.close(); 
 	      }
 	   }
+	public int getAmount(int itemID) {
+		Session session = factory.openSession();
+	    Transaction tx = null;
+	    int amount = -1;
+	      
+	      try {
+	    	  tx = session.beginTransaction();
+	    	  String hql = ("FROM Item WHERE shelfID = :shelfID AND storageID = :storageID");
+	    	  Query query = session.createQuery(hql);
+	    	  query.setParameter("itemID", itemID);
+	    	  List result = query.list();
+	    	  amount = (Integer) result.get(0);
+	      } catch (HibernateException e) {
+	         if (tx!=null) tx.rollback();
+	         e.printStackTrace(); 
+	      } finally {
+	         session.close(); 
+	      }
+	      
+	      return amount;
+	}
 	/**
 	 * Method for updating item amount with a new one
 	 * 
@@ -410,6 +496,21 @@ public class DatabaseConnection {
 	         session.close(); 
 	      }
 	   }
+	public void deleteShelf(Shelf shelf){
+	      Session session = factory.openSession();
+	      Transaction tx = null;
+	      
+	      try {
+	         tx = session.beginTransaction();
+	         session.delete(shelf); 
+	         tx.commit();
+	      } catch (HibernateException e) {
+	         if (tx!=null) tx.rollback();
+	         e.printStackTrace(); 
+	      } finally {
+	         session.close(); 
+	      }
+	   }
 	/**
 	 * Method for deleting a storage
 	 * 
@@ -436,62 +537,51 @@ public class DatabaseConnection {
 	 * @param shelfID is used to identify the shelf, the items are wanted from.
 	 * @param storageID is used to identify the storage, the items are wanted from.
 	 */
-	public void getItemsInShelf(int shelfID, int storageID) {
+	public ArrayList<Item> getItemsInStorage(Storage storage) {
 		Session session = factory.openSession();
 	    Transaction tx = null;
+	    int storageID = storage.getStorageID();
+	    ArrayList<Item> items = null;
 	      
 	      try {
 	         tx = session.beginTransaction();
-	         String hql = ("FROM Item WHERE shelfID = :shelfID AND storageID = :storageID");
-	         Query query = session.createQuery(hql);
-	         query.setParameter("shelfID", shelfID);
-	         query.setParameter("storageID", storageID);
-	         List items = query.list();
-	         for (Iterator iterator = items.iterator(); iterator.hasNext();){
-	            Item item = (Item) iterator.next(); 
-	            System.out.print("Name: " + item.getName()); 
-	            System.out.print("  Amount: " + item.getAmount());
-	            System.out.print("  Weight: " + item.getWeight());
-	            System.out.print("  Salesprice: " + item.getSalesprice());
-	            System.out.println("  Unitprice: " + item.getUnitprice());
-	         }
+			items = (ArrayList<Item>) session.createQuery("FROM Item WHERE storageID = :storageID").setParameter("storageID", storageID).list(); 
 	         tx.commit();
 	      } catch (HibernateException e) {
 	         if (tx!=null) tx.rollback();
 	         e.printStackTrace(); 
 	      } finally {
 	         session.close(); 
-	      }
-	      }
+	      }	return items;
+	}
+	
 	/**
 	 * Method for getting all shelves within specified storage
 	 * 
 	 * @param storageID is used to identify the storage, the shelves are wanted from.
 	 */
-	public void getShelvesInStorage(int storageID) {
+	public ArrayList<Shelf> getShelvesInStorage(Storage storage) {
 		Session session = factory.openSession();
 	    Transaction tx = null;
+	    int storageID = storage.getStorageID();
+	    ArrayList<Shelf> shelves = null;
 	      
 	      try {
 	         tx = session.beginTransaction();
-	         String hql = ("FROM Shelf WHERE storageID = :storageID");
-	         Query query = session.createQuery(hql);
-	         query.setParameter("storageID", storageID);
-	         List items = query.list();
-	         for (Iterator iterator = items.iterator(); iterator.hasNext();){
-	            Storage storage = (Storage) iterator.next(); 
-	            System.out.print("Name: " + storage.getName()); 
-	            System.out.print("  Address: " + storage.getAddress());
-	            System.out.print("  Width: " + storage.getWidth());
-	            System.out.print("  Length: " + storage.getLength());
+			List list = session.createQuery("FROM Shelf WHERE storageID = :storageID").setParameter("storageID", storageID).list();
+			for (Iterator iterator = list.iterator(); iterator.hasNext();){
+	            Shelf shelf = (Shelf) iterator.next();
+	            shelf.setCellCoordinates(new Point(shelf.getCoordinateX(), shelf.getCoordinateY()));    
 	         }
+			shelves = (ArrayList<Shelf>) list;
+			
 	         tx.commit();
 	      } catch (HibernateException e) {
 	         if (tx!=null) tx.rollback();
 	         e.printStackTrace(); 
 	      } finally {
 	         session.close(); 
-	      }
+	      }	return shelves;
 	}
 	/**
 	 * Method for listing all items in database
@@ -638,5 +728,20 @@ public class DatabaseConnection {
 	      } finally {
 	         session.close(); 
 	      }
+	}
+	public void increaseAmount (int itemID, int addedAmount) {
+		int amount = getAmount(itemID);
+		amount += addedAmount;
+		updateAmount(itemID, amount);
+	}
+	public void decreaseAmount (int itemID, int takenAmount) {
+		int amount = getAmount(itemID);
+		if (amount - takenAmount < 0) {
+			System.out.println("Not enough units");
+		}
+		else {
+			amount -= takenAmount;
+			updateAmount(itemID, amount);
+		}
 	}
 	}
