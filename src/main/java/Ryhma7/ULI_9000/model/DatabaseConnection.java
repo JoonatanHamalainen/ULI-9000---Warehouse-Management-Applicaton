@@ -376,6 +376,28 @@ public class DatabaseConnection {
 	      
 	      return amount;
 	}
+	
+	public int getHighestAmount(int itemID) {
+		Session session = factory.openSession();
+	    Transaction tx = null;
+	    int highestAmount = -1;
+	      
+	      try {
+	    	  tx = session.beginTransaction();
+	    	  String hql = ("FROM Item WHERE itemID = :itemID");
+	    	  Query query = session.createQuery(hql);
+	    	  query.setParameter("itemID", itemID);
+	    	  List result = query.list();
+	    	  highestAmount = (Integer) result.get(9);
+	      } catch (HibernateException e) {
+	         if (tx!=null) tx.rollback();
+	         e.printStackTrace(); 
+	      } finally {
+	         session.close(); 
+	      }
+	      
+	      return highestAmount;
+	}
 	/**
 	 * Method for updating item amount with a new one
 	 * 
