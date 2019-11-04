@@ -32,7 +32,6 @@ public class App extends Application {
 	private BorderPane rootLayout;
 	private Storage storage;
 	private ArrayList<Storage> storages;
-	private ArrayList<Shelf> shelves;
 
 	public App() {
 	}
@@ -46,17 +45,7 @@ public class App extends Application {
 		this.primaryStage.setTitle("Uli-9000");
 
 		this.storage = new Storage();
-		this.shelves = new ArrayList<Shelf>();
 		this.storages = new ArrayList<Storage>();
-		
-		this.storages.add(new Storage(5,5));
-		this.storages.add(new Storage(10,10));
-		
-		this.storages.get(0).setName("Iso varasto");
-		this.storages.get(0).setAddress("Hienolan tie 6 B");
-		this.storages.get(1).setName("Pieni Varasto");
-		this.storages.get(1).setAddress("Pikkulan kuja 1");
-		
 		
 		initRootLayout();
 		
