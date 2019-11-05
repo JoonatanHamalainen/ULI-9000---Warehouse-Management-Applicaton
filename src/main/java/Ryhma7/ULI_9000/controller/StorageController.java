@@ -324,7 +324,7 @@ public class StorageController implements ControllerInterfaceView {
 					Point point = new Point(i,j);
 					//Tarkistetaan sijaitseeko kyseisessä solulla hylly. Jos sijaitsee, tehdään hylly merkintä
 					if(shelves.contains(point)) {
-						pane.getStyleClass().add("storage-grid-cell-shelf");
+						pane.getStyleClass().add(checkAmount(point));
 					}else {
 						pane.getStyleClass().add("storage-grid-cell");
 					}
@@ -404,6 +404,28 @@ public class StorageController implements ControllerInterfaceView {
 		maxCellWallLengthPx.add(maxGridHeightPixels / rows);
 		
 		return Collections.min(maxCellWallLengthPx);
+	}
+	
+	private String checkAmount(Point point) {
+		for (Shelf shelf: database.getShelvesInStorage(this.storage)) {
+			if(shelf.getCellCoordinates() == point) {
+				int highestAmount = shelf.getItem().getHighestAmount();
+				int amount = shelf.getItem().getAmount();
+				
+				if(amount/highestAmount > 0.75) {
+					return "storage-grid-cell-shelf";
+				} else if(amount/highestAmount > 0.5) {
+					return "storage-grid-cell-shelf-seventyfive";
+				} else if(amount/highestAmount > 0.25) {
+					return "storage-grid-cell-shelf-fifty";
+				} else if(amount/highestAmount > 0) {
+					return "storage-grid-cell-shelf-twentyfive";
+				} else {
+					return "storage-grid-cell-shelf-zero";
+				}
+			}
+		}
+		return null;
 	}
 }
 
