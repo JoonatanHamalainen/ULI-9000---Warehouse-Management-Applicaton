@@ -16,7 +16,31 @@
 	
 }
 .storage-grid-cell-shelf{
-	-fx-background-color:green;
+	-fx-background-color:rgba(0,128,0,1);
+	-fx-border-color: black;
+	-fx-border-width:0.1;
+	-fx-insets:0, 0 1 1 0;
+}
+.storage-grid-cell-shelf-seventyfive{
+	-fx-background-color:rgba(0,128,0,0.75);
+	-fx-border-color: black;
+	-fx-border-width:0.1;
+	-fx-insets:0, 0 1 1 0;
+}
+.storage-grid-cell-shelf-fifty{
+	-fx-background-color:rgba(0,128,0,0.5);
+	-fx-border-color: black;
+	-fx-border-width:0.1;
+	-fx-insets:0, 0 1 1 0;
+}
+.storage-grid-cell-shelf-twentyfive{
+	-fx-background-color:rgba(0,128,0,0.25);
+	-fx-border-color: black;
+	-fx-border-width:0.1;
+	-fx-insets:0, 0 1 1 0;
+}
+.storage-grid-cell-shelf-zero{
+	-fx-background-color:rgba(255,255,255,1);
 	-fx-border-color: black;
 	-fx-border-width:0.1;
 	-fx-insets:0, 0 1 1 0;
