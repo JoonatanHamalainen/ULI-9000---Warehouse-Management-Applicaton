@@ -32,6 +32,8 @@ public class App extends Application {
 	private BorderPane rootLayout;
 	private Storage storage;
 	private ArrayList<Storage> storages;
+	private ArrayList<Shelf> shelves;
+	private Storage currentStorage;
 
 	public App() {
 	}
@@ -55,21 +57,24 @@ public class App extends Application {
 	 * @param storage is the storage to be displayed
 	 */
 	public void showStorageLayout(Storage storage) {
-		try {
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(App.class.getResource("view/StorageLayout.fxml"));
-			
-			AnchorPane page = (AnchorPane) loader.load();
-			this.rootLayout.setCenter(page);
-			
-			StorageController controller = loader.getController();
-			
-			controller.setMainApp(this);
-			controller.setStorage(storage);
-			controller.setPane(page);
-			controller.loadStorageLayout();
-		} catch (IOException e) {
-			e.printStackTrace();
+		if(this.currentStorage == null || !storage.equals(this.currentStorage)) {		
+			try {
+				FXMLLoader loader = new FXMLLoader();
+				loader.setLocation(App.class.getResource("view/StorageLayout2.fxml"));
+				
+				AnchorPane page = (AnchorPane) loader.load();
+				this.rootLayout.setCenter(page);
+				primaryStage.sizeToScene();
+				StorageController controller = loader.getController();
+	
+				controller.setMainApp(this);
+				controller.setStorage(storage);
+				controller.setPane(page);
+				controller.loadStorageLayout();
+				currentStorage = storage;
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -203,6 +208,14 @@ public class App extends Application {
 	 */
 	public ArrayList<Storage> getStorages() {
 		return storages;
+	}
+	
+	public BorderPane getRootLayout() {
+		return this.rootLayout;
+	}
+	
+	public Stage getPrimaryStage() {
+		return this.primaryStage;
 	}
 	
 	/**Launches the program
