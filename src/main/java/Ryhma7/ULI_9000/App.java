@@ -221,15 +221,6 @@ public class App extends Application {
 	/**Launches the program
 	 * @param args
 	 */
-	
-	public BorderPane getRootLayout() {
-		return this.rootLayout;
-	}
-	
-	public Stage getPrimaryStage() {
-		return this.primaryStage;
-	}
-	
 	public static void main(String[]args) {
 		launch();
 	}

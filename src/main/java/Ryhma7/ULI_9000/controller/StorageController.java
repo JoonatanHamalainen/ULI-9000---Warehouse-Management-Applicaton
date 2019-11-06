@@ -179,27 +179,6 @@ public class StorageController implements ControllerInterfaceView {
 		System.out.println("Storage contains: " + this.storage.getShelves().size() + " shelves");
 	}
 	
-	private void updateCellColor(Point point) {
-			Node cell = getNode(point);
-			if(cell != null) {
-				cell.getStyleClass().clear();
-				cell.getStyleClass().add("storage-grid-cell-shelf");
-			}
-	}
-	/**Retrieves a node in specified coordinates from the storageGrid
-	 * 
-	 * @param point contains the coordinates of the node in storageGrid gridPane
-	 * @return a node from given coordinates if it exists
-	 */
-	private Node getNode(Point point) {
-		for(Node node : this.storageGrid.getChildren()) {
-			if(this.storageGrid.getColumnIndex(node) == point.getX() && this.storageGrid.getRowIndex(node) == point.getY()) {
-				return node;
-			}
-		}
-		return null;
-	}
-	
 	/**Handler function for the userinterface 
 	 * 
 	 */
@@ -314,6 +293,7 @@ public class StorageController implements ControllerInterfaceView {
 		System.out.println(this.selectedCells.size());
 		System.out.println(this.selectedCells);
 	}
+
 	private void updateCellColor(Point point) {
 		Node cell = getNode(point);
 		if(cell != null) {
