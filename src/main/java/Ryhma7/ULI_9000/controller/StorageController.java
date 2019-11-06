@@ -26,8 +26,11 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.ColumnConstraints;
 import javafx.scene.layout.GridPane;
+import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
+import javafx.scene.layout.VBox;
+import javafx.stage.Popup;
 import javafx.util.Callback;
 import net.bytebuddy.asm.Advice.This;
 /**Controller for StorageLayout
@@ -97,6 +100,7 @@ public class StorageController implements ControllerInterfaceView {
 	private Storage storage;
 	private Shelf selectedShelf;
 	private GridPane storageGrid;
+	//private Popup infoBox;
 	
 	/** Empty Constructor
 	 * 
@@ -164,6 +168,7 @@ public class StorageController implements ControllerInterfaceView {
 	@FXML
 	public void handleAddShelf() {
 		for(Point cellCoordinate : this.selectedCells) {
+			updateCellColor(cellCoordinate);
 			Shelf tempShelf = new Shelf(cellCoordinate);
 			tempShelf.setStorageID(this.storage.getStorageID());
 			database.addShelf(tempShelf);
@@ -172,6 +177,27 @@ public class StorageController implements ControllerInterfaceView {
 		}
 		this.selectedCells.clear();
 		System.out.println("Storage contains: " + this.storage.getShelves().size() + " shelves");
+	}
+	
+	private void updateCellColor(Point point) {
+			Node cell = getNode(point);
+			if(cell != null) {
+				cell.getStyleClass().clear();
+				cell.getStyleClass().add("storage-grid-cell-shelf");
+			}
+	}
+	/**Retrieves a node in specified coordinates from the storageGrid
+	 * 
+	 * @param point contains the coordinates of the node in storageGrid gridPane
+	 * @return a node from given coordinates if it exists
+	 */
+	private Node getNode(Point point) {
+		for(Node node : this.storageGrid.getChildren()) {
+			if(this.storageGrid.getColumnIndex(node) == point.getX() && this.storageGrid.getRowIndex(node) == point.getY()) {
+				return node;
+			}
+		}
+		return null;
 	}
 	
 	/**Handler function for the userinterface 
@@ -269,20 +295,6 @@ public class StorageController implements ControllerInterfaceView {
 		//TODO
 	}
 	
-	/**Manages add and remove feature for selectedCells list.
-	 *Used primarily when the user selects / deselects cells in the storage layout 
-	 * @param coordinateXY is the Point that has been clicked on
-	 */
-	public void cellSelected(Point coordinateXY) {
-		if(this.selectedCells.contains(coordinateXY)) {
-			this.selectedCells.remove(coordinateXY);
-		}else{
-			this.selectedCells.add(coordinateXY);
-		}
-		System.out.println(this.selectedCells.size());
-		System.out.println(this.selectedCells);
-	}
-	
 	/**Loads the Storage to be displayed in the Userinterface and loads all the
 	 * associated shelves and intems to e displayed aswell.
 	 * Sets on click functionality of grid cells
@@ -311,13 +323,14 @@ public class StorageController implements ControllerInterfaceView {
 				RowConstraints row = new RowConstraints(cellWallLength);
 				storageGrid.getRowConstraints().add(row);
 			}
+			
 			//add panes to the gridcells
 			for (int i = 0; i<gridColumns;i++) {
 				for(int j = 0; j<gridRows; j++) {					
 					final Pane pane = new Pane();
-					Point point = new Point(i,j);
+					final Point coordinate = new Point(i,j);
 					//Tarkistetaan sijaitseeko kyseisessä solulla hylly. Jos sijaitsee, tehdään hylly merkintä
-					if(shelves.contains(point)) {
+					if(shelves.contains(coordinate)) {
 						pane.getStyleClass().add("storage-grid-cell-shelf");
 					}else {
 						pane.getStyleClass().add("storage-grid-cell");
@@ -325,49 +338,15 @@ public class StorageController implements ControllerInterfaceView {
 					//add on click funtionality to each pane
 					pane.setOnMouseClicked(new EventHandler<MouseEvent>(){
 						public void handle(MouseEvent event) {
-							//if the clicked cell is a cell
-							if(pane.getStyleClass().contains("storage-grid-cell-shelf")) {
-								
-								System.out.println("works");
-										
-							//or if the cell is not a shelf and is not selected
-							}else if(pane.getStyleClass().contains("storage-grid-cell")) {
-								pane.getStyleClass().remove("storage-grid-cell");
-								pane.getStyleClass().add("storage-grid-cell-selected");
-								Point coordinateXY = new Point(storageGrid.getColumnIndex(pane), storageGrid.getRowIndex(pane));
-								cellSelected(coordinateXY);
-							//or if the cell is not a shelf but is selected
-							}else if(pane.getStyleClass().contains("storage-grid-cell-selected")) {
-								pane.getStyleClass().remove("storage-grid-cell-selected");
-								pane.getStyleClass().add("storage-grid-cell");
-								cellSelected(new Point(storageGrid.getColumnIndex(pane), storageGrid.getRowIndex(pane)));
-							}
+							paneClicked(storageGrid, pane, coordinate);
 						}						
-					});
-					
+					});				
 					storageGrid.add(pane, i, j);
 				}
 			}
 			BorderPane tempPane = (BorderPane) page.getChildren().get(0);
 			tempPane.setTop(storageGrid);
 		}
-	}
-
-	/**Checks if there is a shelf in the given set of coordinates
-	 * @param coordinateXY
-	 * @return true if a shelf exists, false if not
-	 */
-	private boolean isShelf(Point coordinateXY) {
-		if(this.storage.getShelves() != null) {
-			for(Shelf shelf : this.storage.getShelves()) {
-				if (shelf.getCellCoordinates() == coordinateXY) {
-					this.selectedShelf = shelf;
-					this.displaySelectedShelf(shelf);
-					return true;
-				}
-			}
-		}
-		return false;
 	}
 	
 	/**Updates the selected item on the selected shelf
@@ -389,8 +368,19 @@ public class StorageController implements ControllerInterfaceView {
 	 * @return double is the maximum wall length that fits the view
 	 */
 	private double calculateCellWallLength(int columns, int rows) {
-		double maxGridWidthPixels  = 790;
-		double maxGridHeightPixels = 370;
+		
+		VBox vBox = (VBox)mainApp.getRootLayout().getChildren().get(0);
+		HBox hBox = (HBox) page.getChildren().get(1);
+		
+		System.out.println(vBox.getWidth());
+		System.out.println(mainApp.getRootLayout().getWidth());
+		double maxGridWidthPixels  = (mainApp.getRootLayout().getWidth() - vBox.getWidth());
+		System.out.println("Width: "+maxGridWidthPixels);
+		
+		System.out.println(hBox.getHeight());
+		System.out.println(mainApp.getRootLayout().getHeight());
+		double maxGridHeightPixels = mainApp.getRootLayout().getHeight() - hBox.getHeight()-10;
+		System.out.println("Height: "+maxGridHeightPixels);
 		ArrayList<Double> maxCellWallLengthPx = new ArrayList<Double>();
 		
 		maxCellWallLengthPx.add(maxGridWidthPixels / columns);
@@ -398,5 +388,54 @@ public class StorageController implements ControllerInterfaceView {
 		
 		return Collections.min(maxCellWallLengthPx);
 	}
+	/**
+	 * 
+	 * @param storageGrid
+	 * @param pane clicked node
+	 * @param coordinates coordinates of the clicked node
+	 */
+	private void paneClicked(GridPane storageGrid, Pane pane, Point coordinates) {
+		if(pane.getStyleClass().contains("storage-grid-cell-shelf")) {
+			for(Shelf shelf:storage.getShelves()) {
+				if(shelf.getCellCoordinates().equals(coordinates)) {
+					System.out.println("test");
+					Popup infoBox = new Popup();
+					Label test = new Label("test");
+					infoBox.getContent().add(test);
+					test.setMinWidth(60);
+					test.setMinHeight(60);
+					infoBox.show(pane, pane.getLayoutX(), pane.getLayoutY());
+					System.out.println(infoBox.getOwnerWindow());
+				};
+			};
+					
+		//or if the cell is not a shelf and is not selected
+		}else if(pane.getStyleClass().contains("storage-grid-cell")) {
+			pane.getStyleClass().remove("storage-grid-cell");
+			pane.getStyleClass().add("storage-grid-cell-selected");
+			Point coordinateXY = new Point(storageGrid.getColumnIndex(pane), storageGrid.getRowIndex(pane));
+			cellSelected(coordinateXY);
+		//or if the cell is not a shelf but is selected
+		}else if(pane.getStyleClass().contains("storage-grid-cell-selected")) {
+			pane.getStyleClass().remove("storage-grid-cell-selected");
+			pane.getStyleClass().add("storage-grid-cell");
+			cellSelected(new Point(storageGrid.getColumnIndex(pane), storageGrid.getRowIndex(pane)));
+		}
+	}
+	
+	/**Manages add and remove feature for selectedCells list.
+	 *Used primarily when the user selects / deselects cells in the storage layout 
+	 * @param coordinateXY is the Point that has been clicked on
+	 */
+	private void cellSelected(Point coordinateXY) {
+		if(this.selectedCells.contains(coordinateXY)) {
+			this.selectedCells.remove(coordinateXY);
+		}else{
+			this.selectedCells.add(coordinateXY);
+		}
+		System.out.println(this.selectedCells.size());
+		System.out.println(this.selectedCells);
+	}
+
 }
 

@@ -33,6 +33,7 @@ public class App extends Application {
 	private Storage storage;
 	private ArrayList<Storage> storages;
 	private ArrayList<Shelf> shelves;
+	private Storage currentStorage;
 
 	public App() {
 	}
@@ -57,6 +58,7 @@ public class App extends Application {
 		this.storages.get(1).setName("Pieni Varasto");
 		this.storages.get(1).setAddress("Pikkulan kuja 1");
 		
+		this.currentStorage = null;
 		
 		initRootLayout();
 		
@@ -66,33 +68,36 @@ public class App extends Application {
 	 * @param storage is the storage to be displayed
 	 */
 	public void showStorageLayout(Storage storage) {
-		try {
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(App.class.getResource("view/StorageLayout.fxml"));
-			
-			AnchorPane page = (AnchorPane) loader.load();
-			this.rootLayout.setCenter(page);
-			
-			StorageController controller = loader.getController();
-			
-			controller.setMainApp(this);
-			controller.setStorage(storage);
-			controller.setPane(page);
-			controller.loadStorageLayout();
-		} catch (IOException e) {
-			e.printStackTrace();
+		if(this.currentStorage == null || !storage.equals(this.currentStorage)) {		
+			try {
+				FXMLLoader loader = new FXMLLoader();
+				loader.setLocation(App.class.getResource("view/StorageLayout2.fxml"));
+				
+				AnchorPane page = (AnchorPane) loader.load();
+				this.rootLayout.setCenter(page);
+				primaryStage.sizeToScene();
+				StorageController controller = loader.getController();
+	
+				controller.setMainApp(this);
+				controller.setStorage(storage);
+				controller.setPane(page);
+				controller.loadStorageLayout();
+				currentStorage = storage;
+			} catch (IOException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
 	/**Brings the StorageLayout to center of primaryStage
 	 * 
 	 */
-	public void showEditStorageLayout() {
+	/*public void showEditStorageLayout() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(App.class.getResource("view/StorageLayout.fxml"));
 			
-			AnchorPane page = (AnchorPane) loader.load();
+			BorderPane page = (BorderPane) loader.load();
 			
 			this.rootLayout.setCenter(page);
 			
@@ -104,7 +109,7 @@ public class App extends Application {
 		}catch(IOException e) {
 			System.out.println(e);
 		}
-	}
+	}*/
 	
 	/**Opens NewStorage Modal window
 	 * @param storage
@@ -219,6 +224,15 @@ public class App extends Application {
 	/**Launches the program
 	 * @param args
 	 */
+	
+	public BorderPane getRootLayout() {
+		return this.rootLayout;
+	}
+	
+	public Stage getPrimaryStage() {
+		return this.primaryStage;
+	}
+	
 	public static void main(String[]args) {
 		launch();
 	}
