@@ -371,20 +371,14 @@ public class StorageController implements ControllerInterfaceView {
 		
 		VBox vBox = (VBox)mainApp.getRootLayout().getChildren().get(0);
 		HBox hBox = (HBox) page.getChildren().get(1);
-		
-		System.out.println(vBox.getWidth());
-		System.out.println(mainApp.getRootLayout().getWidth());
-		double maxGridWidthPixels  = (mainApp.getRootLayout().getWidth() - vBox.getWidth());
-		System.out.println("Width: "+maxGridWidthPixels);
-		
-		System.out.println(hBox.getHeight());
-		System.out.println(mainApp.getRootLayout().getHeight());
-		double maxGridHeightPixels = mainApp.getRootLayout().getHeight() - hBox.getHeight()-10;
-		System.out.println("Height: "+maxGridHeightPixels);
+
+		double maxGridWidth  = (mainApp.getRootLayout().getWidth() - vBox.getWidth());
+		double maxGridHeight = mainApp.getRootLayout().getHeight() - hBox.getHeight()-10;
+
 		ArrayList<Double> maxCellWallLengthPx = new ArrayList<Double>();
 		
-		maxCellWallLengthPx.add(maxGridWidthPixels / columns);
-		maxCellWallLengthPx.add(maxGridHeightPixels / rows);
+		maxCellWallLengthPx.add(maxGridWidth / columns);
+		maxCellWallLengthPx.add(maxGridHeight / rows);
 		
 		return Collections.min(maxCellWallLengthPx);
 	}
@@ -401,9 +395,11 @@ public class StorageController implements ControllerInterfaceView {
 					System.out.println("test");
 					Popup infoBox = new Popup();
 					Label test = new Label("test");
+					test.getStyleClass().add("info-box");
 					infoBox.getContent().add(test);
 					test.setMinWidth(60);
 					test.setMinHeight(60);
+					
 					infoBox.show(pane, pane.getLayoutX(), pane.getLayoutY());
 					System.out.println(infoBox.getOwnerWindow());
 				};
