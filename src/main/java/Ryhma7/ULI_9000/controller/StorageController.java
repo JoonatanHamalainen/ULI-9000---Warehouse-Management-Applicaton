@@ -412,14 +412,16 @@ public class StorageController implements ControllerInterfaceView {
 				int highestAmount = shelf.getItem().getHighestAmount();
 				int amount = shelf.getItem().getAmount();
 				
-				if(amount/highestAmount > 0.75) {
-					return "storage-grid-cell-shelf";
-				} else if(amount/highestAmount > 0.5) {
-					return "storage-grid-cell-shelf-seventyfive";
-				} else if(amount/highestAmount > 0.25) {
-					return "storage-grid-cell-shelf-fifty";
-				} else if(amount/highestAmount > 0) {
-					return "storage-grid-cell-shelf-twentyfive";
+				if(amount != 0) {
+					if(amount/highestAmount > 0.75) {
+						return "storage-grid-cell-shelf";
+					} else if(amount/highestAmount > 0.5) {
+						return "storage-grid-cell-shelf-seventyfive";
+					} else if(amount/highestAmount > 0.25) {
+						return "storage-grid-cell-shelf-fifty";
+					} else if(amount/highestAmount > 0) {
+						return "storage-grid-cell-shelf-twentyfive";
+					}
 				} else {
 					return "storage-grid-cell-shelf-zero";
 				}
