@@ -47,18 +47,7 @@ public class App extends Application {
 		this.primaryStage.setTitle("Uli-9000");
 
 		this.storage = new Storage();
-		this.shelves = new ArrayList<Shelf>();
 		this.storages = new ArrayList<Storage>();
-		
-		this.storages.add(new Storage(5,5));
-		this.storages.add(new Storage(10,10));
-		
-		this.storages.get(0).setName("Iso varasto");
-		this.storages.get(0).setAddress("Hienolan tie 6 B");
-		this.storages.get(1).setName("Pieni Varasto");
-		this.storages.get(1).setAddress("Pikkulan kuja 1");
-		
-		this.currentStorage = null;
 		
 		initRootLayout();
 		
@@ -219,6 +208,14 @@ public class App extends Application {
 	 */
 	public ArrayList<Storage> getStorages() {
 		return storages;
+	}
+	
+	public BorderPane getRootLayout() {
+		return this.rootLayout;
+	}
+	
+	public Stage getPrimaryStage() {
+		return this.primaryStage;
 	}
 	
 	/**Launches the program

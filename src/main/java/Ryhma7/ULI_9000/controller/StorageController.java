@@ -120,8 +120,8 @@ public class StorageController implements ControllerInterfaceView {
 	 */
 	public void setStorage(Storage storage) {
 		this.storage = storage;
-		if(this.storage.getItems().size() != 0) {	
-			this.storageItemList = FXCollections.observableArrayList(this.storage.getItems());
+		if(database.getItemsInStorage(this.storage).size() != 0) {	
+			this.storageItemList = FXCollections.observableArrayList(database.getItemsInStorage(this.storage));
 			this.itemsInStorageBox.setCellFactory(new Callback<ListView<Item>, ListCell<Item>>(){
 				
 				public ListCell<Item> call(ListView<Item> list) {
@@ -133,8 +133,8 @@ public class StorageController implements ControllerInterfaceView {
 			this.itemsInStorageBox.setItems(this.storageItemList);
 			this.itemsInStorageBox.setButtonCell(new ItemCellList());
 		}
-		if(this.storage.getShelves().size() != 0) {
-			this.storageShelfList = FXCollections.observableArrayList(this.storage.getShelves());
+		if(database.getShelvesInStorage(this.storage).size() != 0) {
+			this.storageShelfList = FXCollections.observableArrayList(database.getShelvesInStorage(this.storage));
 			System.out.println(this.shelvesInStorageBox);
 			this.shelvesInStorageBox.setCellFactory(new Callback<ListView<Shelf>, ListCell<Shelf>>(){
 				
@@ -208,6 +208,7 @@ public class StorageController implements ControllerInterfaceView {
 		System.out.println("Shelf removed");
 		if(this.shelvesInStorageBox.getItems() != null) {
 			Shelf tempShelf = (Shelf) this.shelvesInStorageBox.getValue();
+			database.deleteShelf(tempShelf);
 			int column = (int) tempShelf.getCellCoordinates().getX();
 			int row = (int) tempShelf.getCellCoordinates().getY();
 			for (Node node : this.storageGrid.getChildren()) {
@@ -229,6 +230,7 @@ public class StorageController implements ControllerInterfaceView {
 		if(this.itemsInStorageBox.getValue() != null && this.shelvesInStorageBox.getValue() != null) {
 			Item tempItem = (Item) this.itemsInStorageBox.getValue();
 			Shelf tempShelf = (Shelf) this.shelvesInStorageBox.getValue();
+			database.addItemToShelf(tempItem, tempShelf);
 			tempShelf.addItem(tempItem);
 			System.out.println(tempShelf.getItem().getName());
 		}else {
@@ -244,6 +246,7 @@ public class StorageController implements ControllerInterfaceView {
 		if(this.shelvesInStorageBox.getValue() != null && this.shelvesInStorageBox.getValue().getItem() != null) {
 			Shelf tempShelf = this.shelvesInStorageBox.getValue();
 			Item tempItem = this.shelvesInStorageBox.getValue().getItem();
+			database.deleteItemFromShelf(tempItem);
 			tempShelf.removeItem();
 			tempShelf.getItem();
 			System.out.println(tempShelf.getItem());
@@ -257,9 +260,11 @@ public class StorageController implements ControllerInterfaceView {
 	@FXML
 	public void handleNewItem() {
 		Item tempItem = new Item();
+		tempItem.setStorageID(this.storage.getStorageID());
 		boolean isOkClicked = mainApp.showNewItemDialog(tempItem);
 		if(isOkClicked) {
 			this.storage.addItemToStorage(tempItem);
+			database.addItem(tempItem);
 			System.out.println(this.storage.getItems().get(0).getName());
 			System.out.println("New Item Created!");
 		}
@@ -273,6 +278,7 @@ public class StorageController implements ControllerInterfaceView {
 		if(this.itemsInStorageBox.getValue() != null) {
 			Item tempItem = (Item) this.itemsInStorageBox.getValue();
 			this.storage.removeItemFromStorage(tempItem);
+			database.deleteItem(tempItem);
 		}else {
 			System.out.println("No item selected");
 		}
@@ -295,6 +301,39 @@ public class StorageController implements ControllerInterfaceView {
 		//TODO
 	}
 	
+	/**Manages add and remove feature for selectedCells list.
+	 *Used primarily when the user selects / deselects cells in the storage layout 
+	 * @param coordinateXY is the Point that has been clicked on
+	 */
+	public void cellSelected(Point coordinateXY) {
+		if(this.selectedCells.contains(coordinateXY)) {
+			this.selectedCells.remove(coordinateXY);
+		}else{
+			this.selectedCells.add(coordinateXY);
+		}
+		System.out.println(this.selectedCells.size());
+		System.out.println(this.selectedCells);
+	}
+	private void updateCellColor(Point point) {
+		Node cell = getNode(point);
+		if(cell != null) {
+			cell.getStyleClass().clear();
+			cell.getStyleClass().add("storage-grid-cell-shelf");
+		}
+}
+	/**Retrieves a node in specified coordinates from the storageGrid
+	 * 
+	 * @param point contains the coordinates of the node in storageGrid gridPane
+	 * @return a node from given coordinates if it exists
+	 */
+	private Node getNode(Point point) {
+		for(Node node : this.storageGrid.getChildren()) {
+			if(this.storageGrid.getColumnIndex(node) == point.getX() && this.storageGrid.getRowIndex(node) == point.getY()) {
+				return node;
+			}
+		}
+		return null;
+	}
 	/**Loads the Storage to be displayed in the Userinterface and loads all the
 	 * associated shelves and intems to e displayed aswell.
 	 * Sets on click functionality of grid cells
@@ -360,6 +399,7 @@ public class StorageController implements ControllerInterfaceView {
 	 */
 	private void saveChanges(Shelf shelf) {
 		shelf.setShelfID(Integer.parseInt(this.shelfID.getText()));
+		
 	}
 	
 	/**Calculates the maximum cell wall length to be used in storage grid
@@ -382,6 +422,7 @@ public class StorageController implements ControllerInterfaceView {
 		
 		return Collections.min(maxCellWallLengthPx);
 	}
+	
 	/**
 	 * 
 	 * @param storageGrid
@@ -419,19 +460,28 @@ public class StorageController implements ControllerInterfaceView {
 		}
 	}
 	
-	/**Manages add and remove feature for selectedCells list.
-	 *Used primarily when the user selects / deselects cells in the storage layout 
-	 * @param coordinateXY is the Point that has been clicked on
-	 */
-	private void cellSelected(Point coordinateXY) {
-		if(this.selectedCells.contains(coordinateXY)) {
-			this.selectedCells.remove(coordinateXY);
-		}else{
-			this.selectedCells.add(coordinateXY);
+	private String checkAmount(Point point) {
+		for (Shelf shelf: database.getShelvesInStorage(this.storage)) {
+			if(shelf.getCellCoordinates() == point) {
+				int highestAmount = shelf.getItem().getHighestAmount();
+				int amount = shelf.getItem().getAmount();
+				
+				if(amount != 0) {
+					if(amount/highestAmount > 0.75) {
+						return "storage-grid-cell-shelf";
+					} else if(amount/highestAmount > 0.5) {
+						return "storage-grid-cell-shelf-seventyfive";
+					} else if(amount/highestAmount > 0.25) {
+						return "storage-grid-cell-shelf-fifty";
+					} else if(amount/highestAmount > 0) {
+						return "storage-grid-cell-shelf-twentyfive";
+					}
+				} else {
+					return "storage-grid-cell-shelf-zero";
+				}
+			}
 		}
-		System.out.println(this.selectedCells.size());
-		System.out.println(this.selectedCells);
+		return null;
 	}
-
 }
 

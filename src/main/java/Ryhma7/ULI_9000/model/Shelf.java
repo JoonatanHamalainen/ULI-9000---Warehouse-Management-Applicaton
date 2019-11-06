@@ -4,6 +4,11 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * 
+ * Class for model Shelf
+ *
+ */
 public class Shelf {
 
 	private int shelfID, capacity, coordinateX, coordinateY, storageID;
