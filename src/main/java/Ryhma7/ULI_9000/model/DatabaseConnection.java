@@ -355,14 +355,15 @@ public class DatabaseConnection {
 	         session.close(); 
 	      }
 	   }
-	public int getAmount(int itemID) {
+	public int getAmount(Item item) {
 		Session session = factory.openSession();
 	    Transaction tx = null;
+	    int itemID = item.getItemID();
 	    int amount = -1;
 	      
 	      try {
 	    	  tx = session.beginTransaction();
-	    	  String hql = ("FROM Item WHERE shelfID = :shelfID AND storageID = :storageID");
+	    	  String hql = ("FROM Item WHERE itemID = :itemID");
 	    	  Query query = session.createQuery(hql);
 	    	  query.setParameter("itemID", itemID);
 	    	  List result = query.list();
@@ -406,9 +407,10 @@ public class DatabaseConnection {
 	 * @param itemID is used to identify what item needs to be modified
 	 * @param amount is used to identify the attribute that needs to be modified
 	 */
-	public void updateAmount(int itemID, int amount){
+	public void updateAmount(Item item, int amount){
 	      Session session = factory.openSession();
 	      Transaction tx = null;
+	      int itemID = item.getItemID();
 	      
 	      try {
 	         tx = session.beginTransaction();
@@ -561,6 +563,7 @@ public class DatabaseConnection {
 	 * @param shelfID is used to identify the shelf, the items are wanted from.
 	 * @param storageID is used to identify the storage, the items are wanted from.
 	 */
+	@SuppressWarnings("unchecked")
 	public ArrayList<Item> getItemsInStorage(Storage storage) {
 		Session session = factory.openSession();
 	    Transaction tx = null;
@@ -584,6 +587,7 @@ public class DatabaseConnection {
 	 * 
 	 * @param storageID is used to identify the storage, the shelves are wanted from.
 	 */
+	@SuppressWarnings("unchecked")
 	public ArrayList<Shelf> getShelvesInStorage(Storage storage) {
 		Session session = factory.openSession();
 	    Transaction tx = null;
@@ -753,19 +757,19 @@ public class DatabaseConnection {
 	         session.close(); 
 	      }
 	}
-	public void increaseAmount (int itemID, int addedAmount) {
-		int amount = getAmount(itemID);
+	public void increaseAmount (Item item, int addedAmount) {
+		int amount = getAmount(item);
 		amount += addedAmount;
-		updateAmount(itemID, amount);
+		updateAmount(item, amount);
 	}
-	public void decreaseAmount (int itemID, int takenAmount) {
-		int amount = getAmount(itemID);
+	public void decreaseAmount (Item item, int takenAmount) {
+		int amount = getAmount(item);
 		if (amount - takenAmount < 0) {
 			System.out.println("Not enough units");
 		}
 		else {
 			amount -= takenAmount;
-			updateAmount(itemID, amount);
+			updateAmount(item, amount);
 		}
 	}
 	}
