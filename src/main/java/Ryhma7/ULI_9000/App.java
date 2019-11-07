@@ -81,12 +81,12 @@ public class App extends Application {
 	/**Brings the StorageLayout to center of primaryStage
 	 * 
 	 */
-	public void showEditStorageLayout() {
+	/*public void showEditStorageLayout() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(App.class.getResource("view/StorageLayout.fxml"));
 			
-			AnchorPane page = (AnchorPane) loader.load();
+			BorderPane page = (BorderPane) loader.load();
 			
 			this.rootLayout.setCenter(page);
 			
@@ -98,7 +98,7 @@ public class App extends Application {
 		}catch(IOException e) {
 			System.out.println(e);
 		}
-	}
+	}*/
 	
 	/**Opens NewStorage Modal window
 	 * @param storage
