@@ -15,7 +15,7 @@ public class Item {
 	
 	private String name, itemNumber;
 
-	private int itemID, weight, amount, shelfID, storageID;
+	private int itemID, weight, amount, highestAmount = 0, shelfID, storageID;
 	
 	/**
 	 * @return returns itemID of Item-object
@@ -81,6 +81,7 @@ public class Item {
 	 * @param unitprice sets unitprice of Item-object
 	 * @param shelfID sets shelfID of Item-object
 	 * @param storageID sets storageID of Item-object
+	 * @param highestAmount sets the highestAmount of Item-object
 	 */
 	public Item(String name, int weight, int amount, double salesprice, double unitprice, int shelfID, int storageID) {
 		super();
@@ -91,6 +92,14 @@ public class Item {
 		this.unitprice = unitprice;
 		this.shelfID = shelfID;
 		this.storageID = storageID;
+		this.highestAmount = amount;
+	}
+
+	/**
+	 * @return returns highestAmount of Item-object
+	 */
+	public int getHighestAmount() {
+		return highestAmount;
 	}
 
 	/**
@@ -119,6 +128,9 @@ public class Item {
 	 */
 	public void setAmount(int amount) {
 		this.amount = amount;
+		if(amount > highestAmount) {
+			highestAmount = amount;
+		}
 	}
 
 	/**
@@ -184,6 +196,9 @@ public class Item {
 	 */
 	public void increaseAmount(int itemID, int amount) {
 		this.amount += amount;
+		if(this.amount > highestAmount) {
+			highestAmount = this.amount;
+		}
 	}
 	/**
 	 * Method for decreasing the amount variable
