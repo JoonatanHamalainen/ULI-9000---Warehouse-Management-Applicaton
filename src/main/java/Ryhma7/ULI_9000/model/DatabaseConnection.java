@@ -380,6 +380,7 @@ public class DatabaseConnection {
 	public int getHighestAmount(int itemID) {
 		Session session = factory.openSession();
 	    Transaction tx = null;
+	    Item item = null;
 	    int highestAmount = -1;
 	      
 	      try {
@@ -388,7 +389,8 @@ public class DatabaseConnection {
 	    	  Query query = session.createQuery(hql);
 	    	  query.setParameter("itemID", itemID);
 	    	  List result = query.list();
-	    	  highestAmount = (Integer) result.get(9);
+	    	  item = (Item) result.get(0);
+	    	  highestAmount = item.getHighestAmount();
 	      } catch (HibernateException e) {
 	         if (tx!=null) tx.rollback();
 	         e.printStackTrace(); 
