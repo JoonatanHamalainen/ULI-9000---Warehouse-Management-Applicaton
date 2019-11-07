@@ -100,6 +100,7 @@ public class StorageController implements ControllerInterfaceView {
 	private Storage storage;
 	private Shelf selectedShelf;
 	private GridPane storageGrid;
+	//private Popup infoBox;
 	
 	/** Empty Constructor
 	 * 
@@ -292,6 +293,7 @@ public class StorageController implements ControllerInterfaceView {
 		System.out.println(this.selectedCells.size());
 		System.out.println(this.selectedCells);
 	}
+
 	private void updateCellColor(Point point) {
 		Node cell = getNode(point);
 		if(cell != null) {
@@ -321,7 +323,7 @@ public class StorageController implements ControllerInterfaceView {
 		if(this.storage.getDimensions().get(0) != null && this.storage.getDimensions().get(1) != null) {
 			ArrayList<Point> shelves = new ArrayList<Point>();
 			//Haetaan varastossa olevien hyllyjen koordinaatit shelves-listaan
-			for (Shelf shelf: this.storage.getShelves()) {
+			for (Shelf shelf: database.getShelvesInStorage(this.storage)) {
 				shelves.add(shelf.getCellCoordinates());
 			}
 			int gridColumns = this.storage.getDimensions().get(0);
@@ -364,23 +366,6 @@ public class StorageController implements ControllerInterfaceView {
 			BorderPane tempPane = (BorderPane) page.getChildren().get(0);
 			tempPane.setTop(storageGrid);
 		}
-	}
-
-	/**Checks if there is a shelf in the given set of coordinates
-	 * @param coordinateXY
-	 * @return true if a shelf exists, false if not
-	 */
-	private boolean isShelf(Point coordinateXY) {
-		if(this.storage.getShelves() != null) {
-			for(Shelf shelf : this.storage.getShelves()) {
-				if (shelf.getCellCoordinates() == coordinateXY) {
-					this.selectedShelf = shelf;
-					this.displaySelectedShelf(shelf);
-					return true;
-				}
-			}
-		}
-		return false;
 	}
 	
 	/**Updates the selected item on the selected shelf
