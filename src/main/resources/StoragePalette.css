@@ -21,6 +21,17 @@
 	-fx-border-width:0.1;
 	-fx-insets:0, 0 1 1 0;
 }
+
+.info-box {
+	-fx-background-color: white;
+	-fx-background-radius:10;
+	-fx-border-color: black;
+	-fx-border-width:0.1;
+	-fx-border-radius:10;
+	-fx-insets:0, 0 1 1 0;
+	
+}
+
 .storage-grid-cell-shelf-seventyfive{
 	-fx-background-color:rgba(0,128,0,0.75);
 	-fx-border-color: black;
@@ -47,4 +58,13 @@
 }
 .storage-grid-cell:hover, .storage-grid-cell-selected:hover{
 	-fx-opacity:0.5;
+}
+.info-box {
+	-fx-background-color: white;
+	-fx-background-radius:10;
+	-fx-border-color: black;
+	-fx-border-width:0.1;
+	-fx-border-radius:10;
+	-fx-insets:0, 0 1 1 0;
+	
 }
