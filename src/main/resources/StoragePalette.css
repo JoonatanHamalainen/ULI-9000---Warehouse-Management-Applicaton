@@ -1,7 +1,7 @@
 
 .storage-grid {
 	-fx-background-color:transparent;
-	-fx-padding:10;
+	-fx-padding:0;
 }
 
 .storage-grid-cell-selected{
