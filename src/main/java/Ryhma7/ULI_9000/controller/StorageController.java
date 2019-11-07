@@ -323,7 +323,7 @@ public class StorageController implements ControllerInterfaceView {
 		if(this.storage.getDimensions().get(0) != null && this.storage.getDimensions().get(1) != null) {
 			ArrayList<Point> shelves = new ArrayList<Point>();
 			//Haetaan varastossa olevien hyllyjen koordinaatit shelves-listaan
-			for (Shelf shelf: this.storage.getShelves()) {
+			for (Shelf shelf: database.getShelvesInStorage(this.storage)) {
 				shelves.add(shelf.getCellCoordinates());
 			}
 			int gridColumns = this.storage.getDimensions().get(0);
