@@ -192,9 +192,12 @@ public class DatabaseConnection {
 	    ArrayList<Item> items = null;
 	      
 	      try {
-	         tx = session.beginTransaction();
-			items = (ArrayList<Item>) session.createQuery("FROM Item WHERE shelfID = :shelfID").setParameter("shelfID", shelfID).list(); 
-	         tx.commit();
+	    	tx = session.beginTransaction();
+			items = (ArrayList<Item>) session.createQuery("FROM Item WHERE shelfID = :shelfID").setParameter("shelfID", shelfID).list();
+			if (items.isEmpty()) {
+				return null;
+			}
+	        tx.commit();
 	      } catch (HibernateException e) {
 	         if (tx!=null) tx.rollback();
 	         e.printStackTrace(); 
@@ -284,10 +287,7 @@ public class DatabaseConnection {
 	      Session session = factory.openSession();
 	      Transaction tx = null;
 	      Integer shelfID = null;
-	      do {
-	    	  
-	      }
-	      while ();
+	      
 	      shelf.setCoordinateX((int) shelf.getCellCoordinates().getX());
 	      shelf.setCoordinateY((int) shelf.getCellCoordinates().getY());
 	      
