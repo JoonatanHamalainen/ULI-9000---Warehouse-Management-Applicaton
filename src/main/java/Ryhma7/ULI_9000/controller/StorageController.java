@@ -298,7 +298,7 @@ public class StorageController implements ControllerInterfaceView {
 		Node cell = getNode(point);
 		if(cell != null) {
 			cell.getStyleClass().clear();
-			cell.getStyleClass().add("storage-grid-cell-shelf");
+			cell.getStyleClass().add(checkAmount(point));
 		}
 }
 	/**Retrieves a node in specified coordinates from the storageGrid
@@ -350,7 +350,7 @@ public class StorageController implements ControllerInterfaceView {
 					final Point coordinate = new Point(i,j);
 					//Tarkistetaan sijaitseeko kyseisessä solulla hylly. Jos sijaitsee, tehdään hylly merkintä
 					if(shelves.contains(coordinate)) {
-						pane.getStyleClass().add("storage-grid-cell-shelf");
+						pane.getStyleClass().add(checkAmount(coordinate));
 					}else {
 						pane.getStyleClass().add("storage-grid-cell");
 					}
@@ -410,7 +410,7 @@ public class StorageController implements ControllerInterfaceView {
 	 * @param coordinates coordinates of the clicked node
 	 */
 	private void paneClicked(GridPane storageGrid, Pane pane, Point coordinates) {
-		if(pane.getStyleClass().contains("storage-grid-cell-shelf")) {
+		if(pane.getStyleClass().contains("storage-grid-cell-shelf") || pane.getStyleClass().contains("storage-grid-cell-shelf-seventyfive") || pane.getStyleClass().contains("storage-grid-cell-shelf-fifty") || pane.getStyleClass().contains("storage-grid-cell-shelf-twentyfive") || pane.getStyleClass().contains("storage-grid-cell-shelf-zero")) {
 			for(Shelf shelf:storage.getShelves()) {
 				if(shelf.getCellCoordinates().equals(coordinates)) {
 					System.out.println("test");
