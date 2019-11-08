@@ -298,7 +298,7 @@ public class StorageController implements ControllerInterfaceView {
 		Node cell = getNode(point);
 		if(cell != null) {
 			cell.getStyleClass().clear();
-			cell.getStyleClass().add("storage-grid-cell-shelf-zero");
+			cell.getStyleClass().add("storage-grid-cell-shelf-fifty");
 		}
 }
 	/**Retrieves a node in specified coordinates from the storageGrid
@@ -441,30 +441,41 @@ public class StorageController implements ControllerInterfaceView {
 	}
 	
 	private String checkAmount(Point point) {
+		int pX = point.x;
+		int pY = point.y;
 		for (Shelf shelf: database.getShelvesInStorage(this.storage)) {
-			if(shelf.getCellCoordinates() == point) {
-				if (shelf.getItem() != null) {
-					int highestAmount = shelf.getItem().getHighestAmount();
-					int amount = shelf.getItem().getAmount();
+			int x = shelf.getCoordinateX();
+			int y = shelf.getCoordinateY();
+			if(x == pX && y == pY) {
+				if (database.getItemsInShelf(shelf) != null) {
+					System.out.println("Kakkaa");
+					double highestAmount = (double) database.getHighestAmount(database.getItemsInShelf(shelf).get(0).getItemID());
+					double amount = (double) database.getItemsInShelf(shelf).get(0).getAmount();
+					System.out.println(highestAmount);
+					System.out.println(amount);
 					
 					if(amount != 0) {
-						if(amount/highestAmount > 0.75) {
+						System.out.println(amount/highestAmount);
+						if((amount/highestAmount) > 0.75) {
 							return "storage-grid-cell-shelf";
-						} else if(amount/highestAmount > 0.5) {
+						} else if((amount/highestAmount) > 0.5) {
 							return "storage-grid-cell-shelf-seventyfive";
-						} else if(amount/highestAmount > 0.25) {
+						} else if((amount/highestAmount) > 0.25) {
+							System.out.println("Mauno");
 							return "storage-grid-cell-shelf-fifty";
-						} else if(amount/highestAmount > 0) {
+						} else if((amount/highestAmount) > 0) {
 							return "storage-grid-cell-shelf-twentyfive";
 						}
 					} else {
+						System.out.println("lol");
 						return "storage-grid-cell-shelf-zero";
 					}
-				} 
+				}
+				System.out.println("kill ur self");
 				return "storage-grid-cell-shelf-zero";
 			}
 		}
-		return "storage-grid-cell-shelf-zero";
+		return null;
 	}
 }
 
