@@ -21,7 +21,7 @@
       <property name = "weight" column = "Weight" type = "int"/>
       <property name = "shelfID" column = "ShelfID" type = "int"/>
       <property name = "storageID" column = "StorageID" type = "int"/>
-      <!-- <property name = "itemNumber" column = "ItemNumber" type = "string"/> -->
+      <property name = "highestAmount" column = "HighestAmount" type = "int"/>
       
    
     
