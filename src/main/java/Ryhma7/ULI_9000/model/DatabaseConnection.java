@@ -284,6 +284,10 @@ public class DatabaseConnection {
 	      Session session = factory.openSession();
 	      Transaction tx = null;
 	      Integer shelfID = null;
+	      do {
+	    	  
+	      }
+	      while ();
 	      shelf.setCoordinateX((int) shelf.getCellCoordinates().getX());
 	      shelf.setCoordinateY((int) shelf.getCellCoordinates().getY());
 	      
@@ -493,6 +497,21 @@ public class DatabaseConnection {
 	         session.close(); 
 	      }
 	   }
+	public void increaseAmount (Item item, int addedAmount) {
+		int amount = getAmount(item);
+		amount += addedAmount;
+		updateAmount(item, amount);
+	}
+	public void decreaseAmount (Item item, int takenAmount) {
+		int amount = getAmount(item);
+		if (amount - takenAmount < 0) {
+			System.out.println("Not enough units");
+		}
+		else {
+			amount -= takenAmount;
+			updateAmount(item, amount);
+		}
+	}
 	/**
 	 * Method for updating storage address with a new one
 	 * 
@@ -750,20 +769,5 @@ public class DatabaseConnection {
 	      } finally {
 	         session.close(); 
 	      }
-	}
-	public void increaseAmount (Item item, int addedAmount) {
-		int amount = getAmount(item);
-		amount += addedAmount;
-		updateAmount(item, amount);
-	}
-	public void decreaseAmount (Item item, int takenAmount) {
-		int amount = getAmount(item);
-		if (amount - takenAmount < 0) {
-			System.out.println("Not enough units");
-		}
-		else {
-			amount -= takenAmount;
-			updateAmount(item, amount);
-		}
 	}
 	}
