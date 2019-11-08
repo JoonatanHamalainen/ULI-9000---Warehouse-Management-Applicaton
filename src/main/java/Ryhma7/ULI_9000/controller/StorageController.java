@@ -298,7 +298,7 @@ public class StorageController implements ControllerInterfaceView {
 		Node cell = getNode(point);
 		if(cell != null) {
 			cell.getStyleClass().clear();
-			cell.getStyleClass().add(checkAmount(point));
+			cell.getStyleClass().add("storage-grid-cell-shelf-zero");
 		}
 }
 	/**Retrieves a node in specified coordinates from the storageGrid
@@ -443,25 +443,28 @@ public class StorageController implements ControllerInterfaceView {
 	private String checkAmount(Point point) {
 		for (Shelf shelf: database.getShelvesInStorage(this.storage)) {
 			if(shelf.getCellCoordinates() == point) {
-				int highestAmount = shelf.getItem().getHighestAmount();
-				int amount = shelf.getItem().getAmount();
-				
-				if(amount != 0) {
-					if(amount/highestAmount > 0.75) {
-						return "storage-grid-cell-shelf";
-					} else if(amount/highestAmount > 0.5) {
-						return "storage-grid-cell-shelf-seventyfive";
-					} else if(amount/highestAmount > 0.25) {
-						return "storage-grid-cell-shelf-fifty";
-					} else if(amount/highestAmount > 0) {
-						return "storage-grid-cell-shelf-twentyfive";
+				if (shelf.getItem() != null) {
+					int highestAmount = shelf.getItem().getHighestAmount();
+					int amount = shelf.getItem().getAmount();
+					
+					if(amount != 0) {
+						if(amount/highestAmount > 0.75) {
+							return "storage-grid-cell-shelf";
+						} else if(amount/highestAmount > 0.5) {
+							return "storage-grid-cell-shelf-seventyfive";
+						} else if(amount/highestAmount > 0.25) {
+							return "storage-grid-cell-shelf-fifty";
+						} else if(amount/highestAmount > 0) {
+							return "storage-grid-cell-shelf-twentyfive";
+						}
+					} else {
+						return "storage-grid-cell-shelf-zero";
 					}
-				} else {
-					return "storage-grid-cell-shelf-zero";
-				}
+				} 
+				return "storage-grid-cell-shelf-zero";
 			}
 		}
-		return null;
+		return "storage-grid-cell-shelf-zero";
 	}
 }
 

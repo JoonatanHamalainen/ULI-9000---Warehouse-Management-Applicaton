@@ -16,7 +16,7 @@ public class Shelf {
 	
 
 	private ArrayList<Item> items;
-	private Item item;
+	private Item item = null;
 	private Point cellCoordinates;
 	/**Empty Constructor
 	 * 
