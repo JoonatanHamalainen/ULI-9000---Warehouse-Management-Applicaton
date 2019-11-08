@@ -298,7 +298,7 @@ public class StorageController implements ControllerInterfaceView {
 		Node cell = getNode(point);
 		if(cell != null) {
 			cell.getStyleClass().clear();
-			cell.getStyleClass().add("storage-grid-cell-shelf");
+			cell.getStyleClass().add("storage-grid-cell-shelf-zero");
 		}
 }
 	/**Retrieves a node in specified coordinates from the storageGrid
@@ -350,7 +350,7 @@ public class StorageController implements ControllerInterfaceView {
 					final Point coordinate = new Point(i,j);
 					//Tarkistetaan sijaitseeko kyseisessä solulla hylly. Jos sijaitsee, tehdään hylly merkintä
 					if(shelves.contains(coordinate)) {
-						pane.getStyleClass().add("storage-grid-cell-shelf");
+						pane.getStyleClass().add(checkAmount(coordinate));
 					}else {
 						pane.getStyleClass().add("storage-grid-cell");
 					}
@@ -410,7 +410,7 @@ public class StorageController implements ControllerInterfaceView {
 	 * @param coordinates coordinates of the clicked node
 	 */
 	private void paneClicked(GridPane storageGrid, Pane pane, Point coordinates) {
-		if(pane.getStyleClass().contains("storage-grid-cell-shelf")) {
+		if(pane.getStyleClass().contains("storage-grid-cell-shelf") || pane.getStyleClass().contains("storage-grid-cell-shelf-seventyfive") || pane.getStyleClass().contains("storage-grid-cell-shelf-fifty") || pane.getStyleClass().contains("storage-grid-cell-shelf-twentyfive") || pane.getStyleClass().contains("storage-grid-cell-shelf-zero")) {
 			for(Shelf shelf:storage.getShelves()) {
 				if(shelf.getCellCoordinates().equals(coordinates)) {
 					System.out.println("test");
@@ -443,25 +443,28 @@ public class StorageController implements ControllerInterfaceView {
 	private String checkAmount(Point point) {
 		for (Shelf shelf: database.getShelvesInStorage(this.storage)) {
 			if(shelf.getCellCoordinates() == point) {
-				int highestAmount = shelf.getItem().getHighestAmount();
-				int amount = shelf.getItem().getAmount();
-				
-				if(amount != 0) {
-					if(amount/highestAmount > 0.75) {
-						return "storage-grid-cell-shelf";
-					} else if(amount/highestAmount > 0.5) {
-						return "storage-grid-cell-shelf-seventyfive";
-					} else if(amount/highestAmount > 0.25) {
-						return "storage-grid-cell-shelf-fifty";
-					} else if(amount/highestAmount > 0) {
-						return "storage-grid-cell-shelf-twentyfive";
+				if (shelf.getItem() != null) {
+					int highestAmount = shelf.getItem().getHighestAmount();
+					int amount = shelf.getItem().getAmount();
+					
+					if(amount != 0) {
+						if(amount/highestAmount > 0.75) {
+							return "storage-grid-cell-shelf";
+						} else if(amount/highestAmount > 0.5) {
+							return "storage-grid-cell-shelf-seventyfive";
+						} else if(amount/highestAmount > 0.25) {
+							return "storage-grid-cell-shelf-fifty";
+						} else if(amount/highestAmount > 0) {
+							return "storage-grid-cell-shelf-twentyfive";
+						}
+					} else {
+						return "storage-grid-cell-shelf-zero";
 					}
-				} else {
-					return "storage-grid-cell-shelf-zero";
-				}
+				} 
+				return "storage-grid-cell-shelf-zero";
 			}
 		}
-		return null;
+		return "storage-grid-cell-shelf-zero";
 	}
 }
 
