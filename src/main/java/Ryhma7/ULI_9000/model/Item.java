@@ -216,4 +216,8 @@ public class Item {
 			return true;
 		}
 	}
+
+	public void setHighestAmount(int highestAmount) {
+		this.highestAmount = highestAmount;
+	}
 }
