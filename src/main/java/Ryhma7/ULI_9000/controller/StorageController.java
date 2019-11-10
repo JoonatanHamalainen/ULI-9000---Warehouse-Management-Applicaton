@@ -9,8 +9,9 @@ import Ryhma7.ULI_9000.model.Item;
 import Ryhma7.ULI_9000.model.Shelf;
 import Ryhma7.ULI_9000.model.Storage;
 import Ryhma7.ULI_9000.model.DatabaseConnection;
-
+import javafx.beans.Observable;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -122,6 +123,14 @@ public class StorageController implements ControllerInterfaceView {
 		this.storage = storage;
 		if(database.getItemsInStorage(this.storage).size() != 0) {	
 			this.storageItemList = FXCollections.observableArrayList(database.getItemsInStorage(this.storage));
+			this.storageItemList.addListener(new ListChangeListener<Item>() {
+
+				@Override
+				public void onChanged(Change<? extends Item> arg0) {
+					itemsInStorageBox.setItems(storageItemList);
+				}
+				
+			});
 			this.itemsInStorageBox.setCellFactory(new Callback<ListView<Item>, ListCell<Item>>(){
 				
 				public ListCell<Item> call(ListView<Item> list) {
@@ -134,7 +143,15 @@ public class StorageController implements ControllerInterfaceView {
 			this.itemsInStorageBox.setButtonCell(new ItemCellList());
 		}
 		if(database.getShelvesInStorage(this.storage).size() != 0) {
-			this.storageShelfList = FXCollections.observableArrayList(database.getShelvesInStorage(this.storage));
+			this.storageShelfList = FXCollections.observableList(database.getShelvesInStorage(this.storage));
+			this.storageShelfList.addListener(new ListChangeListener<Shelf>(){
+
+				@Override
+				public void onChanged(Change<? extends Shelf> arg0) {
+					shelvesInStorageBox.setItems(storageShelfList);					
+				}
+				
+			});
 			System.out.println(this.shelvesInStorageBox);
 			this.shelvesInStorageBox.setCellFactory(new Callback<ListView<Shelf>, ListCell<Shelf>>(){
 				
@@ -173,7 +190,7 @@ public class StorageController implements ControllerInterfaceView {
 			tempShelf.setStorageID(this.storage.getStorageID());
 			database.addShelf(tempShelf);
 			this.storage.getShelves().add(database.getShelf(tempShelf.getCellCoordinates(), tempShelf.getStorageID()));
-			
+			this.storageShelfList.add(tempShelf);
 		}
 		this.selectedCells.clear();
 		System.out.println("Storage contains: " + this.storage.getShelves().size() + " shelves");
@@ -226,9 +243,8 @@ public class StorageController implements ControllerInterfaceView {
 			Shelf tempShelf = this.shelvesInStorageBox.getValue();
 			Item tempItem = this.shelvesInStorageBox.getValue().getItem();
 			database.deleteItemFromShelf(tempItem);
-			tempShelf.removeItem();
-			tempShelf.getItem();
 			System.out.println(tempShelf.getItem());
+			tempShelf.removeItem();
 		}
 		System.out.println("Remove");
 	}
@@ -244,6 +260,7 @@ public class StorageController implements ControllerInterfaceView {
 		if(isOkClicked) {
 			this.storage.addItemToStorage(tempItem);
 			database.addItem(tempItem);
+			this.storageItemList.add(tempItem);
 			System.out.println(this.storage.getItems().get(0).getName());
 			System.out.println("New Item Created!");
 		}
@@ -258,6 +275,7 @@ public class StorageController implements ControllerInterfaceView {
 			Item tempItem = (Item) this.itemsInStorageBox.getValue();
 			this.storage.removeItemFromStorage(tempItem);
 			database.deleteItem(tempItem);
+			this.storageItemList.remove(tempItem);
 		}else {
 			System.out.println("No item selected");
 		}
