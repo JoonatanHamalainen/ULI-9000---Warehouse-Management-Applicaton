@@ -326,8 +326,10 @@ public class StorageController implements ControllerInterfaceView {
 			for (Shelf shelf: database.getShelvesInStorage(this.storage)) {
 				shelves.add(shelf.getCellCoordinates());
 			}
+			
 			int gridColumns = this.storage.getDimensions().get(0);
 			int gridRows = this.storage.getDimensions().get(1);
+			
 			double cellWallLength = calculateCellWallLength(gridColumns, gridRows);
 			//Create the gridpane, which represets the storage(number of columns represents width, and rows - length)
 			this.storageGrid = new GridPane();
