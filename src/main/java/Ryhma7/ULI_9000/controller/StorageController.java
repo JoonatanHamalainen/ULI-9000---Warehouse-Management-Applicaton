@@ -124,17 +124,28 @@ public class StorageController implements ControllerInterfaceView {
 		if(database.getItemsInStorage(this.storage).size() != 0) {	
 			this.storageItemList = FXCollections.observableArrayList(database.getItemsInStorage(this.storage));
 			this.storageItemList.addListener(new ListChangeListener<Item>() {
-
 				@Override
 				public void onChanged(Change<? extends Item> arg0) {
 					itemsInStorageBox.setItems(storageItemList);
 				}
-				
 			});
-			this.itemsInStorageBox.setCellFactory(new Callback<ListView<Item>, ListCell<Item>>(){
-				
+			this.itemsInStorageBox.setCellFactory(new Callback<ListView<Item>, ListCell<Item>>(){		
 				public ListCell<Item> call(ListView<Item> list) {
 					return new ItemCellList();
+				}
+			});
+			//Eventhandleri, joka ajetaan Comboboxin arvon muututtua
+			this.itemsInStorageBox.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent event) {
+					if(itemsInStorageBox.getChildrenUnmodifiable() !=null) {
+						if(getShelfByID(itemsInStorageBox.getValue().getShelfID()) != null){
+							shelvesInStorageBox.setValue(getShelfByID(itemsInStorageBox.getValue().getShelfID()));
+						}else {
+							shelvesInStorageBox.setValue(null);
+						}
+						
+					}
 				}
 				
 			});
@@ -145,31 +156,65 @@ public class StorageController implements ControllerInterfaceView {
 		if(database.getShelvesInStorage(this.storage).size() != 0) {
 			this.storageShelfList = FXCollections.observableList(database.getShelvesInStorage(this.storage));
 			this.storageShelfList.addListener(new ListChangeListener<Shelf>(){
-
 				@Override
 				public void onChanged(Change<? extends Shelf> arg0) {
 					shelvesInStorageBox.setItems(storageShelfList);					
-				}
-				
+				}				
 			});
 			System.out.println(this.shelvesInStorageBox);
-			this.shelvesInStorageBox.setCellFactory(new Callback<ListView<Shelf>, ListCell<Shelf>>(){
-				
+			this.shelvesInStorageBox.setCellFactory(new Callback<ListView<Shelf>, ListCell<Shelf>>(){	
 				public ListCell<Shelf> call(ListView<Shelf> list) {
 					return new ShelfCellList();
 				}
-				
 			});
+			/*this.shelvesInStorageBox.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent event) {
+					if(shelvesInStorageBox.getValue() != null && shelvesInStorageBox.getValue().getItem() != null) {
+						
+					}
+				}
+				
+			});*/
 			this.shelvesInStorageBox.setItems(this.storageShelfList);
 			this.shelvesInStorageBox.setButtonCell(new ShelfCellList());
 			this.shelvesInStorageBox.setOnAction(new EventHandler<ActionEvent>() {
 				public void handle(ActionEvent e) {
-					if(shelvesInStorageBox.getValue().getItem() != null && shelvesInStorageBox.getValue() != null) {
-						containedItem.setText(shelvesInStorageBox.getValue().getItem().getName());
+					System.out.println("Action Event!");
+					if(shelvesInStorageBox.getValue() != null ) {
+						System.out.println("Action Event!");
+						if(shelvesInStorageBox.getValue().getItem() != null) {
+							System.out.println("Action Event!");
+							Item tempItem = getItemByID(shelvesInStorageBox.getValue().getItem().getItemID());
+							containedItem.setText(tempItem.getName()); // shelvesInStorageBox.getValue().getItem().getName());
+							itemsInStorageBox.setValue(tempItem);
+						}
 					}
 				}
 			});
 		}
+	}
+	
+	private Item getItemByID(int itemID) {
+		if(itemsInStorageBox.getChildrenUnmodifiable() != null) {
+			for(Item item:itemsInStorageBox.getItems()) {
+				if(item.getItemID() == itemID) {
+					return item;
+				}
+			}
+		}
+		return null;
+	}
+	
+	private Shelf getShelfByID(int shelfID) {
+		if(shelvesInStorageBox.getChildrenUnmodifiable() != null) {
+			for(Shelf shelf:shelvesInStorageBox.getItems()) {
+				if(shelf.getShelfID() == shelfID) {
+					return shelf;
+				};
+			}
+		}
+		return null;
 	}
 	
 	/**sets the page for the controller
@@ -308,8 +353,8 @@ public class StorageController implements ControllerInterfaceView {
 		}else{
 			this.selectedCells.add(coordinateXY);
 		}
-		System.out.println(this.selectedCells.size());
-		System.out.println(this.selectedCells);
+		//System.out.println(this.selectedCells.size());
+		//System.out.println(this.selectedCells);
 	}
 
 	private void updateCellColor(Point point) {
