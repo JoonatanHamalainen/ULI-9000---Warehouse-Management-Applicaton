@@ -146,7 +146,10 @@ public class Item {
 	public void setShelfID(int shelfID) {
 		this.shelfID = shelfID;
 	}
-
+	
+	public void removeFromShelf() {
+		this.shelfID = 0;
+	}
 	/**
 	 * @return returns storageID of Item-object
 	 */
