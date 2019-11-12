@@ -134,6 +134,7 @@ public class RootLayoutController implements ControllerInterfaceView {
 							database.updateStorageWidth(storage.getStorageID(), storage.getWidth());
 							database.updateStorageLength(storage.getStorageID(), storage.getLength());
 							//päivitetään varastonäkymä vastaamaan esim. uusia varaston mittoja
+							
 							mainApp.showStorageLayout(storage);
 						}catch(NumberFormatException e) {
 						}

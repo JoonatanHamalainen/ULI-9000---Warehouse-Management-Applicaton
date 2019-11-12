@@ -56,49 +56,25 @@ public class App extends Application {
 	/**Brings the Storage Layout of a specific storage to center of primaryStage
 	 * @param storage is the storage to be displayed
 	 */
-	public void showStorageLayout(Storage storage) {
-		if(this.currentStorage == null || !storage.equals(this.currentStorage)) {		
-			try {
-				FXMLLoader loader = new FXMLLoader();
-				loader.setLocation(App.class.getResource("view/StorageLayout2.fxml"));
-				
-				AnchorPane page = (AnchorPane) loader.load();
-				this.rootLayout.setCenter(page);
-				primaryStage.sizeToScene();
-				StorageController controller = loader.getController();
-	
-				controller.setMainApp(this);
-				controller.setStorage(storage);
-				controller.setPane(page);
-				controller.loadStorageLayout();
-				currentStorage = storage;
+	public void showStorageLayout(Storage storage) {	
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(App.class.getResource("view/StorageLayout2.fxml"));
+			
+			AnchorPane page = (AnchorPane) loader.load();
+			this.rootLayout.setCenter(page);
+			primaryStage.sizeToScene();
+			StorageController controller = loader.getController();
+			
+			controller.setMainApp(this);
+			controller.setStorage(storage);
+			controller.setPane(page);
+			controller.loadStorageLayout();
+
 			} catch (IOException e) {
 				e.printStackTrace();
 			}
-		}
 	}
-	
-	/**Brings the StorageLayout to center of primaryStage
-	 * 
-	 */
-	/*public void showEditStorageLayout() {
-		try {
-			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(App.class.getResource("view/StorageLayout.fxml"));
-			
-			BorderPane page = (BorderPane) loader.load();
-			
-			this.rootLayout.setCenter(page);
-			
-			StorageController controller = loader.getController();
-			controller.setMainApp(this);
-			controller.setStorage(this.storage);
-			controller.setPane(page);
-			controller.loadStorageLayout();
-		}catch(IOException e) {
-			System.out.println(e);
-		}
-	}*/
 	
 	/**Opens NewStorage Modal window
 	 * @param storage
