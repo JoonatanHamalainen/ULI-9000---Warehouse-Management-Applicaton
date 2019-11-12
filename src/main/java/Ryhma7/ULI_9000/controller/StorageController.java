@@ -250,14 +250,12 @@ public class StorageController implements ControllerInterfaceView {
 		if(this.shelvesInStorageBox.getItems() != null) {
 			Shelf tempShelf = (Shelf) this.shelvesInStorageBox.getValue();
 			database.deleteShelf(tempShelf);
-			int column = (int) tempShelf.getCellCoordinates().getX();
-			int row = (int) tempShelf.getCellCoordinates().getY();
-			for (Node node : this.storageGrid.getChildren()) {
-				if(this.storageGrid.getColumnIndex(node) == column && this.storageGrid.getRowIndex(node) == row) {
-					node.getStyleClass().clear();;
-					node.getStyleClass().add("storage-grid-cell");
-				}
+			Node shelfTile = getNode(tempShelf.getCellCoordinates());
+			if(shelfTile != null) {
+				shelfTile.getStyleClass().clear();
+				shelfTile.getStyleClass().add("storage-grid-cell");
 			}
+			this.storageShelfList.remove(tempShelf);
 			this.storage.removeShelf(tempShelf);
 		}
 		System.out.println("Shelf removed");		
