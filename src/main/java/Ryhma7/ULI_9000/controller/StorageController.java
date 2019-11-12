@@ -9,8 +9,9 @@ import Ryhma7.ULI_9000.model.Item;
 import Ryhma7.ULI_9000.model.Shelf;
 import Ryhma7.ULI_9000.model.Storage;
 import Ryhma7.ULI_9000.model.DatabaseConnection;
-
+import javafx.beans.Observable;
 import javafx.collections.FXCollections;
+import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
@@ -122,10 +123,29 @@ public class StorageController implements ControllerInterfaceView {
 		this.storage = storage;
 		if(database.getItemsInStorage(this.storage).size() != 0) {	
 			this.storageItemList = FXCollections.observableArrayList(database.getItemsInStorage(this.storage));
-			this.itemsInStorageBox.setCellFactory(new Callback<ListView<Item>, ListCell<Item>>(){
-				
+			this.storageItemList.addListener(new ListChangeListener<Item>() {
+				@Override
+				public void onChanged(Change<? extends Item> arg0) {
+					itemsInStorageBox.setItems(storageItemList);
+				}
+			});
+			this.itemsInStorageBox.setCellFactory(new Callback<ListView<Item>, ListCell<Item>>(){		
 				public ListCell<Item> call(ListView<Item> list) {
 					return new ItemCellList();
+				}
+			});
+			//Eventhandleri, joka ajetaan Comboboxin arvon muututtua
+			this.itemsInStorageBox.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent event) {
+					if(itemsInStorageBox.getChildrenUnmodifiable() !=null) {
+						if(getShelfByID(itemsInStorageBox.getValue().getShelfID()) != null){
+							shelvesInStorageBox.setValue(getShelfByID(itemsInStorageBox.getValue().getShelfID()));
+						}else {
+							shelvesInStorageBox.setValue(null);
+						}
+						
+					}
 				}
 				
 			});
@@ -134,25 +154,67 @@ public class StorageController implements ControllerInterfaceView {
 			this.itemsInStorageBox.setButtonCell(new ItemCellList());
 		}
 		if(database.getShelvesInStorage(this.storage).size() != 0) {
-			this.storageShelfList = FXCollections.observableArrayList(database.getShelvesInStorage(this.storage));
+			this.storageShelfList = FXCollections.observableList(database.getShelvesInStorage(this.storage));
+			this.storageShelfList.addListener(new ListChangeListener<Shelf>(){
+				@Override
+				public void onChanged(Change<? extends Shelf> arg0) {
+					shelvesInStorageBox.setItems(storageShelfList);					
+				}				
+			});
 			System.out.println(this.shelvesInStorageBox);
-			this.shelvesInStorageBox.setCellFactory(new Callback<ListView<Shelf>, ListCell<Shelf>>(){
-				
+			this.shelvesInStorageBox.setCellFactory(new Callback<ListView<Shelf>, ListCell<Shelf>>(){	
 				public ListCell<Shelf> call(ListView<Shelf> list) {
 					return new ShelfCellList();
 				}
-				
 			});
+			/*this.shelvesInStorageBox.setOnAction(new EventHandler<ActionEvent>() {
+				@Override
+				public void handle(ActionEvent event) {
+					if(shelvesInStorageBox.getValue() != null && shelvesInStorageBox.getValue().getItem() != null) {
+						
+					}
+				}
+				
+			});*/
 			this.shelvesInStorageBox.setItems(this.storageShelfList);
 			this.shelvesInStorageBox.setButtonCell(new ShelfCellList());
 			this.shelvesInStorageBox.setOnAction(new EventHandler<ActionEvent>() {
 				public void handle(ActionEvent e) {
-					if(shelvesInStorageBox.getValue().getItem() != null && shelvesInStorageBox.getValue() != null) {
-						containedItem.setText(shelvesInStorageBox.getValue().getItem().getName());
+					System.out.println("Action Event!");
+					if(shelvesInStorageBox.getValue() != null ) {
+						System.out.println("Action Event!");
+						if(shelvesInStorageBox.getValue().getItem() != null) {
+							System.out.println("Action Event!");
+							Item tempItem = getItemByID(shelvesInStorageBox.getValue().getItem().getItemID());
+							containedItem.setText(tempItem.getName()); // shelvesInStorageBox.getValue().getItem().getName());
+							itemsInStorageBox.setValue(tempItem);
+						}
 					}
 				}
 			});
 		}
+	}
+	
+	private Item getItemByID(int itemID) {
+		if(itemsInStorageBox.getChildrenUnmodifiable() != null) {
+			for(Item item:itemsInStorageBox.getItems()) {
+				if(item.getItemID() == itemID) {
+					return item;
+				}
+			}
+		}
+		return null;
+	}
+	
+	private Shelf getShelfByID(int shelfID) {
+		if(shelvesInStorageBox.getChildrenUnmodifiable() != null) {
+			for(Shelf shelf:shelvesInStorageBox.getItems()) {
+				if(shelf.getShelfID() == shelfID) {
+					return shelf;
+				};
+			}
+		}
+		return null;
 	}
 	
 	/**sets the page for the controller
@@ -173,7 +235,7 @@ public class StorageController implements ControllerInterfaceView {
 			tempShelf.setStorageID(this.storage.getStorageID());
 			database.addShelf(tempShelf);
 			this.storage.getShelves().add(database.getShelf(tempShelf.getCellCoordinates(), tempShelf.getStorageID()));
-			
+			this.storageShelfList.add(tempShelf);
 		}
 		this.selectedCells.clear();
 		System.out.println("Storage contains: " + this.storage.getShelves().size() + " shelves");
@@ -226,9 +288,8 @@ public class StorageController implements ControllerInterfaceView {
 			Shelf tempShelf = this.shelvesInStorageBox.getValue();
 			Item tempItem = this.shelvesInStorageBox.getValue().getItem();
 			database.deleteItemFromShelf(tempItem);
-			tempShelf.removeItem();
-			tempShelf.getItem();
 			System.out.println(tempShelf.getItem());
+			tempShelf.removeItem();
 		}
 		System.out.println("Remove");
 	}
@@ -244,6 +305,7 @@ public class StorageController implements ControllerInterfaceView {
 		if(isOkClicked) {
 			this.storage.addItemToStorage(tempItem);
 			database.addItem(tempItem);
+			this.storageItemList.add(tempItem);
 			System.out.println(this.storage.getItems().get(0).getName());
 			System.out.println("New Item Created!");
 		}
@@ -258,6 +320,7 @@ public class StorageController implements ControllerInterfaceView {
 			Item tempItem = (Item) this.itemsInStorageBox.getValue();
 			this.storage.removeItemFromStorage(tempItem);
 			database.deleteItem(tempItem);
+			this.storageItemList.remove(tempItem);
 		}else {
 			System.out.println("No item selected");
 		}
@@ -290,8 +353,8 @@ public class StorageController implements ControllerInterfaceView {
 		}else{
 			this.selectedCells.add(coordinateXY);
 		}
-		System.out.println(this.selectedCells.size());
-		System.out.println(this.selectedCells);
+		//System.out.println(this.selectedCells.size());
+		//System.out.println(this.selectedCells);
 	}
 
 	private void updateCellColor(Point point) {
@@ -326,8 +389,10 @@ public class StorageController implements ControllerInterfaceView {
 			for (Shelf shelf: database.getShelvesInStorage(this.storage)) {
 				shelves.add(shelf.getCellCoordinates());
 			}
+			
 			int gridColumns = this.storage.getDimensions().get(0);
 			int gridRows = this.storage.getDimensions().get(1);
+			
 			double cellWallLength = calculateCellWallLength(gridColumns, gridRows);
 			//Create the gridpane, which represets the storage(number of columns represents width, and rows - length)
 			this.storageGrid = new GridPane();
