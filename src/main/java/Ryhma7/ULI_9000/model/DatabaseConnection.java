@@ -1,8 +1,5 @@
 package Ryhma7.ULI_9000.model;
 
-
-import static org.junit.jupiter.api.Assertions.assertNotNull;
-
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Iterator;

@@ -143,6 +143,7 @@ public class StorageController implements ControllerInterfaceView {
 							shelvesInStorageBox.setValue(getShelfByID(itemsInStorageBox.getValue().getShelfID()));
 						}else {
 							shelvesInStorageBox.setValue(null);
+							containedItem.setText("");
 						}
 						
 					}
@@ -155,6 +156,15 @@ public class StorageController implements ControllerInterfaceView {
 		}
 		if(database.getShelvesInStorage(this.storage).size() != 0) {
 			this.storageShelfList = FXCollections.observableList(database.getShelvesInStorage(this.storage));
+			if(this.storageShelfList != null && this.storageItemList != null) {
+				for(Shelf shelf: this.storageShelfList) {
+					for(Item item: this.storageItemList) {
+						if(item.getShelfID() == shelf.getShelfID()) {
+							shelf.addItem(item);
+						}
+					}					
+				}
+			}
 			this.storageShelfList.addListener(new ListChangeListener<Shelf>(){
 				@Override
 				public void onChanged(Change<? extends Shelf> arg0) {
@@ -167,29 +177,19 @@ public class StorageController implements ControllerInterfaceView {
 					return new ShelfCellList();
 				}
 			});
-			/*this.shelvesInStorageBox.setOnAction(new EventHandler<ActionEvent>() {
-				@Override
-				public void handle(ActionEvent event) {
-					if(shelvesInStorageBox.getValue() != null && shelvesInStorageBox.getValue().getItem() != null) {
-						
-					}
-				}
-				
-			});*/
+
 			this.shelvesInStorageBox.setItems(this.storageShelfList);
 			this.shelvesInStorageBox.setButtonCell(new ShelfCellList());
 			this.shelvesInStorageBox.setOnAction(new EventHandler<ActionEvent>() {
 				public void handle(ActionEvent e) {
-					System.out.println("Action Event!");
-					if(shelvesInStorageBox.getValue() != null ) {
-						System.out.println("Action Event!");
-						if(shelvesInStorageBox.getValue().getItem() != null) {
-							System.out.println("Action Event!");
-							Item tempItem = getItemByID(shelvesInStorageBox.getValue().getItem().getItemID());
-							containedItem.setText(tempItem.getName()); // shelvesInStorageBox.getValue().getItem().getName());
-							itemsInStorageBox.setValue(tempItem);
-						}
+					if(shelvesInStorageBox.getValue() != null && shelvesInStorageBox.getValue().getItem() != null) {						
+						Item tempItem = getItemByID(shelvesInStorageBox.getValue().getItem().getItemID());
+						containedItem.setText(tempItem.getName());
+						itemsInStorageBox.setValue(tempItem);
+					}else {
+						containedItem.setText("");
 					}
+					
 				}
 			});
 		}
@@ -250,14 +250,12 @@ public class StorageController implements ControllerInterfaceView {
 		if(this.shelvesInStorageBox.getItems() != null) {
 			Shelf tempShelf = (Shelf) this.shelvesInStorageBox.getValue();
 			database.deleteShelf(tempShelf);
-			int column = (int) tempShelf.getCellCoordinates().getX();
-			int row = (int) tempShelf.getCellCoordinates().getY();
-			for (Node node : this.storageGrid.getChildren()) {
-				if(this.storageGrid.getColumnIndex(node) == column && this.storageGrid.getRowIndex(node) == row) {
-					node.getStyleClass().clear();;
-					node.getStyleClass().add("storage-grid-cell");
-				}
+			Node shelfTile = getNode(tempShelf.getCellCoordinates());
+			if(shelfTile != null) {
+				shelfTile.getStyleClass().clear();
+				shelfTile.getStyleClass().add("storage-grid-cell");
 			}
+			this.storageShelfList.remove(tempShelf);
 			this.storage.removeShelf(tempShelf);
 		}
 		System.out.println("Shelf removed");		
@@ -273,7 +271,10 @@ public class StorageController implements ControllerInterfaceView {
 			Shelf tempShelf = (Shelf) this.shelvesInStorageBox.getValue();
 			database.addItemToShelf(tempItem, tempShelf);
 			tempShelf.addItem(tempItem);
+			tempItem.setShelfID(tempShelf.getShelfID());
 			System.out.println(tempShelf.getItem().getName());
+			this.containedItem.setText(tempItem.getName());
+			updateCellColor(tempShelf.getCellCoordinates());
 		}else {
 			System.out.println("Select an Item and a Shelf");
 		}
@@ -289,7 +290,10 @@ public class StorageController implements ControllerInterfaceView {
 			Item tempItem = this.shelvesInStorageBox.getValue().getItem();
 			database.deleteItemFromShelf(tempItem);
 			System.out.println(tempShelf.getItem());
+			tempItem.removeFromShelf();
 			tempShelf.removeItem();
+			this.containedItem.setText("");
+			updateCellColor(tempShelf.getCellCoordinates());
 		}
 		System.out.println("Remove");
 	}
