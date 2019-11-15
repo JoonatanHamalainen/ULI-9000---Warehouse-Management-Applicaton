@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 
-<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Ryhma7.ULI_9000.controller.NewStorageDialogController">
+<AnchorPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Ryhma7.ULI_9000.controller.NewStorageDialogController">
    <children>
       <GridPane AnchorPane.leftAnchor="10.0" AnchorPane.rightAnchor="10.0" AnchorPane.topAnchor="10.0">
         <columnConstraints>
@@ -24,18 +24,18 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="Storage Name" />
-            <Label text="Storage Width" GridPane.rowIndex="2" />
-            <Label text="Storage Length" GridPane.rowIndex="3" />
-            <Label text="Storage Address" GridPane.rowIndex="1" />
+            <Label text="%newstorage.name" />
+            <Label text="%newstorage.width" GridPane.rowIndex="2" />
+            <Label text="%newstorage.length" GridPane.rowIndex="3" />
+            <Label text="%newstorage.address" GridPane.rowIndex="1" />
             <TextField fx:id="name" GridPane.columnIndex="1" />
             <TextField fx:id="address" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="width" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="length" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
               <buttons>
-                <Button mnemonicParsing="false" onAction="#handleCreateNewStorage" text="Create" />
-                  <Button mnemonicParsing="false" onAction="#handleCancel" text="Cancel" />
+                <Button mnemonicParsing="false" onAction="#handleCreateNewStorage" text="%button.newstoragecreate" />
+                  <Button mnemonicParsing="false" onAction="#handleCancel" text="%button.newstoragecancel" />
               </buttons>
             </ButtonBar>
          </children>
