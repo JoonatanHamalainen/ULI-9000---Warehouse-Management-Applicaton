@@ -7,19 +7,19 @@
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.layout.AnchorPane?>
 
-<TitledPane animated="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="200.0" text="untitled" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Ryhma7.ULI_9000.controller.RootLayoutController">
+<TitledPane animated="false" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefWidth="200.0" text="%title.untitled" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Ryhma7.ULI_9000.controller.RootLayoutController">
   <content>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="198.0">
          <children>
-            <CheckBox layoutX="7.0" layoutY="5.0" mnemonicParsing="false" text="Locked" />
-            <Label layoutX="7.0" layoutY="32.0" text="Address" />
+            <CheckBox layoutX="7.0" layoutY="5.0" mnemonicParsing="false" text="%storageinfo.checkbox" />
+            <Label layoutX="7.0" layoutY="32.0" text="%storageinfo.address" />
             <TextField fx:id="address" layoutX="7.0" layoutY="49.0" />
-            <Label layoutX="7.0" layoutY="74.0" text="Width" />
+            <Label layoutX="7.0" layoutY="74.0" text="%storageinfo.width" />
             <TextField fx:id="width" layoutX="7.0" layoutY="90.0" />
-            <Label layoutX="5.0" layoutY="115.0" text="Length" />
+            <Label layoutX="5.0" layoutY="115.0" text="%storageinfo.length" />
             <TextField fx:id="length" layoutX="7.0" layoutY="132.0" />
-            <Button layoutX="5.0" layoutY="174.0" mnemonicParsing="false" prefWidth="90.0" text="Remove" AnchorPane.leftAnchor="-5.0" />
-            <Button layoutX="111.0" layoutY="174.0" mnemonicParsing="false" text="Save Changes" AnchorPane.rightAnchor="-5.0" />
+            <Button layoutX="5.0" layoutY="174.0" mnemonicParsing="false" prefWidth="90.0" text="%button.removestorage" AnchorPane.leftAnchor="-5.0" />
+            <Button layoutX="111.0" layoutY="174.0" mnemonicParsing="false" text="%button.storagesavechanges" AnchorPane.rightAnchor="-5.0" />
          </children></AnchorPane>
   </content>
 </TitledPane>

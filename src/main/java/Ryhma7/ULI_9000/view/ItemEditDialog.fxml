@@ -6,19 +6,18 @@
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 
-
-<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1">
+<BorderPane maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" xmlns="http://javafx.com/javafx/11.0.1" xmlns:fx="http://javafx.com/fxml/1">
    <center>
       <HBox BorderPane.alignment="CENTER">
          <children>
             <VBox>
                <children>
-                  <Label fx:id="shelfName" text="Shelf" />
-                  <Label fx:id="itemName" text="Item " />
-                  <Label text="Weight" />
-                  <Label text="Amount" />
-                  <Label text="Sale price" />
-                  <Label text="Unit price" />
+                  <Label fx:id="shelfName" text="%itemedit.shelf" />
+                  <Label fx:id="itemName" text="%itemedit.item" />
+                  <Label text="%itemedit.weight" />
+                  <Label text="%itemedit.amount" />
+                  <Label text="%itemedit.salesprice" />
+                  <Label text="%itemedit.unitprice" />
                </children>
                <padding>
                   <Insets bottom="5.0" left="5.0" right="5.0" top="5.0" />
