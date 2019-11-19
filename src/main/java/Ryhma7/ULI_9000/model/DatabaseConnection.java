@@ -611,8 +611,10 @@ public class DatabaseConnection {
 	      
 	      try {
 	         tx = session.beginTransaction();
-	         for(int i=0; i<items.size(); i++) {
-	        	 deleteItemFromShelf(items.get(i));
+	         if(items != null) {
+		         for(int i=0; i<items.size(); i++) {
+		        	 deleteItemFromShelf(items.get(i));
+		         }
 	         }
 	         session.delete(shelf); 
 	         tx.commit();

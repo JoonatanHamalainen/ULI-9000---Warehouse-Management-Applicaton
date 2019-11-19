@@ -4,6 +4,8 @@ import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Collections;
 
+import com.sun.javafx.geom.Point2D;
+
 import Ryhma7.ULI_9000.App;
 import Ryhma7.ULI_9000.model.Item;
 import Ryhma7.ULI_9000.model.Shelf;
@@ -17,6 +19,7 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
+import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -101,6 +104,7 @@ public class StorageController implements ControllerInterfaceView {
 	private Storage storage;
 	private Shelf selectedShelf;
 	private GridPane storageGrid;
+	private Popup infoBox;
 	//private Popup infoBox;
 	
 	/** Empty Constructor
@@ -187,6 +191,7 @@ public class StorageController implements ControllerInterfaceView {
 						containedItem.setText(tempItem.getName());
 						itemsInStorageBox.setValue(tempItem);
 					}else {
+						itemsInStorageBox.setValue(null);
 						containedItem.setText("");
 					}
 					
@@ -400,17 +405,18 @@ public class StorageController implements ControllerInterfaceView {
 			double cellWallLength = calculateCellWallLength(gridColumns, gridRows);
 			//Create the gridpane, which represets the storage(number of columns represents width, and rows - length)
 			this.storageGrid = new GridPane();
-			storageGrid.getStyleClass().add("storage-grid");
+			this.storageGrid.getStyleClass().add("storage-grid");
 			//create the columns
 			for (int i = 0;i<gridColumns;i++) {
 				ColumnConstraints column = new ColumnConstraints(cellWallLength);
-				storageGrid.getColumnConstraints().add(column);
+				this.storageGrid.getColumnConstraints().add(column);
 			}
 			//create the rows
 			for (int i = 0; i<gridRows; i++) {
 				RowConstraints row = new RowConstraints(cellWallLength);
-				storageGrid.getRowConstraints().add(row);
+				this.storageGrid.getRowConstraints().add(row);
 			}
+			this.infoBox = new Popup();
 			
 			//add panes to the gridcells
 			for (int i = 0; i<gridColumns;i++) {
@@ -429,11 +435,11 @@ public class StorageController implements ControllerInterfaceView {
 							paneClicked(storageGrid, pane, coordinate);
 						}						
 					});				
-					storageGrid.add(pane, i, j);
+					this.storageGrid.add(pane, i, j);
 				}
 			}
 			BorderPane tempPane = (BorderPane) page.getChildren().get(0);
-			tempPane.setTop(storageGrid);
+			tempPane.setTop(this.storageGrid);
 		}
 	}
 	
@@ -480,18 +486,24 @@ public class StorageController implements ControllerInterfaceView {
 	 */
 	private void paneClicked(GridPane storageGrid, Pane pane, Point coordinates) {
 		if(pane.getStyleClass().contains("storage-grid-cell-shelf") || pane.getStyleClass().contains("storage-grid-cell-shelf-seventyfive") || pane.getStyleClass().contains("storage-grid-cell-shelf-fifty") || pane.getStyleClass().contains("storage-grid-cell-shelf-twentyfive") || pane.getStyleClass().contains("storage-grid-cell-shelf-zero")) {
-			for(Shelf shelf:storage.getShelves()) {
+			for(Shelf shelf:storageShelfList) {
 				if(shelf.getCellCoordinates().equals(coordinates)) {
-					System.out.println("test");
-					Popup infoBox = new Popup();
+					shelvesInStorageBox.setValue(getShelfByID(shelf.getShelfID()));
+					
 					Label test = new Label("test");
 					test.getStyleClass().add("info-box");
-					infoBox.getContent().add(test);
+					this.infoBox.getContent().clear();
+					this.infoBox.getContent().add(test);
 					test.setMinWidth(60);
 					test.setMinHeight(60);
-					
-					infoBox.show(pane, pane.getLayoutX(), pane.getLayoutY());
-					System.out.println(infoBox.getOwnerWindow());
+					javafx.geometry.Point2D point = pane.localToScreen(0.0,0.0);
+					if((point.getX() + pane.getWidth() != infoBox.getAnchorX() || point.getY() != infoBox.getAnchorY())){
+						this.infoBox.show(pane, (point.getX() + pane.getWidth()), (point.getY()));
+					}else if(infoBox.isShowing()) {
+						infoBox.hide();
+					}else {
+						this.infoBox.show(pane, (point.getX() + pane.getWidth()), (point.getY()));
+					}
 				};
 			};
 					
@@ -499,14 +511,18 @@ public class StorageController implements ControllerInterfaceView {
 		}else if(pane.getStyleClass().contains("storage-grid-cell")) {
 			pane.getStyleClass().remove("storage-grid-cell");
 			pane.getStyleClass().add("storage-grid-cell-selected");
-			Point coordinateXY = new Point(storageGrid.getColumnIndex(pane), storageGrid.getRowIndex(pane));
+			Point coordinateXY = new Point(GridPane.getColumnIndex(pane), GridPane.getRowIndex(pane));
 			cellSelected(coordinateXY);
 		//or if the cell is not a shelf but is selected
 		}else if(pane.getStyleClass().contains("storage-grid-cell-selected")) {
 			pane.getStyleClass().remove("storage-grid-cell-selected");
 			pane.getStyleClass().add("storage-grid-cell");
-			cellSelected(new Point(storageGrid.getColumnIndex(pane), storageGrid.getRowIndex(pane)));
+			cellSelected(new Point(GridPane.getColumnIndex(pane), GridPane.getRowIndex(pane)));
 		}
+	}
+	
+	private void showInfoBox() {
+		
 	}
 	
 	private String checkAmount(Point point) {

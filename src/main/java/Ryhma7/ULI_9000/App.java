@@ -108,6 +108,8 @@ public class App extends Application {
 		}
 	}
 	
+
+	
 	/**Opens new Item modal window
 	 * @param item
 	 * @return true if new item is created, false if not
