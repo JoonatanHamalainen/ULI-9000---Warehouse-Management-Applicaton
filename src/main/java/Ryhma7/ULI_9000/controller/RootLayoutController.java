@@ -2,6 +2,7 @@ package Ryhma7.ULI_9000.controller;
 
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.ResourceBundle;
 
 import Ryhma7.ULI_9000.App;
 import Ryhma7.ULI_9000.model.*;
@@ -50,7 +51,7 @@ public class RootLayoutController implements ControllerInterfaceView {
 	/** Generates content for vbox-attribute and populates the textfields with the storage information 
 	 * @param vbox
 	 */
-	public void loadStorages(final VBox vbox) {
+	public void loadStorages(final VBox vbox, ResourceBundle bundle) {
 		final Accordion accordion = new Accordion();
 		storages = database.getStorages();
 		for(final Storage storage : storages) {
@@ -58,6 +59,7 @@ public class RootLayoutController implements ControllerInterfaceView {
 				//ladataan infoboxin resurssit, ja tallennetaan ne muuttujiin
 				FXMLLoader loader = new FXMLLoader();
 				loader.setLocation(App.class.getResource("view/StorageInfoBox.fxml"));
+				loader.setResources(bundle);
 				
 				TitledPane storageInfo = (TitledPane) loader.load();
 				AnchorPane content = (AnchorPane) storageInfo.getContent();
@@ -121,7 +123,7 @@ public class RootLayoutController implements ControllerInterfaceView {
 						}
 						//tyhjennetään varastonäkymä, ja ladataan uusi tilalle
 						mainApp.clearCenterPane();
-						loadStorages(vbox);
+						loadStorages(vbox, bundle);
 					}
 				});
 				//Määritetään toiminnallisuus save(storage) painikkeelle
@@ -168,7 +170,7 @@ public class RootLayoutController implements ControllerInterfaceView {
 				vbox.getChildren().remove(2);
 			}catch(Exception e){	
 			}			
-			loadStorages(this.vbox);
+			//loadStorages(this.vbox);
 		}
 		System.out.println("New Storage Created!");
 	}
