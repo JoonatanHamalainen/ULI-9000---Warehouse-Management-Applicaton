@@ -5,10 +5,13 @@ import static org.junit.jupiter.api.Assertions.*;
 import org.junit.jupiter.api.Test;
 
 class NewStorageDialogControllerTest {
+	
+	static NewStorageDialogController controller;
 
 	@Test
-	void test() {
-		fail("Not yet implemented");
+	static void createNewStorageDialogControllerTest() {
+		controller = new NewStorageDialogController();
+		
+		fail("Not able to create NewStorageDialogController-instance");
 	}
-
 }

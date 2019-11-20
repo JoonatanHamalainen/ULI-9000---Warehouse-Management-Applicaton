@@ -6,9 +6,12 @@ import org.junit.jupiter.api.Test;
 
 class RootLayoutControllerTest {
 
-	@Test
-	void test() {
-		fail("Not yet implemented");
-	}
+	static RootLayoutController controller;
 
+	@Test
+	static void createRootLayoutControllerTest() {
+		controller = new RootLayoutController();
+		
+		fail("Not able to create RootLayoutController-instance");
+	}
 }

@@ -7,9 +7,8 @@ import org.junit.jupiter.api.Test;
 
 public class DatabaseConnectionTest {
 	
-	private static DatabaseConnection database;
+	static DatabaseConnection database;
 	
-	@BeforeAll
 	@Test
 	void databaseConnectionTest() {
 		try {
