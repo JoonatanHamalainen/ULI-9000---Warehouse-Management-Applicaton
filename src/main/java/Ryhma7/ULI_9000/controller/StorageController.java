@@ -3,6 +3,7 @@ package Ryhma7.ULI_9000.controller;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import com.sun.javafx.geom.Point2D;
 
@@ -104,8 +105,6 @@ public class StorageController implements ControllerInterfaceView {
 	private Storage storage;
 	private Shelf selectedShelf;
 	private GridPane storageGrid;
-	private Popup infoBox;
-	//private Popup infoBox;
 	
 	/** Empty Constructor
 	 * 
@@ -142,7 +141,7 @@ public class StorageController implements ControllerInterfaceView {
 			this.itemsInStorageBox.setOnAction(new EventHandler<ActionEvent>() {
 				@Override
 				public void handle(ActionEvent event) {
-					if(itemsInStorageBox.getChildrenUnmodifiable() !=null) {
+					if(itemsInStorageBox.getChildrenUnmodifiable() !=null && itemsInStorageBox.getValue() != null) {
 						if(getShelfByID(itemsInStorageBox.getValue().getShelfID()) != null){
 							shelvesInStorageBox.setValue(getShelfByID(itemsInStorageBox.getValue().getShelfID()));
 						}else {
@@ -416,7 +415,6 @@ public class StorageController implements ControllerInterfaceView {
 				RowConstraints row = new RowConstraints(cellWallLength);
 				this.storageGrid.getRowConstraints().add(row);
 			}
-			this.infoBox = new Popup();
 			
 			//add panes to the gridcells
 			for (int i = 0; i<gridColumns;i++) {
@@ -489,21 +487,8 @@ public class StorageController implements ControllerInterfaceView {
 			for(Shelf shelf:storageShelfList) {
 				if(shelf.getCellCoordinates().equals(coordinates)) {
 					shelvesInStorageBox.setValue(getShelfByID(shelf.getShelfID()));
-					
-					Label test = new Label("test");
-					test.getStyleClass().add("info-box");
-					this.infoBox.getContent().clear();
-					this.infoBox.getContent().add(test);
-					test.setMinWidth(60);
-					test.setMinHeight(60);
 					javafx.geometry.Point2D point = pane.localToScreen(0.0,0.0);
-					if((point.getX() + pane.getWidth() != infoBox.getAnchorX() || point.getY() != infoBox.getAnchorY())){
-						this.infoBox.show(pane, (point.getX() + pane.getWidth()), (point.getY()));
-					}else if(infoBox.isShowing()) {
-						infoBox.hide();
-					}else {
-						this.infoBox.show(pane, (point.getX() + pane.getWidth()), (point.getY()));
-					}
+					this.mainApp.showInfoBox(shelf, point.getX() + pane.getWidth(), point.getY());
 				};
 			};
 					
@@ -519,10 +504,6 @@ public class StorageController implements ControllerInterfaceView {
 			pane.getStyleClass().add("storage-grid-cell");
 			cellSelected(new Point(GridPane.getColumnIndex(pane), GridPane.getRowIndex(pane)));
 		}
-	}
-	
-	private void showInfoBox() {
-		
 	}
 	
 	private String checkAmount(Point point) {
