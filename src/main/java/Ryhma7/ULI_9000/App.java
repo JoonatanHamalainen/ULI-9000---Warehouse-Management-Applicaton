@@ -30,10 +30,7 @@ public class App extends Application {
 
 	private Stage primaryStage;
 	private BorderPane rootLayout;
-	private Storage storage;
 	private ArrayList<Storage> storages;
-	private ArrayList<Shelf> shelves;
-	private Storage currentStorage;
 
 	public App() {
 	}
@@ -46,7 +43,6 @@ public class App extends Application {
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("Uli-9000");
 
-		this.storage = new Storage();
 		this.storages = new ArrayList<Storage>();
 		
 		initRootLayout();
@@ -108,8 +104,6 @@ public class App extends Application {
 		}
 	}
 	
-
-	
 	/**Opens new Item modal window
 	 * @param item
 	 * @return true if new item is created, false if not
@@ -169,7 +163,7 @@ public class App extends Application {
 				
 			
 		}catch(IOException e) {
-			System.out.println("Noworks");
+			System.out.println(e);
 		}
 	}
 	
