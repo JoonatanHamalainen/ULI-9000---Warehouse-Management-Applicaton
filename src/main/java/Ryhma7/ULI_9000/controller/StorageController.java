@@ -3,6 +3,7 @@ package Ryhma7.ULI_9000.controller;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import com.sun.javafx.geom.Point2D;
 
@@ -490,14 +491,21 @@ public class StorageController implements ControllerInterfaceView {
 				if(shelf.getCellCoordinates().equals(coordinates)) {
 					shelvesInStorageBox.setValue(getShelfByID(shelf.getShelfID()));
 					
-					Label test = new Label("test");
-					test.getStyleClass().add("info-box");
-					this.infoBox.getContent().clear();
-					this.infoBox.getContent().add(test);
-					test.setMinWidth(60);
-					test.setMinHeight(60);
+					//Label test = new Label("test");
+					//test.getStyleClass().add("info-box");
+					
+					/*for(Label label : generateInfoBoxContent(shelf)) {
+						this.infoBox.getContent().add(label);
+					}*/
+					//this.infoBox.getContent().add(test);
+					//test.setMinWidth(60);
+					//test.setMinHeight(60);
 					javafx.geometry.Point2D point = pane.localToScreen(0.0,0.0);
 					if((point.getX() + pane.getWidth() != infoBox.getAnchorX() || point.getY() != infoBox.getAnchorY())){
+						this.infoBox.getContent().clear();
+						for(Label label : generateInfoBoxContent(shelf)) {
+							this.infoBox.getContent().add(label);
+						}
 						this.infoBox.show(pane, (point.getX() + pane.getWidth()), (point.getY()));
 					}else if(infoBox.isShowing()) {
 						infoBox.hide();
@@ -521,7 +529,15 @@ public class StorageController implements ControllerInterfaceView {
 		}
 	}
 	
-	private void showInfoBox() {
+	private List<Label> generateInfoBoxContent(Shelf shelf) {
+		List<Label> infoboxContent = new ArrayList<Label>();
+		infoboxContent.add(new Label (shelf.getItem().getName()));
+		infoboxContent.add(new Label (Integer.toString(shelf.getItem().getAmount())));
+		infoboxContent.add(new Label (Double.toString(shelf.getItem().getSalesprice())));
+		infoboxContent.add(new Label (Double.toString(shelf.getItem().getUnitprice())));
+		infoboxContent.add(new Label (Integer.toString(shelf.getItem().getWeight())));
+		
+		return infoboxContent;
 		
 	}
 	

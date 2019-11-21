@@ -35,11 +35,8 @@ public class App extends Application {
 
 	private Stage primaryStage;
 	private BorderPane rootLayout;
-	private Storage storage;
 	private ArrayList<Storage> storages;
-	private ArrayList<Shelf> shelves;
-	private Storage currentStorage;
-	ResourceBundle bundle;
+	private ResourceBundle bundle;
 	
 	public App() {
 	}
@@ -52,7 +49,6 @@ public class App extends Application {
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("ULI-9000");
 
-		this.storage = new Storage();
 		this.storages = new ArrayList<Storage>();
 		
 		Locale curLocale;
@@ -100,7 +96,10 @@ public class App extends Application {
 				e.printStackTrace();
 			}
 	}
-	
+	public boolean showInfoBox(Shelf shelf) {
+		FXMLLoader loader = new FXMLLoader();
+		return false;
+	}
 	/**Opens NewStorage Modal window
 	 * @param storage
 	 * @return true if new storage is created, false if not
@@ -133,8 +132,6 @@ public class App extends Application {
 			return false;
 		}
 	}
-	
-
 	
 	/**Opens new Item modal window
 	 * @param item
@@ -197,7 +194,7 @@ public class App extends Application {
 				
 			
 		}catch(IOException e) {
-			System.out.println("Noworks");
+			System.out.println(e);
 		}
 	}
 	
