@@ -1,8 +1,13 @@
 package Ryhma7.ULI_9000;
 
 import java.awt.Point;
+import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Locale;
+import java.util.Properties;
+import java.util.ResourceBundle;
+
 import Ryhma7.ULI_9000.controller.RootLayoutController;
 import Ryhma7.ULI_9000.controller.NewItemDialogController;
 import Ryhma7.ULI_9000.controller.NewStorageDialogController;
@@ -31,7 +36,8 @@ public class App extends Application {
 	private Stage primaryStage;
 	private BorderPane rootLayout;
 	private ArrayList<Storage> storages;
-
+	private ResourceBundle bundle;
+	
 	public App() {
 	}
 
@@ -41,9 +47,27 @@ public class App extends Application {
 	@Override
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
-		this.primaryStage.setTitle("Uli-9000");
+		this.primaryStage.setTitle("ULI-9000");
 
 		this.storages = new ArrayList<Storage>();
+		
+		Locale curLocale;
+		String appConfigPath = "language.properties";
+		Properties appProps = new Properties();
+		try {
+			appProps.load(new FileInputStream(appConfigPath));
+			String language = appProps.getProperty("language");
+			String country  = appProps.getProperty("country");
+			curLocale = new Locale(language, country);
+		} catch (Exception e) {
+			curLocale = new Locale("en", "GB");
+		}
+		try {
+			bundle = ResourceBundle.getBundle("TextResources", curLocale);
+		} catch (Exception e) {
+			System.err.println("Can't find TextResources.properties file");
+			System.exit(0);
+		}
 		
 		initRootLayout();
 		
@@ -56,6 +80,7 @@ public class App extends Application {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(App.class.getResource("view/StorageLayout2.fxml"));
+			loader.setResources(bundle);
 			
 			AnchorPane page = (AnchorPane) loader.load();
 			this.rootLayout.setCenter(page);
@@ -80,6 +105,7 @@ public class App extends Application {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(App.class.getResource("view/NewStorageDialog.fxml"));
+			loader.setResources(bundle);
 			
 			AnchorPane page = (AnchorPane) loader.load();
 			
@@ -112,6 +138,7 @@ public class App extends Application {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(App.class.getResource("view/NewItemDialog.fxml"));
+			loader.setResources(bundle);
 			
 			AnchorPane page = (AnchorPane) loader.load();
 			
@@ -143,7 +170,8 @@ public class App extends Application {
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(App.class.getResource("view/Rootlayout.fxml"));
-		
+			loader.setResources(bundle);
+			
 			this.rootLayout =(BorderPane) loader.load();
 			Scene scene = new Scene(this.rootLayout);
 			VBox vbox =(VBox) this.rootLayout.getChildren().get(0);
@@ -157,7 +185,7 @@ public class App extends Application {
 			controller.setStorages(this.storages);
 			controller.setVBox(vbox);
 			
-			controller.loadStorages(vbox);
+			controller.loadStorages(vbox, bundle);
 			
 			this.primaryStage.show();
 				
