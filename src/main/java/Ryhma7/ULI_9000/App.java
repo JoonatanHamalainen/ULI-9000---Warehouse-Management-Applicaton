@@ -96,7 +96,10 @@ public class App extends Application {
 				e.printStackTrace();
 			}
 	}
-	
+	public boolean showInfoBox(Shelf shelf) {
+		FXMLLoader loader = new FXMLLoader();
+		return false;
+	}
 	/**Opens NewStorage Modal window
 	 * @param storage
 	 * @return true if new storage is created, false if not
