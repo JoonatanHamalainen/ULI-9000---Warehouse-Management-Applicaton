@@ -263,6 +263,10 @@ public class App extends Application {
 		return this.primaryStage;
 	}
 	
+	public ResourceBundle getResourceBundle() {
+		return bundle;
+	}
+	
 	/**Launches the program
 	 * @param args
 	 */
