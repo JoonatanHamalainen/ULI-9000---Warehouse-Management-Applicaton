@@ -577,7 +577,11 @@ public class StorageController implements ControllerInterfaceView {
 		}
 		return null;
 	}
-	
+	/**This function handles the creation of wall cells in storageGrid
+	 * 
+	 * @param pane is a pane in a grid-cell of storageGrid (GridPane)
+	 * @param coordinates is the pane's location in the aforementioned storageGrid
+	 */
 	private void toggleCellToWall(Pane pane, Point coordinates) {
 		if(pane.getStyleClass().contains("storage-grid-cell")) {
 			pane.getStyleClass().clear();
