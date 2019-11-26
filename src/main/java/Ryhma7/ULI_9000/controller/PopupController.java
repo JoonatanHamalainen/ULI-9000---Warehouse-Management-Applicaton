@@ -29,6 +29,10 @@ public class PopupController {
 		this.popupStage =popupStage;
 	}
 	
+	/**Retrieves the shelf information for popup-window
+	 * 
+	 * @param shelf
+	 */
 	public void setShelf(Shelf shelf) {
 		this.shelfID.setText(Integer.toString(shelf.getShelfID()));
 		Item tempItem = shelf.getItem();
@@ -40,7 +44,9 @@ public class PopupController {
 			this.weight.setText(Integer.toString(tempItem.getWeight()));
 		}	
 	}
-	
+	/**Closes the popup-window when it is no no longer focused
+	 * 
+	 */
 	public void close() {
 		if(popupStage.isFocused() == false) {
 			
