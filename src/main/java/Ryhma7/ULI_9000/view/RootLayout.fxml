@@ -11,7 +11,7 @@
    <left>
       <VBox BorderPane.alignment="CENTER">
          <children>
-            <Button fx:id="newstorage" maxWidth="1.7976931348623157E308" minHeight="50.0" mnemonicParsing="false" onAction="#handleCreateStorage" prefWidth="100.0" text="%button.newstorage" textAlignment="CENTER" wrapText="true" />
+            <Button fx:id="newstorage" maxWidth="1.7976931348623157E308" minHeight="50.0" mnemonicParsing="false" onAction="#handleCreateStorage" prefWidth="100.0" text="%button.newstoragecreate" textAlignment="CENTER" wrapText="true" />
             <Label fx:id="yourstorages" alignment="CENTER" maxWidth="1.7976931348623157E308" text="%title.yourstorages">
                <font>
                   <Font size="14.0" />
