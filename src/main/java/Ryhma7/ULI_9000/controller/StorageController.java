@@ -548,30 +548,23 @@ public class StorageController implements ControllerInterfaceView {
 			int y = shelf.getCoordinateY();
 			if(x == pX && y == pY) {
 				if (database.getItemsInShelf(shelf) != null) {
-					System.out.println("Kakkaa");
 					double highestAmount = (double) database.getHighestAmount(database.getItemsInShelf(shelf).get(0).getItemID());
 					double amount = (double) database.getItemsInShelf(shelf).get(0).getAmount();
-					System.out.println(highestAmount);
-					System.out.println(amount);
 					
 					if(amount != 0) {
-						System.out.println(amount/highestAmount);
 						if((amount/highestAmount) > 0.75) {
 							return "storage-grid-cell-shelf";
 						} else if((amount/highestAmount) > 0.5) {
 							return "storage-grid-cell-shelf-seventyfive";
 						} else if((amount/highestAmount) > 0.25) {
-							System.out.println("Mauno");
 							return "storage-grid-cell-shelf-fifty";
 						} else if((amount/highestAmount) > 0) {
 							return "storage-grid-cell-shelf-twentyfive";
 						}
 					} else {
-						System.out.println("lol");
 						return "storage-grid-cell-shelf-zero";
 					}
 				}
-				System.out.println("kill ur self");
 				return "storage-grid-cell-shelf-zero";
 			}
 		}

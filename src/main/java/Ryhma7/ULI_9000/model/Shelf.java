@@ -125,18 +125,34 @@ public class Shelf {
 		this.items = items;
 	}
 	
+	/**
+	 * 
+	 * @return return the storageID-attribute of the storage
+	 */
 	public int getStorageID() {
 		return storageID;
 	}
 
+	/**
+	 * 
+	 * @param storageID sets the storageID-attribute of the storage
+	 */
 	public void setStorageID(int storageID) {
 		this.storageID = storageID;
 	}
 
+	/**
+	 * 
+	 * @return return the capacity-attribute of the shelf
+	 */
 	public int getCapacity() {
 		return capacity;
 	}
 
+	/**
+	 * 
+	 * @param capacity set the capacity-attribute of the shelf
+	 */
 	public void setCapacity(int capacity) {
 		this.capacity = capacity;
 	}
