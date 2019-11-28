@@ -50,7 +50,7 @@ public class Storage {
 	
 	/** Removes a shelf from the storage
 	 * @param shelf is the Shelf-object that will be removed from the shelves-list of the storage
-	 * @return true if operatiion was successful false if not
+	 * @return true if operation was successful false if not
 	 */
 	public boolean removeShelf(Shelf shelf) {
 		if(this.shelves.contains(shelf)) {
