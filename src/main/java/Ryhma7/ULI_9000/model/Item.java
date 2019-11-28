@@ -219,7 +219,10 @@ public class Item {
 			return true;
 		}
 	}
-
+	/**
+	 * 
+	 * @param highestAmount set the highest amount of the Item-object
+	 */
 	public void setHighestAmount(int highestAmount) {
 		this.highestAmount = highestAmount;
 	}
