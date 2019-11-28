@@ -7,10 +7,10 @@ import org.junit.jupiter.api.Test;
 
 public class DatabaseConnectionTest {
 	
-	static DatabaseConnection database;
+	private static DatabaseConnection database;
 	
-	@Test
-	void databaseConnectionTest() {
+	@BeforeAll
+	public static void databaseConnectionTest() {
 		try {
 		database = new DatabaseConnection();
 		}
