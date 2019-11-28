@@ -170,7 +170,7 @@ public class RootLayoutController implements ControllerInterfaceView {
 				vbox.getChildren().remove(2);
 			}catch(Exception e){	
 			}			
-			//loadStorages(this.vbox);
+			loadStorages(this.vbox, mainApp.getResourceBundle());
 		}
 		System.out.println("New Storage Created!");
 	}

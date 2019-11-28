@@ -3,6 +3,7 @@ package Ryhma7.ULI_9000.controller;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Collections;
+import java.util.List;
 
 import com.sun.javafx.geom.Point2D;
 
@@ -153,20 +154,21 @@ public class StorageController implements ControllerInterfaceView {
 	@FXML
 	private ComboBox<Shelf> shelvesInStorageBox;
 	
-	private ArrayList<Point> selectedCells = new ArrayList<Point>();
+	private ArrayList<Point> selectedCells;
 	
 	private App mainApp;
 	private AnchorPane page;
 	private Storage storage;
 	private Shelf selectedShelf;
 	private GridPane storageGrid;
-	private Popup infoBox;
-	//private Popup infoBox;
+	private boolean enableWalls;
 	
 	/** Empty Constructor
 	 * 
 	 */
-	public StorageController() {	
+	public StorageController() {
+		this.enableWalls = false;
+		this.selectedCells = new ArrayList<Point>();
 	}
 	
 	/**Sets the mainApp for the controller
@@ -181,79 +183,85 @@ public class StorageController implements ControllerInterfaceView {
 	 */
 	public void setStorage(Storage storage) {
 		this.storage = storage;
-		if(database.getItemsInStorage(this.storage).size() != 0) {	
-			this.storageItemList = FXCollections.observableArrayList(database.getItemsInStorage(this.storage));
-			this.storageItemList.addListener(new ListChangeListener<Item>() {
-				@Override
-				public void onChanged(Change<? extends Item> arg0) {
-					itemsInStorageBox.setItems(storageItemList);
-				}
-			});
-			this.itemsInStorageBox.setCellFactory(new Callback<ListView<Item>, ListCell<Item>>(){		
-				public ListCell<Item> call(ListView<Item> list) {
-					return new ItemCellList();
-				}
-			});
-			//Eventhandleri, joka ajetaan Comboboxin arvon muututtua
-			this.itemsInStorageBox.setOnAction(new EventHandler<ActionEvent>() {
-				@Override
-				public void handle(ActionEvent event) {
-					if(itemsInStorageBox.getChildrenUnmodifiable() !=null) {
-						if(getShelfByID(itemsInStorageBox.getValue().getShelfID()) != null){
-							shelvesInStorageBox.setValue(getShelfByID(itemsInStorageBox.getValue().getShelfID()));
-						}else {
-							shelvesInStorageBox.setValue(null);
-							containedItem.setText("");
-						}
-						
-					}
-				}
-				
-			});
-			
-			this.itemsInStorageBox.setItems(this.storageItemList);
-			this.itemsInStorageBox.setButtonCell(new ItemCellList());
-		}
-		if(database.getShelvesInStorage(this.storage).size() != 0) {
-			this.storageShelfList = FXCollections.observableList(database.getShelvesInStorage(this.storage));
-			if(this.storageShelfList != null && this.storageItemList != null) {
-				for(Shelf shelf: this.storageShelfList) {
-					for(Item item: this.storageItemList) {
-						if(item.getShelfID() == shelf.getShelfID()) {
-							shelf.addItem(item);
-						}
-					}					
-				}
-			}
-			this.storageShelfList.addListener(new ListChangeListener<Shelf>(){
-				@Override
-				public void onChanged(Change<? extends Shelf> arg0) {
-					shelvesInStorageBox.setItems(storageShelfList);					
-				}				
-			});
-			System.out.println(this.shelvesInStorageBox);
-			this.shelvesInStorageBox.setCellFactory(new Callback<ListView<Shelf>, ListCell<Shelf>>(){	
-				public ListCell<Shelf> call(ListView<Shelf> list) {
-					return new ShelfCellList();
-				}
-			});
 
-			this.shelvesInStorageBox.setItems(this.storageShelfList);
-			this.shelvesInStorageBox.setButtonCell(new ShelfCellList());
-			this.shelvesInStorageBox.setOnAction(new EventHandler<ActionEvent>() {
-				public void handle(ActionEvent e) {
-					if(shelvesInStorageBox.getValue() != null && shelvesInStorageBox.getValue().getItem() != null) {						
-						Item tempItem = getItemByID(shelvesInStorageBox.getValue().getItem().getItemID());
-						containedItem.setText(tempItem.getName());
-						itemsInStorageBox.setValue(tempItem);
+		this.storageItemList = FXCollections.observableArrayList(database.getItemsInStorage(this.storage));
+		this.storageItemList.addListener(new ListChangeListener<Item>() {
+			@Override
+			public void onChanged(Change<? extends Item> arg0) {
+				itemsInStorageBox.setItems(storageItemList);
+			}
+		});
+		this.itemsInStorageBox.setCellFactory(new Callback<ListView<Item>, ListCell<Item>>(){		
+			public ListCell<Item> call(ListView<Item> list) {
+				return new ItemCellList();
+			}
+		});
+		//Eventhandleri, joka ajetaan Comboboxin arvon muututtua
+		this.itemsInStorageBox.setOnAction(new EventHandler<ActionEvent>() {
+			@Override
+			public void handle(ActionEvent event) {
+				if(itemsInStorageBox.getValue() != null) {
+					//tarkistetaan onko tavara hyllyllä
+					if(getShelfByID(itemsInStorageBox.getValue().getShelfID()) != null){
+						shelvesInStorageBox.setValue(getShelfByID(itemsInStorageBox.getValue().getShelfID()));
+					}else if(shelvesInStorageBox.getValue() != null && shelvesInStorageBox.getValue().getItem() != null){
+						shelvesInStorageBox.setValue(null);
+						containedItem.setText("");
 					}else {
-						itemsInStorageBox.setValue(null);
 						containedItem.setText("");
 					}
 					
 				}
-			});
+			}
+			
+		});
+			
+		this.itemsInStorageBox.setItems(this.storageItemList);
+		this.itemsInStorageBox.setButtonCell(new ItemCellList());
+		
+		
+		this.storageShelfList = FXCollections.observableList(database.getShelvesInStorage(this.storage));
+		if(this.storageShelfList != null && this.storageItemList != null) {
+			for(Shelf shelf: this.storageShelfList) {
+				for(Item item: this.storageItemList) {
+					if(item.getShelfID() == shelf.getShelfID()) {
+						shelf.addItem(item);
+					}
+				}					
+			}
 		}
+		
+		this.storageShelfList.addListener(new ListChangeListener<Shelf>(){
+			@Override
+			public void onChanged(Change<? extends Shelf> arg0) {
+				shelvesInStorageBox.setItems(storageShelfList);					
+			}				
+		});
+
+		this.shelvesInStorageBox.setCellFactory(new Callback<ListView<Shelf>, ListCell<Shelf>>(){	
+			public ListCell<Shelf> call(ListView<Shelf> list) {
+				return new ShelfCellList();
+			}
+		});
+
+		this.shelvesInStorageBox.setItems(this.storageShelfList);
+		this.shelvesInStorageBox.setButtonCell(new ShelfCellList());
+		this.shelvesInStorageBox.setOnAction(new EventHandler<ActionEvent>() {
+			public void handle(ActionEvent e) {
+				if(shelvesInStorageBox.getValue() != null) {
+					if(shelvesInStorageBox.getValue().getItem() != null) {						
+						Item tempItem = getItemByID(shelvesInStorageBox.getValue().getItem().getItemID());
+						containedItem.setText(tempItem.getName());
+						itemsInStorageBox.setValue(tempItem);
+					}else if(itemsInStorageBox.getValue() != null && getShelfByID(itemsInStorageBox.getValue().getShelfID()) != null){
+						itemsInStorageBox.setValue(null);
+						containedItem.setText("");
+					}else {
+						containedItem.setText("");
+					}
+				}
+			}
+		});
 	}
 	
 	private Item getItemByID(int itemID) {
@@ -283,6 +291,26 @@ public class StorageController implements ControllerInterfaceView {
 	 */
 	public void setPane(AnchorPane page) {
 		this.page = page;
+	}
+	
+	/**Handler function for the userinterface 
+	 * 
+	 */
+	@FXML
+	private void handleEnableWalls() {
+		if(this.enableWalls) {
+			this.enableWalls = false;
+		}else {
+			this.enableWalls = true;
+		}
+	}
+	
+	/**Handler function for the userinterface 
+	 * 
+	 */
+	@FXML
+	private void handleSaveLayoutChanges() {
+		
 	}
 	
 	/**Handler function for the userinterface 
@@ -337,6 +365,10 @@ public class StorageController implements ControllerInterfaceView {
 			this.containedItem.setText(tempItem.getName());
 			updateCellColor(tempShelf.getCellCoordinates());
 		}else {
+			System.out.println(this.itemsInStorageBox.getValue());
+			System.out.println(this.itemsInStorageBox.getChildrenUnmodifiable());
+			System.out.println(this.shelvesInStorageBox.getValue());
+			System.out.println(this.shelvesInStorageBox.getChildrenUnmodifiable());
 			System.out.println("Select an Item and a Shelf");
 		}
 	}
@@ -472,7 +504,6 @@ public class StorageController implements ControllerInterfaceView {
 				RowConstraints row = new RowConstraints(cellWallLength);
 				this.storageGrid.getRowConstraints().add(row);
 			}
-			this.infoBox = new Popup();
 			
 			//add panes to the gridcells
 			for (int i = 0; i<gridColumns;i++) {
@@ -495,7 +526,7 @@ public class StorageController implements ControllerInterfaceView {
 				}
 			}
 			BorderPane tempPane = (BorderPane) page.getChildren().get(0);
-			tempPane.setTop(this.storageGrid);
+			tempPane.setCenter(this.storageGrid);
 		}
 	}
 	
@@ -545,24 +576,12 @@ public class StorageController implements ControllerInterfaceView {
 			for(Shelf shelf:storageShelfList) {
 				if(shelf.getCellCoordinates().equals(coordinates)) {
 					shelvesInStorageBox.setValue(getShelfByID(shelf.getShelfID()));
-					
-					Label test = new Label("test");
-					test.getStyleClass().add("info-box");
-					this.infoBox.getContent().clear();
-					this.infoBox.getContent().add(test);
-					test.setMinWidth(60);
-					test.setMinHeight(60);
 					javafx.geometry.Point2D point = pane.localToScreen(0.0,0.0);
-					if((point.getX() + pane.getWidth() != infoBox.getAnchorX() || point.getY() != infoBox.getAnchorY())){
-						this.infoBox.show(pane, (point.getX() + pane.getWidth()), (point.getY()));
-					}else if(infoBox.isShowing()) {
-						infoBox.hide();
-					}else {
-						this.infoBox.show(pane, (point.getX() + pane.getWidth()), (point.getY()));
-					}
+					this.mainApp.showInfoBox(shelf, point.getX() + pane.getWidth(), point.getY());
 				};
 			};
-					
+		}else if(this.enableWalls && (pane.getStyleClass().contains("storage-grid-cell")||pane.getStyleClass().contains("storage-grid-cell-wall"))){
+			this.toggleCellToWall(pane, coordinates);
 		//or if the cell is not a shelf and is not selected
 		}else if(pane.getStyleClass().contains("storage-grid-cell")) {
 			pane.getStyleClass().remove("storage-grid-cell");
@@ -577,10 +596,6 @@ public class StorageController implements ControllerInterfaceView {
 		}
 	}
 	
-	private void showInfoBox() {
-		
-	}
-	
 	private String checkAmount(Point point) {
 		int pX = point.x;
 		int pY = point.y;
@@ -589,34 +604,43 @@ public class StorageController implements ControllerInterfaceView {
 			int y = shelf.getCoordinateY();
 			if(x == pX && y == pY) {
 				if (database.getItemsInShelf(shelf) != null) {
-					System.out.println("Kakkaa");
 					double highestAmount = (double) database.getHighestAmount(database.getItemsInShelf(shelf).get(0).getItemID());
 					double amount = (double) database.getItemsInShelf(shelf).get(0).getAmount();
-					System.out.println(highestAmount);
-					System.out.println(amount);
 					
 					if(amount != 0) {
-						System.out.println(amount/highestAmount);
 						if((amount/highestAmount) > 0.75) {
 							return "storage-grid-cell-shelf";
 						} else if((amount/highestAmount) > 0.5) {
 							return "storage-grid-cell-shelf-seventyfive";
 						} else if((amount/highestAmount) > 0.25) {
-							System.out.println("Mauno");
 							return "storage-grid-cell-shelf-fifty";
 						} else if((amount/highestAmount) > 0) {
 							return "storage-grid-cell-shelf-twentyfive";
 						}
 					} else {
-						System.out.println("lol");
 						return "storage-grid-cell-shelf-zero";
 					}
 				}
-				System.out.println("kill ur self");
 				return "storage-grid-cell-shelf-zero";
 			}
 		}
 		return null;
+	}
+	/**This function handles the creation of wall cells in storageGrid
+	 * 
+	 * @param pane is a pane in a grid-cell of storageGrid (GridPane)
+	 * @param coordinates is the pane's location in the aforementioned storageGrid
+	 */
+	private void toggleCellToWall(Pane pane, Point coordinates) {
+		if(pane.getStyleClass().contains("storage-grid-cell")) {
+			pane.getStyleClass().clear();
+			pane.getStyleClass().add("storage-grid-cell-wall");
+			//this.selectedCells.add(coordinates);
+		}else {
+			pane.getStyleClass().clear();
+			pane.getStyleClass().add("storage-grid-cell");
+			//this.selectedCells.remove(coordinates);
+		}
 	}
 }
 

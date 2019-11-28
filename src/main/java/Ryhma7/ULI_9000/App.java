@@ -11,11 +11,16 @@ import java.util.ResourceBundle;
 import Ryhma7.ULI_9000.controller.RootLayoutController;
 import Ryhma7.ULI_9000.controller.NewItemDialogController;
 import Ryhma7.ULI_9000.controller.NewStorageDialogController;
+import Ryhma7.ULI_9000.controller.PopupController;
 import Ryhma7.ULI_9000.controller.StorageController;
 import Ryhma7.ULI_9000.model.Item;
 import Ryhma7.ULI_9000.model.Shelf;
 import Ryhma7.ULI_9000.model.Storage;
 import javafx.application.Application;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableBooleanValue;
+import javafx.beans.value.ObservableValue;
+import javafx.collections.ListChangeListener;
 import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
@@ -28,18 +33,17 @@ import javafx.scene.layout.GridPane;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
+import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
+import javafx.stage.StageStyle;
 
 public class App extends Application {
 
 	private Stage primaryStage;
 	private BorderPane rootLayout;
-	private Storage storage;
 	private ArrayList<Storage> storages;
-	private ArrayList<Shelf> shelves;
-	private Storage currentStorage;
-	ResourceBundle bundle;
+	private ResourceBundle bundle;
 	
 	public App() {
 	}
@@ -52,7 +56,6 @@ public class App extends Application {
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("ULI-9000");
 
-		this.storage = new Storage();
 		this.storages = new ArrayList<Storage>();
 		
 		Locale curLocale;
@@ -100,7 +103,45 @@ public class App extends Application {
 				e.printStackTrace();
 			}
 	}
-	
+	public boolean showInfoBox(Shelf shelf, double coordinateX, double coordinateY) {
+		try {
+			FXMLLoader loader = new FXMLLoader();
+			loader.setLocation(App.class.getResource("view/ShelfPopup.fxml"));
+			loader.setResources(bundle);
+			
+			BorderPane popup = (BorderPane) loader.load();
+			Stage popupStage = new Stage();
+			
+			
+			popupStage.setX(coordinateX);
+			popupStage.setY(coordinateY);
+			popupStage.initStyle(StageStyle.TRANSPARENT);
+			popupStage.initModality(Modality.NONE);
+			popupStage.initOwner(primaryStage);
+			popupStage.focusedProperty().addListener(new ChangeListener<Object>() {
+
+				@Override
+				public void changed(ObservableValue<?> obs, Object oldValue, Object newValue) {
+					if(!((boolean)newValue)) {
+						popupStage.close();
+					}				
+				}				
+			});
+			
+			Scene scene = new Scene(popup);
+			scene.getStylesheets().add("StoragePalette.css");
+			scene.setFill(Color.TRANSPARENT);
+			popupStage.setScene(scene);
+			PopupController  controller = loader.getController();
+			controller.setPopupStage(popupStage);
+			controller.setShelf(shelf);
+			popupStage.show();
+			popup.getStyleClass().add("info-box");
+		}catch(IOException e) {
+			System.out.println(e);
+		}
+		return false;
+	}
 	/**Opens NewStorage Modal window
 	 * @param storage
 	 * @return true if new storage is created, false if not
@@ -133,8 +174,6 @@ public class App extends Application {
 			return false;
 		}
 	}
-	
-
 	
 	/**Opens new Item modal window
 	 * @param item
@@ -197,7 +236,7 @@ public class App extends Application {
 				
 			
 		}catch(IOException e) {
-			System.out.println("Noworks");
+			System.out.println(e);
 		}
 	}
 	
@@ -222,6 +261,10 @@ public class App extends Application {
 	
 	public Stage getPrimaryStage() {
 		return this.primaryStage;
+	}
+	
+	public ResourceBundle getResourceBundle() {
+		return bundle;
 	}
 	
 	/**Launches the program

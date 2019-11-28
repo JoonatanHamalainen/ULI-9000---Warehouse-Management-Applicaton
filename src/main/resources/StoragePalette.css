@@ -1,4 +1,3 @@
-
 .storage-grid {
 	-fx-background-color:transparent;
 	-fx-padding:0;
@@ -15,6 +14,7 @@
 	-fx-insets:0, 0 1 1 0;
 	
 }
+
 .storage-grid-cell-shelf{
 	-fx-background-color:rgba(0,128,0,1);
 	-fx-border-color: black;
@@ -22,14 +22,11 @@
 	-fx-insets:0, 0 1 1 0;
 }
 
-.info-box {
-	-fx-background-color: white;
-	-fx-background-radius:10;
+.storage-grid-cell-wall{
+	-fx-opacity:0.0 ;
 	-fx-border-color: black;
 	-fx-border-width:0.1;
-	-fx-border-radius:10;
 	-fx-insets:0, 0 1 1 0;
-	
 }
 
 .storage-grid-cell-shelf-seventyfive{
@@ -38,27 +35,32 @@
 	-fx-border-width:0.1;
 	-fx-insets:0, 0 1 1 0;
 }
+
 .storage-grid-cell-shelf-fifty{
 	-fx-background-color:rgba(0,128,0,0.5);
 	-fx-border-color: black;
 	-fx-border-width:0.1;
 	-fx-insets:0, 0 1 1 0;
 }
+
 .storage-grid-cell-shelf-twentyfive{
 	-fx-background-color:rgba(0,128,0,0.25);
 	-fx-border-color: black;
 	-fx-border-width:0.1;
 	-fx-insets:0, 0 1 1 0;
 }
+
 .storage-grid-cell-shelf-zero{
 	-fx-background-color:rgba(0,0,0,1);
 	-fx-border-color: black;
 	-fx-border-width:0.1;
 	-fx-insets:0, 0 1 1 0;
 }
+
 .storage-grid-cell:hover, .storage-grid-cell-selected:hover{
 	-fx-opacity:0.5;
 }
+
 .info-box {
 	-fx-background-color: white;
 	-fx-background-radius:10;
