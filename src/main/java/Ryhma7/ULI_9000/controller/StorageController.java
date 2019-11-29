@@ -43,6 +43,62 @@ import net.bytebuddy.asm.Advice.This;
 */
 public class StorageController implements ControllerInterfaceView {
 	
+	public ObservableList<Item> getStorageItemList() {
+		return storageItemList;
+	}
+
+	public void setStorageItemList(ObservableList<Item> storageItemList) {
+		this.storageItemList = storageItemList;
+	}
+
+	public ObservableList<Shelf> getStorageShelfList() {
+		return storageShelfList;
+	}
+
+	public void setStorageShelfList(ObservableList<Shelf> storageShelfList) {
+		this.storageShelfList = storageShelfList;
+	}
+
+	public TextField getContainedItem() {
+		return containedItem;
+	}
+
+	public void setContainedItem(TextField containedItem) {
+		this.containedItem = containedItem;
+	}
+
+	public ArrayList<Point> getSelectedCells() {
+		return selectedCells;
+	}
+
+	public void setSelectedCells(ArrayList<Point> selectedCells) {
+		this.selectedCells = selectedCells;
+	}
+
+	public Shelf getSelectedShelf() {
+		return selectedShelf;
+	}
+
+	public void setSelectedShelf(Shelf selectedShelf) {
+		this.selectedShelf = selectedShelf;
+	}
+
+	public ComboBox<Item> getItemsInStorageBox() {
+		return itemsInStorageBox;
+	}
+
+	public void setItemsInStorageBox(ComboBox<Item> itemsInStorageBox) {
+		this.itemsInStorageBox = itemsInStorageBox;
+	}
+
+	public ComboBox<Shelf> getShelvesInStorageBox() {
+		return shelvesInStorageBox;
+	}
+
+	public void setShelvesInStorageBox(ComboBox<Shelf> shelvesInStorageBox) {
+		this.shelvesInStorageBox = shelvesInStorageBox;
+	}
+
 	DatabaseConnection database = new DatabaseConnection();
 	
 	/**Inner class which defines value of a Item-object shown inside a combobox
