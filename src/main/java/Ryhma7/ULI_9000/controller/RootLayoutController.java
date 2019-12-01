@@ -175,6 +175,23 @@ public class RootLayoutController implements ControllerInterfaceView {
 		System.out.println("New Storage Created!");
 	}
 	
+	@FXML
+	private void handleLanguageFi() {
+		//TODO
+		System.out.println("Fin");
+	}
+	
+	@FXML
+	private void handleLanguageSwe() {
+		//TODO
+		System.out.println("Swe");
+	}
+	
+	@FXML
+	private void handleLanguageEn() {
+		//TODO
+		System.out.println("Eng");
+	}
 	/** handler funktion for the interface
 	 * 
 	 */
