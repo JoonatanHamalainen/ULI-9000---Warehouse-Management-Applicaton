@@ -43,6 +43,62 @@ import net.bytebuddy.asm.Advice.This;
 */
 public class StorageController implements ControllerInterfaceView {
 	
+	public ObservableList<Item> getStorageItemList() {
+		return storageItemList;
+	}
+
+	public void setStorageItemList(ObservableList<Item> storageItemList) {
+		this.storageItemList = storageItemList;
+	}
+
+	public ObservableList<Shelf> getStorageShelfList() {
+		return storageShelfList;
+	}
+
+	public void setStorageShelfList(ObservableList<Shelf> storageShelfList) {
+		this.storageShelfList = storageShelfList;
+	}
+
+	public TextField getContainedItem() {
+		return containedItem;
+	}
+
+	public void setContainedItem(TextField containedItem) {
+		this.containedItem = containedItem;
+	}
+
+	public ArrayList<Point> getSelectedCells() {
+		return selectedCells;
+	}
+
+	public void setSelectedCells(ArrayList<Point> selectedCells) {
+		this.selectedCells = selectedCells;
+	}
+
+	public Shelf getSelectedShelf() {
+		return selectedShelf;
+	}
+
+	public void setSelectedShelf(Shelf selectedShelf) {
+		this.selectedShelf = selectedShelf;
+	}
+
+	public ComboBox<Item> getItemsInStorageBox() {
+		return itemsInStorageBox;
+	}
+
+	public void setItemsInStorageBox(ComboBox<Item> itemsInStorageBox) {
+		this.itemsInStorageBox = itemsInStorageBox;
+	}
+
+	public ComboBox<Shelf> getShelvesInStorageBox() {
+		return shelvesInStorageBox;
+	}
+
+	public void setShelvesInStorageBox(ComboBox<Shelf> shelvesInStorageBox) {
+		this.shelvesInStorageBox = shelvesInStorageBox;
+	}
+
 	DatabaseConnection database = new DatabaseConnection();
 	
 	/**Inner class which defines value of a Item-object shown inside a combobox
@@ -548,30 +604,23 @@ public class StorageController implements ControllerInterfaceView {
 			int y = shelf.getCoordinateY();
 			if(x == pX && y == pY) {
 				if (database.getItemsInShelf(shelf) != null) {
-					System.out.println("Kakkaa");
 					double highestAmount = (double) database.getHighestAmount(database.getItemsInShelf(shelf).get(0).getItemID());
 					double amount = (double) database.getItemsInShelf(shelf).get(0).getAmount();
-					System.out.println(highestAmount);
-					System.out.println(amount);
 					
 					if(amount != 0) {
-						System.out.println(amount/highestAmount);
 						if((amount/highestAmount) > 0.75) {
 							return "storage-grid-cell-shelf";
 						} else if((amount/highestAmount) > 0.5) {
 							return "storage-grid-cell-shelf-seventyfive";
 						} else if((amount/highestAmount) > 0.25) {
-							System.out.println("Mauno");
 							return "storage-grid-cell-shelf-fifty";
 						} else if((amount/highestAmount) > 0) {
 							return "storage-grid-cell-shelf-twentyfive";
 						}
 					} else {
-						System.out.println("lol");
 						return "storage-grid-cell-shelf-zero";
 					}
 				}
-				System.out.println("kill ur self");
 				return "storage-grid-cell-shelf-zero";
 			}
 		}
