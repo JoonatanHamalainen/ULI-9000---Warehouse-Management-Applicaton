@@ -1,7 +1,11 @@
 package Ryhma7.ULI_9000.controller;
 
+import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Locale;
+import java.util.Properties;
 import java.util.ResourceBundle;
 
 import Ryhma7.ULI_9000.App;
@@ -177,19 +181,52 @@ public class RootLayoutController implements ControllerInterfaceView {
 	
 	@FXML
 	private void handleLanguageFi() {
-		//TODO
+		String appConfigPath = "src/main/resources/language.properties";
+		Properties appProps = new Properties();
+		try {
+			appProps.load(new FileInputStream(appConfigPath));
+			appProps.setProperty("language", "fi");
+			appProps.setProperty("country", "FI");
+			appProps.store(new FileOutputStream(appConfigPath), null);
+		} catch (Exception e) {
+			System.err.println("language.properties file not found!");
+		}
+		mainApp.selectLanguage();
+		mainApp.initRootLayout();
 		System.out.println("Fin");
 	}
 	
 	@FXML
 	private void handleLanguageSwe() {
-		//TODO
+		String appConfigPath = "src/main/resources/language.properties";
+		Properties appProps = new Properties();
+		try {
+			appProps.load(new FileInputStream(appConfigPath));
+			appProps.setProperty("language", "sv");
+			appProps.setProperty("country", "SE");
+			appProps.store(new FileOutputStream(appConfigPath), null);
+		} catch (Exception e) {
+			System.err.println("language.properties file not found!");
+		}
+		mainApp.selectLanguage();
+		mainApp.initRootLayout();
 		System.out.println("Swe");
 	}
 	
 	@FXML
 	private void handleLanguageEn() {
-		//TODO
+		String appConfigPath = "src/main/resources/language.properties";
+		Properties appProps = new Properties();
+		try {
+			appProps.load(new FileInputStream(appConfigPath));
+			appProps.setProperty("language", "en");
+			appProps.setProperty("country", "US");
+			appProps.store(new FileOutputStream(appConfigPath), null);
+		} catch (Exception e) {
+			System.err.println("language.properties file not found!");
+		}
+		mainApp.selectLanguage();
+		mainApp.initRootLayout();
 		System.out.println("Eng");
 	}
 	/** handler funktion for the interface
