@@ -2,8 +2,12 @@ package Ryhma7.ULI_9000.controller;
 
 import Ryhma7.ULI_9000.model.Item;
 import Ryhma7.ULI_9000.model.Shelf;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.Label;
+import javafx.scene.control.Spinner;
+import javafx.scene.control.SpinnerValueFactory;
 import javafx.stage.Stage;
 
 public class PopupController {
@@ -16,7 +20,7 @@ public class PopupController {
 	@FXML
 	private Label unitPrice;
 	@FXML
-	private Label amount;
+	private Spinner<Integer> amount;
 	@FXML
 	private Label weight;
 	
@@ -40,7 +44,18 @@ public class PopupController {
 			this.itemName.setText(tempItem.getName());
 			this.salesprice.setText(Double.toString(tempItem.getSalesprice()));
 			this.unitPrice.setText(Double.toString(tempItem.getUnitprice()));
-			this.amount.setText(Integer.toString(tempItem.getAmount()));
+			System.out.println(tempItem.getAmount());
+			this.amount.setValueFactory(new SpinnerValueFactory.IntegerSpinnerValueFactory(0, 1000, tempItem.getAmount()));
+			this.amount.valueProperty().addListener(new ChangeListener<Integer>() {
+
+				@Override
+				public void changed(ObservableValue<? extends Integer> observable, Integer oldValue, Integer newValue) {
+					System.out.println("Kikkelbyr!!!");
+					// TODO Auto-generated method stub
+					
+				}
+				
+			});
 			this.weight.setText(Integer.toString(tempItem.getWeight()));
 		}	
 	}
