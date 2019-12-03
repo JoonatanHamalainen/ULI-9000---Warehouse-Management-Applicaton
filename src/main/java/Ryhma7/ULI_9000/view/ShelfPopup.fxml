@@ -2,6 +2,7 @@
 
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.control.Spinner?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
@@ -32,9 +33,9 @@
             <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="%itemedit.unitprice" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <Label fx:id="unitPrice" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="2" GridPane.rowIndex="3" />
             <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="%itemedit.amount" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Label fx:id="amount" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="2" GridPane.rowIndex="4" />
             <Label maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" text="%itemedit.weight" GridPane.columnIndex="1" GridPane.rowIndex="5" />
             <Label fx:id="weight" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+            <Spinner fx:id="amount" GridPane.columnIndex="2" GridPane.rowIndex="4" />
          </children>
       </GridPane>
    </center>
