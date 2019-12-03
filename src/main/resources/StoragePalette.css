@@ -70,3 +70,18 @@
 	-fx-insets:0, 0 1 1 0;
 	
 }
+
+.language-flag-united{
+	-fx-background-image: url("flags/united.png");
+	-fx-background-size: stretch  ;
+}
+
+.language-flag-finland{
+	-fx-background-image: url("flags/finland.png");
+	-fx-background-size: stretch  ;
+}
+
+.language-flag-sweden{
+	-fx-background-image: url("flags/sweden.png");
+	-fx-background-size: stretch  ;
+}
