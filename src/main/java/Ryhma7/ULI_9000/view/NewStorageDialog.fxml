@@ -34,8 +34,8 @@
             <TextField fx:id="length" GridPane.columnIndex="1" GridPane.rowIndex="3" />
             <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
               <buttons>
-                <Button mnemonicParsing="false" onAction="#handleCreateNewStorage" text="%button.newstoragecreate" />
-                  <Button mnemonicParsing="false" onAction="#handleCancel" text="%button.newstoragecancel" />
+                <Button fx:id="newstoragecreate" mnemonicParsing="false" onAction="#handleCreateNewStorage" text="%button.newstoragecreate" />
+                  <Button fx:id="newstoragecancel" mnemonicParsing="false" onAction="#handleCancel" text="%button.newstoragecancel" />
               </buttons>
             </ButtonBar>
          </children>
