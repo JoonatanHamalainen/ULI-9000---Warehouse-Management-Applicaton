@@ -58,23 +58,7 @@ public class App extends Application {
 
 		this.storages = new ArrayList<Storage>();
 		
-		Locale curLocale;
-		String appConfigPath = "language.properties";
-		Properties appProps = new Properties();
-		try {
-			appProps.load(new FileInputStream(appConfigPath));
-			String language = appProps.getProperty("language");
-			String country  = appProps.getProperty("country");
-			curLocale = new Locale(language, country);
-		} catch (Exception e) {
-			curLocale = new Locale("en", "GB");
-		}
-		try {
-			bundle = ResourceBundle.getBundle("TextResources", curLocale);
-		} catch (Exception e) {
-			System.err.println("Can't find TextResources.properties file");
-			System.exit(0);
-		}
+		selectLanguage();
 		
 		initRootLayout();
 		
@@ -248,6 +232,26 @@ public class App extends Application {
 		this.rootLayout.setCenter(page);	
 	}
 	
+	public void selectLanguage() {
+		Locale curLocale;
+		String appConfigPath = "src/main/resources/language.properties";
+		Properties appProps = new Properties();
+		try {
+			appProps.load(new FileInputStream(appConfigPath));
+			String language = appProps.getProperty("language");
+			String country  = appProps.getProperty("country");
+			curLocale = new Locale(language, country);
+		} catch (Exception e) {
+			curLocale = new Locale("en", "GB");
+		}
+		try {
+			bundle = ResourceBundle.getBundle("TextResources", curLocale);
+		} catch (Exception e) {
+			System.err.println("Can't find TextResources.properties file");
+			System.exit(0);
+		}
+	}
+	
 	/**Returns storages-List
 	 * @return storages
 	 */
@@ -265,6 +269,9 @@ public class App extends Application {
 	
 	public ResourceBundle getResourceBundle() {
 		return bundle;
+	}
+	public void setResourceBundle(ResourceBundle bundle) {
+		this.bundle = bundle;
 	}
 	
 	/**Launches the program
