@@ -56,5 +56,20 @@
       <property name = "length" column = "Length" type = "int"/>
       
    </class>
+   <class name = "Ryhma7.ULI_9000.model.Wall" table = "Wall">
+      
+      <meta attribute = "class-description">
+         This class contains the storage detail. 
+      </meta>
+      
+      <id name = "wallID" type = "int" column = "WallID">
+         <generator class="native"/>
+      </id>
+      
+      <property name = "coordinateX" column = "CoordinateX" type = "int"/>
+      <property name = "coordinateY" column = "CoordinateY" type = "int"/>
+      <property name = "storageID" column = "StorageID" type = "int"/>
+      
+   </class>
    
 </hibernate-mapping>
