@@ -30,10 +30,22 @@ public class GUITest {
     }
 	
 	@Test
+	void should_be_able_to_create_storage(FxRobot robot) {
+		robot.clickOn("#newstorage");
+		robot.write("testivarasto");
+		robot.clickOn("#address");
+		robot.write("testikuja 1");
+		robot.clickOn("#width");
+		robot.write("7");
+		robot.clickOn("#length");
+		robot.write("5");
+		robot.clickOn("#newstoragecreate");
+	}
+	
+	@Test
     void should_contain_texts(FxRobot robot) {
         FxAssert.verifyThat("#welcome", LabeledMatchers.hasText("Tervetuloa varastonhallintaohjelmaan ULI-9000! Aloita klikkaamalla Luo Uusi Varasto -painiketta!"));
         FxAssert.verifyThat("#yourstorages", LabeledMatchers.hasText("Sinun Varastosi"));
     }
-	
 	
 }
