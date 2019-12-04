@@ -426,11 +426,14 @@ public class StorageController implements ControllerInterfaceView {
 	public void loadStorageLayout() {
 		if(this.storage.getDimensions().get(0) != null && this.storage.getDimensions().get(1) != null) {
 			ArrayList<Point> shelves = new ArrayList<Point>();
+			ArrayList<Point> walls = new ArrayList<Point>();
 			//Haetaan varastossa olevien hyllyjen koordinaatit shelves-listaan
 			for (Shelf shelf: database.getShelvesInStorage(this.storage)) {
 				shelves.add(shelf.getCellCoordinates());
 			}
-			
+			for (Point point: database.getWallsInStorage(this.storage)) {
+				walls.add(point);
+			}
 			int gridColumns = this.storage.getDimensions().get(0);
 			int gridRows = this.storage.getDimensions().get(1);
 			
@@ -455,7 +458,10 @@ public class StorageController implements ControllerInterfaceView {
 					final Pane pane = new Pane();
 					final Point coordinate = new Point(i,j);
 					//Tarkistetaan sijaitseeko kyseisessä solulla hylly. Jos sijaitsee, tehdään hylly merkintä
-					if(shelves.contains(coordinate)) {
+					if (walls.contains(coordinate)) {
+						pane.getStyleClass().add("storage-grid-cell-wall");
+					}
+					else if(shelves.contains(coordinate)) {
 						pane.getStyleClass().add(checkAmount(coordinate));
 					}else {
 						pane.getStyleClass().add("storage-grid-cell");
@@ -579,10 +585,12 @@ public class StorageController implements ControllerInterfaceView {
 		if(pane.getStyleClass().contains("storage-grid-cell")) {
 			pane.getStyleClass().clear();
 			pane.getStyleClass().add("storage-grid-cell-wall");
+			database.addWall(coordinates, this.storage);
 			//this.selectedCells.add(coordinates);
 		}else {
 			pane.getStyleClass().clear();
 			pane.getStyleClass().add("storage-grid-cell");
+			database.deleteWall(coordinates, this.storage);
 			//this.selectedCells.remove(coordinates);
 		}
 	}
