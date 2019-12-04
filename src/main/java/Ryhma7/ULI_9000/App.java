@@ -25,6 +25,7 @@ import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
+import javafx.scene.image.Image;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
@@ -55,6 +56,7 @@ public class App extends Application {
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("ULI-9000");
+		this.primaryStage.getIcons().add(new Image(App.class.getResourceAsStream("src/main/resources/ULI9000Logo.png")));
 
 		this.storages = new ArrayList<Storage>();
 		
