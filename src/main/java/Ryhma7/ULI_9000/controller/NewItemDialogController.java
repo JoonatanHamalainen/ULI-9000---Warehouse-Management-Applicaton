@@ -42,6 +42,7 @@ public class NewItemDialogController {
 		if(verifyInput()) {
 			this.item.setName(name.getText());
 			this.item.setAmount(Integer.parseInt(amount.getText()));
+			this.item.setHighestAmount(Integer.parseInt(amount.getText()));
 			this.item.setUnitprice(Double.parseDouble(unitPrice.getText()));
 			this.item.setSalesprice(Double.parseDouble(salesPrice.getText()));
 			this.item.setWeight(Integer.parseInt(weight.getText()));
