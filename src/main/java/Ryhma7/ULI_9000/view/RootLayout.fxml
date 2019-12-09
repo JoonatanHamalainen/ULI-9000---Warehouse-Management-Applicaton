@@ -3,26 +3,25 @@
 <?import java.lang.String?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
-<?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="390.0" minWidth="800.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Ryhma7.ULI_9000.controller.RootLayoutController">
+<BorderPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="600.0" minWidth="1000.0" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="Ryhma7.ULI_9000.controller.RootLayoutController">
    <left>
       <VBox BorderPane.alignment="CENTER">
          <children>
             <Button fx:id="newstorage" maxWidth="1.7976931348623157E308" minHeight="50.0" mnemonicParsing="false" onAction="#handleCreateStorage" prefWidth="100.0" text="%button.newstoragecreate" textAlignment="CENTER" wrapText="true" />
-            <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="2.0">
+            <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="5.0">
                <children>
-                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleLanguageFi" styleClass="language-flag-finland" stylesheets="@../../../../resources/StoragePalette.css" HBox.hgrow="ALWAYS" />
-                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleLanguageSwe" stylesheets="@../../../../resources/StoragePalette.css" HBox.hgrow="ALWAYS">
+                  <Button fx:id="fin" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleLanguageFi" styleClass="language-flag-finland" stylesheets="@../../../../resources/StoragePalette.css" HBox.hgrow="ALWAYS" />
+                  <Button fx:id="swe" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleLanguageSwe" stylesheets="@../../../../resources/StoragePalette.css" HBox.hgrow="ALWAYS">
                      <styleClass>
                         <String fx:value="language-flag-sweden" />
                      </styleClass></Button>
-                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleLanguageEn" stylesheets="@../../../../resources/StoragePalette.css" HBox.hgrow="ALWAYS">
+                  <Button fx:id="eng" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleLanguageEn" stylesheets="@../../../../resources/StoragePalette.css" HBox.hgrow="ALWAYS">
                      <styleClass>
                         <String fx:value="language-flag-united" />
                      </styleClass></Button>
@@ -36,7 +35,7 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <Button fx:id="exit" maxWidth="1.7976931348623157E308" minHeight="50.0" mnemonicParsing="false" onAction="#handleExit" prefWidth="100.0" text="%button.exit" />
+            <Button fx:id="exit" maxWidth="1.7976931348623157E308" minHeight="50.0" mnemonicParsing="false" onAction="#handleExit" prefWidth="119.0" text="%button.exit" />
          </children>
       </VBox>
    </left>
