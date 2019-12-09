@@ -412,7 +412,7 @@ public class StorageController implements ControllerInterfaceView {
 	 */
 	private Node getNode(Point point) {
 		for(Node node : this.storageGrid.getChildren()) {
-			if(this.storageGrid.getColumnIndex(node) == point.getX() && this.storageGrid.getRowIndex(node) == point.getY()) {
+			if(GridPane.getColumnIndex(node) == point.getX() && GridPane.getRowIndex(node) == point.getY()) {
 				return node;
 			}
 		}
@@ -480,12 +480,17 @@ public class StorageController implements ControllerInterfaceView {
 		}
 	}
 	
+	
+	/*
 	/**Updates the selected item on the selected shelf
 	 * @param shelf is the shelf to be displayed
-	 */
+	 
 	private void displaySelectedShelf(Shelf shelf) {
 		this.containedItem.setText(shelf.getItem().getName());		
 	}
+	*/
+	
+	
 	/**Saves changed made to contents of a shelf
 	 * @param shelf is the current shelf
 	 */
@@ -501,17 +506,23 @@ public class StorageController implements ControllerInterfaceView {
 	 */
 	private double calculateCellWallLength(int columns, int rows) {
 		
-		VBox vBox = (VBox)mainApp.getRootLayout().getChildren().get(0);
-		HBox hBox = (HBox) page.getChildren().get(1);
-
-		double maxGridWidth  = (mainApp.getRootLayout().getWidth() - vBox.getWidth());
-		double maxGridHeight = mainApp.getRootLayout().getHeight() - hBox.getHeight()-10;
+		VBox vBoxStoragesList = (VBox) mainApp.getRootLayout().getChildren().get(0);
+		HBox hBoxStorageToolBox = (HBox) page.getChildren().get(1);
+		VBox vBoxWallEditTools =(VBox)((BorderPane) page.getChildren().get(0)).getChildren().get(0);
+		
+		System.out.println("vBoxStoragesList: " + vBoxStoragesList.getWidth());
+		System.out.println("hBoxToolBox: " + hBoxStorageToolBox.getWidth());
+		System.out.println("vBoxWallEditTools: " + vBoxWallEditTools.getWidth());
+		System.out.println("RootLayout: " + mainApp.getRootLayout().getWidth() + ", " + mainApp.getRootLayout().getHeight());
+		
+		double maxGridWidth  = (mainApp.getRootLayout().getWidth() - vBoxStoragesList.getWidth() - 180);
+		double maxGridHeight = mainApp.getRootLayout().getHeight() - hBoxStorageToolBox.getHeight()-120;
 
 		ArrayList<Double> maxCellWallLengthPx = new ArrayList<Double>();
 		
 		maxCellWallLengthPx.add(maxGridWidth / columns);
 		maxCellWallLengthPx.add(maxGridHeight / rows);
-		
+		System.out.print(maxCellWallLengthPx);
 		return Collections.min(maxCellWallLengthPx);
 	}
 	
