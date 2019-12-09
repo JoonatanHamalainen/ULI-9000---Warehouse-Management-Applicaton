@@ -592,23 +592,6 @@ public class DatabaseConnection {
 			session.close();
 		}
 	}
-
-	public void increaseAmount(Item item, int addedAmount) {
-		int amount = getAmount(item);
-		amount += addedAmount;
-		updateAmount(item, amount);
-	}
-
-	public void decreaseAmount(Item item, int takenAmount) {
-		int amount = getAmount(item);
-		if (amount - takenAmount < 0) {
-			System.out.println("Not enough units");
-		} else {
-			amount -= takenAmount;
-			updateAmount(item, amount);
-		}
-	}
-
 	/**
 	 * Method for updating storage address with a new one
 	 * 
@@ -804,112 +787,6 @@ public class DatabaseConnection {
 				wall = (Wall) iterator.next();
 			}
 			session.delete(wall);
-			tx.commit();
-		} catch (HibernateException e) {
-			if (tx != null)
-				tx.rollback();
-			e.printStackTrace();
-		} finally {
-			session.close();
-		}
-	}
-
-	/**
-	 * Method for getting all items within specified shelf
-	 * 
-	 * @param shelfID   is used to identify the shelf, the items are wanted from.
-	 * @param storageID is used to identify the storage, the items are wanted from.
-	 */
-
-	/**
-	 * Method for listing all items in database
-	 * 
-	 */
-
-	public void listItems() {
-		Session session = factory.openSession();
-		Transaction tx = null;
-
-		try {
-			tx = session.beginTransaction();
-			List items = session.createQuery("FROM Item").list();
-			for (Iterator iterator = items.iterator(); iterator.hasNext();) {
-				Item item = (Item) iterator.next();
-				System.out.println();
-				System.out.print("Name: " + item.getName());
-				System.out.print("  Amount: " + item.getAmount());
-				System.out.print("  Salesprice: " + item.getSalesprice());
-				System.out.println("  Unitprice: " + item.getUnitprice());
-				System.out.print("  Weight: " + item.getWeight());
-				System.out.print("  ShelfID: " + item.getShelfID());
-				System.out.print("  StorageID: " + item.getStorageID());
-				System.out.println();
-
-			}
-			tx.commit();
-		} catch (HibernateException e) {
-			if (tx != null)
-				tx.rollback();
-			e.printStackTrace();
-		} finally {
-			session.close();
-		}
-	}
-
-	/**
-	 * Method for listing all shelves in database
-	 * 
-	 */
-	public void listShelves() {
-		Session session = factory.openSession();
-		Transaction tx = null;
-
-		try {
-			tx = session.beginTransaction();
-			List shelves = session.createQuery("FROM Shelf").list();
-			for (Iterator iterator = shelves.iterator(); iterator.hasNext();) {
-				Shelf shelf = (Shelf) iterator.next();
-				System.out.println();
-				System.out.println("ShelfID: " + shelf.getShelfID());
-				System.out.print("  Capacity: " + shelf.getCapacity());
-				System.out.print("  Coordinate X: " + shelf.getCoordinateX());
-				System.out.print("  Coordinate Y: " + shelf.getCoordinateY());
-				System.out.print("  StorageID: " + shelf.getStorageID());
-				System.out.println();
-
-			}
-			tx.commit();
-		} catch (HibernateException e) {
-			if (tx != null)
-				tx.rollback();
-			e.printStackTrace();
-		} finally {
-			session.close();
-		}
-	}
-
-	/**
-	 * Method for listing all storages in database
-	 * 
-	 */
-	public void listStorages() {
-		Session session = factory.openSession();
-		Transaction tx = null;
-
-		try {
-			tx = session.beginTransaction();
-			List storages = session.createQuery("FROM Storage").list();
-			for (Iterator iterator = storages.iterator(); iterator.hasNext();) {
-				Storage storage = (Storage) iterator.next();
-				System.out.println();
-				System.out.println("StorageID: " + storage.getStorageID());
-				System.out.print("  Name: " + storage.getName());
-				System.out.print("   Address: " + storage.getAddress());
-				System.out.print("  Width: " + storage.getWidth());
-				System.out.print("  Length: " + storage.getLength());
-				System.out.println();
-
-			}
 			tx.commit();
 		} catch (HibernateException e) {
 			if (tx != null)
