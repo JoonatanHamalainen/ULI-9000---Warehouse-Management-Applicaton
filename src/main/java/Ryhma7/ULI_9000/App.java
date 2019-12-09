@@ -20,6 +20,9 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
+import javafx.scene.control.Accordion;
+import javafx.scene.image.Image;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -27,7 +30,7 @@ import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-
+//
 public class App extends Application {
 
 	private Stage primaryStage;
@@ -45,6 +48,7 @@ public class App extends Application {
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("ULI-9000");
+		this.primaryStage.getIcons().add(new Image("file:src/main/resources/ULI9000Logo.png"));
 
 		this.storages = new ArrayList<Storage>();
 		

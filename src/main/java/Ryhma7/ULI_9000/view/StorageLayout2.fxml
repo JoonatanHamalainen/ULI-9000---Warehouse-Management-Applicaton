@@ -20,7 +20,6 @@
             <VBox minWidth="150.0" BorderPane.alignment="CENTER">
                <children>
                   <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleEnableWalls" text="Enable Walls" />
-                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleSaveLayoutChanges" text="Save Walls" />
                </children>
             </VBox>
          </right></BorderPane>

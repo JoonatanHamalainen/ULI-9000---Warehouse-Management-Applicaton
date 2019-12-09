@@ -1,5 +1,6 @@
 package Ryhma7.ULI_9000.controller;
 
+import Ryhma7.ULI_9000.model.DatabaseConnection;
 import Ryhma7.ULI_9000.model.Item;
 import Ryhma7.ULI_9000.model.Shelf;
 import javafx.beans.value.ChangeListener;
@@ -26,6 +27,8 @@ public class PopupController {
 	
 	private Stage popupStage;
 	
+	DatabaseConnection database = new DatabaseConnection();
+	
 	/**Sets the dialog stage for the controller
 	 * @param dialogStage is the stage currently in use
 	 */
@@ -39,7 +42,7 @@ public class PopupController {
 	 */
 	public void setShelf(Shelf shelf) {
 		this.shelfID.setText(Integer.toString(shelf.getShelfID()));
-		Item tempItem = shelf.getItem();
+		Item tempItem = database.getItemsInShelf(shelf).get(0);
 		if(tempItem != null) {
 			this.itemName.setText(tempItem.getName());
 			this.salesprice.setText(Double.toString(tempItem.getSalesprice()));
@@ -50,9 +53,9 @@ public class PopupController {
 
 				@Override
 				public void changed(ObservableValue<? extends Integer> observable, Integer oldValue, Integer newValue) {
-					System.out.println("Kikkelbyr!!!");
-					// TODO Auto-generated method stub
-					
+					if (oldValue != newValue) {
+						database.updateAmount(tempItem, newValue);
+					}
 				}
 				
 			});
