@@ -4,7 +4,6 @@ import java.io.FileInputStream;
 import java.io.FileOutputStream;
 import java.io.IOException;
 import java.util.ArrayList;
-import java.util.Locale;
 import java.util.Properties;
 import java.util.ResourceBundle;
 
@@ -121,8 +120,8 @@ public class RootLayoutController implements ControllerInterfaceView {
 						storages.remove(storage);
 						database.deleteStorage(storage);
 						try {
-							Accordion tempAccordion = (Accordion) vbox.getChildren().get(2);
-							vbox.getChildren().remove(2);
+							Accordion tempAccordion = (Accordion) vbox.getChildren().get(3);
+							vbox.getChildren().remove(3);
 						}catch(Exception e){	
 						}
 						//tyhjennetään varastonäkymä, ja ladataan uusi tilalle
@@ -154,7 +153,7 @@ public class RootLayoutController implements ControllerInterfaceView {
 			}
 		}
 		//lisätään luotu accordion "your storages"-labelin ja "exit" buttonin väliin
-		vbox.getChildren().add(2, accordion);
+		vbox.getChildren().add(3, accordion);
 	}
 	/** handler funktion for the interface
 	 * Creates a temporary storage object if its attributes are set isOkClicked receives value true,
@@ -170,8 +169,8 @@ public class RootLayoutController implements ControllerInterfaceView {
 			database.addStorage(tempStorage);
 			mainApp.getStorages().add(database.getStorage(tempStorage.getName()));
 			try {
-				Accordion tempAccordion = (Accordion) vbox.getChildren().get(2);
-				vbox.getChildren().remove(2);
+				Accordion tempAccordion = (Accordion) vbox.getChildren().get(3);
+				vbox.getChildren().remove(3);
 			}catch(Exception e){	
 			}			
 			loadStorages(this.vbox, mainApp.getResourceBundle());
