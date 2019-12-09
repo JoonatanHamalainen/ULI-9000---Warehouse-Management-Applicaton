@@ -24,9 +24,23 @@ public class GUITest {
 	}
 
 	@Test
-    void should_contain_buttons_with_text(FxRobot robot) {
+    void testMainPageFinnishLanguage(FxRobot robot) {
+		robot.clickOn("#fin");
         FxAssert.verifyThat("#newstorage", LabeledMatchers.hasText("Luo Uusi Varasto"));
+        FxAssert.verifyThat("#welcome", LabeledMatchers.hasText("Tervetuloa varastonhallintaohjelmaan ULI-9000! Aloita klikkaamalla Luo Uusi Varasto -painiketta!"));
+        FxAssert.verifyThat("#yourstorages", LabeledMatchers.hasText("Sinun Varastosi"));
         FxAssert.verifyThat("#exit", LabeledMatchers.hasText("Poistu"));
+    }
+	@Test
+	void testNewStorageDialogFinnishLanguage(FxRobot robot) {
+		robot.clickOn("#fin");
+		robot.clickOn("#newstorage");
+		FxAssert.verifyThat("#nametxt", LabeledMatchers.hasText("Varaston Nimi"));
+        FxAssert.verifyThat("#addresstxt", LabeledMatchers.hasText("Varaston Katuosoite"));
+        FxAssert.verifyThat("#widthtxt", LabeledMatchers.hasText("Varaston Leveys"));
+        FxAssert.verifyThat("#lengthtxt", LabeledMatchers.hasText("Varaston Pituus"));
+        FxAssert.verifyThat("#newstoragecreate", LabeledMatchers.hasText("Luo Uusi Varasto"));
+        FxAssert.verifyThat("#newstoragecancel", LabeledMatchers.hasText("Peruuta"));
     }
 	
 	@Test
@@ -41,11 +55,4 @@ public class GUITest {
 		robot.write("5");
 		robot.clickOn("#newstoragecreate");
 	}
-	
-	@Test
-    void should_contain_texts(FxRobot robot) {
-        FxAssert.verifyThat("#welcome", LabeledMatchers.hasText("Tervetuloa varastonhallintaohjelmaan ULI-9000! Aloita klikkaamalla Luo Uusi Varasto -painiketta!"));
-        FxAssert.verifyThat("#yourstorages", LabeledMatchers.hasText("Sinun Varastosi"));
-    }
-	
 }
