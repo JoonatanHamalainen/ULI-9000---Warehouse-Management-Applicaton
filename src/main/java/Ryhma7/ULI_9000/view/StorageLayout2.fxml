@@ -17,7 +17,7 @@
    <children>
       <BorderPane minHeight="100.0" minWidth="10.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="0.0">
          <right>
-            <VBox BorderPane.alignment="CENTER">
+            <VBox minWidth="150.0" BorderPane.alignment="CENTER">
                <children>
                   <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleEnableWalls" text="Enable Walls" />
                </children>

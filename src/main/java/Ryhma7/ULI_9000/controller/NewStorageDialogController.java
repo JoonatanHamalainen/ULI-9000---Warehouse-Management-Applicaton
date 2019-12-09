@@ -2,7 +2,9 @@ package Ryhma7.ULI_9000.controller;
 
 import Ryhma7.ULI_9000.model.Storage;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
 import javafx.scene.control.TextField;
+import javafx.scene.control.Alert.AlertType;
 import javafx.stage.Stage;
 /**Controller for NewStorageDialog
 *
@@ -34,15 +36,17 @@ public class NewStorageDialogController implements ControllerInterfaceModalView 
 	 */
 	public void setStorage(Storage storage) {
 		this.storage = storage;
-		
-		this.storage.setName(name.getText());
-		this.storage.setAddress(address.getText());
-		try {
+	}
+	
+	private boolean verifyStorage() {
+		boolean pass = false;
+		if(verifyInput()) {
+			this.storage.setName(name.getText());
+			this.storage.setAddress(address.getText());
 			this.storage.setDimensions(Integer.parseInt(width.getText()), Integer.parseInt(length.getText()));
-		}catch(NumberFormatException error) {
-			System.out.print(error);
+			pass = true;
 		}
-		
+		return pass;
 	}
 	
 	/**Returns the value of isOkClicked
@@ -57,7 +61,7 @@ public class NewStorageDialogController implements ControllerInterfaceModalView 
 	 */
 	@FXML
 	private void handleCreateNewStorage() {
-		setStorage(storage);
+		verifyStorage();
 		this.isOkClicked = true;
 		this.dialogStage.close();
 	}
@@ -68,5 +72,52 @@ public class NewStorageDialogController implements ControllerInterfaceModalView 
 	@FXML
 	private void handleCancel() {
 		dialogStage.close();
+	}
+	
+	private boolean verifyInput() {
+		
+		Alert alert = new Alert(AlertType.WARNING);
+		boolean pass = true;
+		String errorMessage="Please insert proper values to:";
+		
+		if((name.getText().replace("\\s", "")).length() < 1) {
+			errorMessage += "\nName (length must be greater than 0)";
+			pass = false;
+		}
+		
+		if((address.getText().replace("\\s", "")).length() < 1) {
+			errorMessage += "\nAddress (length must be greater than 0)";
+			pass = false;
+		}
+		
+		try {
+			int temp = Integer.parseInt(width.getText());
+			if(temp < 1) {
+				errorMessage += "\nWidth (integer of value 1 or greater)";
+				pass = false;
+			}
+		}catch(Exception e) {
+			errorMessage += "\nWidth (integer)";
+			pass = false;
+		}
+			
+		try {
+			int temp = Integer.parseInt(length.getText());
+			if(temp < 1) {
+				errorMessage += "\nLength (integer of value 1 or greater)";
+				pass = false;
+			}
+		}catch(Exception e) {
+			errorMessage += "\nLength (integer)";
+			pass = false;
+		}
+		
+		
+		if(pass == false) {
+			alert.setContentText(errorMessage);
+			alert.show();
+			return false;
+		}
+		return pass;
 	}
 }
