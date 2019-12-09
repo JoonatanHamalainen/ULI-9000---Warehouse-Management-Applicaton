@@ -2,7 +2,6 @@ package Ryhma7.ULI_9000.model;
 
 import java.awt.Point;
 import java.util.ArrayList;
-import java.util.List;
 
 /**
  * 
