@@ -16,12 +16,12 @@
             <Button fx:id="newstorage" maxWidth="1.7976931348623157E308" minHeight="50.0" mnemonicParsing="false" onAction="#handleCreateStorage" prefWidth="100.0" text="%button.newstoragecreate" textAlignment="CENTER" wrapText="true" />
             <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" spacing="5.0">
                <children>
-                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleLanguageFi" styleClass="language-flag-finland" stylesheets="@../../../../resources/StoragePalette.css" HBox.hgrow="ALWAYS" />
-                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleLanguageSwe" stylesheets="@../../../../resources/StoragePalette.css" HBox.hgrow="ALWAYS">
+                  <Button fx:id="fin" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleLanguageFi" styleClass="language-flag-finland" stylesheets="@../../../../resources/StoragePalette.css" HBox.hgrow="ALWAYS" />
+                  <Button fx:id="swe" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleLanguageSwe" stylesheets="@../../../../resources/StoragePalette.css" HBox.hgrow="ALWAYS">
                      <styleClass>
                         <String fx:value="language-flag-sweden" />
                      </styleClass></Button>
-                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleLanguageEn" stylesheets="@../../../../resources/StoragePalette.css" HBox.hgrow="ALWAYS">
+                  <Button fx:id="eng" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleLanguageEn" stylesheets="@../../../../resources/StoragePalette.css" HBox.hgrow="ALWAYS">
                      <styleClass>
                         <String fx:value="language-flag-united" />
                      </styleClass></Button>
