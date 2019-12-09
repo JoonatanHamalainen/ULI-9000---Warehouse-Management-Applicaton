@@ -1,6 +1,5 @@
 package Ryhma7.ULI_9000;
 
-import java.awt.Point;
 import java.io.FileInputStream;
 import java.io.IOException;
 import java.util.ArrayList;
@@ -18,20 +17,11 @@ import Ryhma7.ULI_9000.model.Shelf;
 import Ryhma7.ULI_9000.model.Storage;
 import javafx.application.Application;
 import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableBooleanValue;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.ListChangeListener;
-import javafx.event.EventHandler;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Accordion;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
-import javafx.scene.layout.ColumnConstraints;
-import javafx.scene.layout.GridPane;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.stage.Modality;
@@ -67,26 +57,30 @@ public class App extends Application {
 	/**Brings the Storage Layout of a specific storage to center of primaryStage
 	 * @param storage is the storage to be displayed
 	 */
-	public void showStorageLayout(Storage storage) {	
+	public void showStorageLayout(Storage storage) {
+		StorageController controller = null;
+		AnchorPane page = null;
 		try {
 			FXMLLoader loader = new FXMLLoader();
 			loader.setLocation(App.class.getResource("view/StorageLayout2.fxml"));
 			loader.setResources(bundle);
 			
-			AnchorPane page = (AnchorPane) loader.load();
+			page = (AnchorPane) loader.load();
 			this.rootLayout.setCenter(page);
-			primaryStage.sizeToScene();
-			StorageController controller = loader.getController();
+			controller = loader.getController();
 			
 			controller.setMainApp(this);
 			controller.setStorage(storage);
 			controller.setPane(page);
 			controller.loadStorageLayout();
 
-			} catch (IOException e) {
-				e.printStackTrace();
-			}
+		} catch (IOException e) {
+			e.printStackTrace();
+		}
+		
+		
 	}
+	
 	public boolean showInfoBox(Shelf shelf, double coordinateX, double coordinateY) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
