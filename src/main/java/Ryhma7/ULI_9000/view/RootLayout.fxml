@@ -36,11 +36,6 @@
                   <Font size="14.0" />
                </font>
             </Label>
-            <ComboBox fx:id="languageBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" promptText="%button.language" VBox.vgrow="NEVER">
-               <VBox.margin>
-                  <Insets bottom="5.0" />
-               </VBox.margin>
-            </ComboBox>
             <Button fx:id="exit" maxWidth="1.7976931348623157E308" minHeight="50.0" mnemonicParsing="false" onAction="#handleExit" prefWidth="100.0" text="%button.exit" />
          </children>
       </VBox>
