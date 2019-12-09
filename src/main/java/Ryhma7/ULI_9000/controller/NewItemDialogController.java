@@ -34,8 +34,7 @@ public class NewItemDialogController {
 	}
 	
 	/**Sets item for the Controller and updates the item's attributes to the ones given in the interface
-	 * @param item is the item that is being created
-	 * @return 
+	 * @return true if successful
 	 */
 	public boolean verifyItem() {
 		boolean pass = false;		
@@ -50,7 +49,10 @@ public class NewItemDialogController {
 		}
 		return pass;
 	}
-	
+	/**
+	 * Sets item
+	 * @param item
+	 */
 	public void setItem(Item item) {
 		this.item = item;	
 	}
@@ -82,7 +84,7 @@ public class NewItemDialogController {
 		System.out.println("Cancel");
 	}
 	
-	/**Verifies the content of the input fields and gives a warning to the user if there is erraneous inputs
+	/**Verifies the content of the input fields and gives a warning to the user if there is erroneous inputs
 	 * 
 	 * @return true if the inputs are acceptable
 	 */

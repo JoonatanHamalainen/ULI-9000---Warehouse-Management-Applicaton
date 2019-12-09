@@ -3,16 +3,11 @@ package Ryhma7.ULI_9000.controller;
 import java.awt.Point;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.List;
-
-import com.sun.javafx.geom.Point2D;
-
 import Ryhma7.ULI_9000.App;
 import Ryhma7.ULI_9000.model.Item;
 import Ryhma7.ULI_9000.model.Shelf;
 import Ryhma7.ULI_9000.model.Storage;
 import Ryhma7.ULI_9000.model.DatabaseConnection;
-import javafx.beans.Observable;
 import javafx.collections.FXCollections;
 import javafx.collections.ListChangeListener;
 import javafx.collections.ObservableList;
@@ -20,7 +15,6 @@ import javafx.event.ActionEvent;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
 import javafx.scene.Node;
-import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.Label;
 import javafx.scene.control.ListCell;
@@ -35,9 +29,7 @@ import javafx.scene.layout.HBox;
 import javafx.scene.layout.Pane;
 import javafx.scene.layout.RowConstraints;
 import javafx.scene.layout.VBox;
-import javafx.stage.Popup;
 import javafx.util.Callback;
-import net.bytebuddy.asm.Advice.This;
 /**Controller for StorageLayout
 *
 */
@@ -207,7 +199,11 @@ public class StorageController implements ControllerInterfaceView {
 			}
 		});
 	}
-	
+	/**
+	 * Returns an Item with the specific itemID
+	 * @param itemID
+	 * @return Item that corresponds to the itemID, if no suitable item is found, returns null
+	 */
 	private Item getItemByID(int itemID) {
 		if(itemsInStorageBox.getChildrenUnmodifiable() != null) {
 			for(Item item:itemsInStorageBox.getItems()) {
@@ -218,7 +214,11 @@ public class StorageController implements ControllerInterfaceView {
 		}
 		return null;
 	}
-	
+	/**
+	 * Returns a Shelf with the specific shelfID
+	 * @param shelfID
+	 * @return Shelf that corresponds to the shelfID, if no suitable shelf is found, returns null
+	 */
 	private Shelf getShelfByID(int shelfID) {
 		if(shelvesInStorageBox.getChildrenUnmodifiable() != null) {
 			for(Shelf shelf:shelvesInStorageBox.getItems()) {
@@ -397,7 +397,10 @@ public class StorageController implements ControllerInterfaceView {
 		//System.out.println(this.selectedCells.size());
 		//System.out.println(this.selectedCells);
 	}
-
+	/**
+	 * Updates the color of the cell at the specified coordinates
+	 * @param point
+	 */
 	private void updateCellColor(Point point) {
 		Node cell = getNode(point);
 		if(cell != null) {
@@ -556,7 +559,11 @@ public class StorageController implements ControllerInterfaceView {
 			cellSelected(new Point(GridPane.getColumnIndex(pane), GridPane.getRowIndex(pane)));
 		}
 	}
-	
+	/**
+	 * Checks the amount of items in the shelf in the specified coordinates
+	 * @param point
+	 * @return name of the wanted CSS ID
+	 */
 	private String checkAmount(Point point) {
 		int pX = point.x;
 		int pY = point.y;

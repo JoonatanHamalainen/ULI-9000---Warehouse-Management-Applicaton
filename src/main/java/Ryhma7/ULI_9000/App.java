@@ -20,9 +20,7 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.control.Accordion;
 import javafx.scene.image.Image;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.layout.BorderPane;
 import javafx.scene.layout.VBox;
@@ -30,7 +28,9 @@ import javafx.scene.paint.Color;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-//
+/**Main application
+ *
+ */
 public class App extends Application {
 
 	private Stage primaryStage;
@@ -55,7 +55,6 @@ public class App extends Application {
 		selectLanguage();
 		
 		initRootLayout();
-		
 	}
 	
 	/**Brings the Storage Layout of a specific storage to center of primaryStage
@@ -81,10 +80,15 @@ public class App extends Application {
 		} catch (IOException e) {
 			e.printStackTrace();
 		}
-		
-		
 	}
 	
+	/**Opens ShelfPopup Modal window
+	 * 
+	 * @param shelf 
+	 * @param coordinateX
+	 * @param coordinateY
+	 * @return false
+	 */
 	public boolean showInfoBox(Shelf shelf, double coordinateX, double coordinateY) {
 		try {
 			FXMLLoader loader = new FXMLLoader();
@@ -124,6 +128,7 @@ public class App extends Application {
 		}
 		return false;
 	}
+	
 	/**Opens NewStorage Modal window
 	 * @param storage
 	 * @return true if new storage is created, false if not
@@ -230,6 +235,9 @@ public class App extends Application {
 		this.rootLayout.setCenter(page);	
 	}
 	
+	/**Selects the language based on the language properties files, and creates a resource bundle based on it.
+	 * 
+	 */
 	public void selectLanguage() {
 		Locale curLocale;
 		String appConfigPath = "src/main/resources/language.properties";
@@ -257,19 +265,28 @@ public class App extends Application {
 		return storages;
 	}
 	
+	/**
+	 * Returns the BorderPane rootLayout
+	 * @return rootLayout
+	 */
 	public BorderPane getRootLayout() {
 		return this.rootLayout;
 	}
 	
+	/**
+	 * Returns the Stage primaryStage
+	 * @return primaryStage
+	 */
 	public Stage getPrimaryStage() {
 		return this.primaryStage;
 	}
 	
+	/**
+	 * Returns the ResourceBundle bundle
+	 * @return bundle
+	 */
 	public ResourceBundle getResourceBundle() {
 		return bundle;
-	}
-	public void setResourceBundle(ResourceBundle bundle) {
-		this.bundle = bundle;
 	}
 	
 	/**Launches the program
