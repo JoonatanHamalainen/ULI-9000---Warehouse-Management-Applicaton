@@ -155,7 +155,7 @@ public class RootLayoutController implements ControllerInterfaceView {
 		//lisätään luotu accordion "your storages"-labelin ja "exit" buttonin väliin
 		vbox.getChildren().add(3, accordion);
 	}
-	/** handler funktion for the interface
+	/** Handler function for the interface
 	 * Creates a temporary storage object if its attributes are set isOkClicked receives value true,
 	 * and the temporary storage is made permanent
 	 */
@@ -177,7 +177,9 @@ public class RootLayoutController implements ControllerInterfaceView {
 		}
 		System.out.println("New Storage Created!");
 	}
-	
+	/** Changes the application's language to Finnish by editing the language.properties-file,
+	 * and initializing the root layout of the interface again.
+	 */
 	@FXML
 	private void handleLanguageFi() {
 		String appConfigPath = "src/main/resources/language.properties";
@@ -194,7 +196,9 @@ public class RootLayoutController implements ControllerInterfaceView {
 		mainApp.initRootLayout();
 		System.out.println("Fin");
 	}
-	
+	/** Changes the application's language to Swedish by editing the language.properties-file,
+	 * and initializing the root layout of the interface again.
+	 */
 	@FXML
 	private void handleLanguageSwe() {
 		String appConfigPath = "src/main/resources/language.properties";
@@ -211,7 +215,9 @@ public class RootLayoutController implements ControllerInterfaceView {
 		mainApp.initRootLayout();
 		System.out.println("Swe");
 	}
-	
+	/** Changes the application's language to English by editing the language.properties-file,
+	 * and initializing the root layout of the interface again.
+	 */
 	@FXML
 	private void handleLanguageEn() {
 		String appConfigPath = "src/main/resources/language.properties";
@@ -228,7 +234,7 @@ public class RootLayoutController implements ControllerInterfaceView {
 		mainApp.initRootLayout();
 		System.out.println("Eng");
 	}
-	/** handler funktion for the interface
+	/** Handler function for the interface
 	 * 
 	 */
 	@FXML

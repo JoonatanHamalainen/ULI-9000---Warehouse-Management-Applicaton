@@ -24,10 +24,10 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="%newstorage.name" />
-            <Label text="%newstorage.width" GridPane.rowIndex="2" />
-            <Label text="%newstorage.length" GridPane.rowIndex="3" />
-            <Label text="%newstorage.address" GridPane.rowIndex="1" />
+            <Label fx:id="nametxt" text="%newstorage.name" />
+            <Label fx:id="widthtxt" text="%newstorage.width" GridPane.rowIndex="2" />
+            <Label fx:id="lengthtxt" text="%newstorage.length" GridPane.rowIndex="3" />
+            <Label fx:id="addresstxt" text="%newstorage.address" GridPane.rowIndex="1" />
             <TextField fx:id="name" GridPane.columnIndex="1" />
             <TextField fx:id="address" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="width" GridPane.columnIndex="1" GridPane.rowIndex="2" />

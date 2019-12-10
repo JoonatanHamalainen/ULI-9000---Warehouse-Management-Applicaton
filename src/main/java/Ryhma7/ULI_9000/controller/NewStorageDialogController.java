@@ -38,6 +38,9 @@ public class NewStorageDialogController implements ControllerInterfaceModalView 
 		this.storage = storage;
 	}
 	
+	/**Sets storage for the Controller and updates the storage's attributes to the ones given in the interface
+	 * @return true if successful
+	 */
 	private boolean verifyStorage() {
 		boolean pass = false;
 		if(verifyInput()) {
@@ -74,6 +77,10 @@ public class NewStorageDialogController implements ControllerInterfaceModalView 
 		dialogStage.close();
 	}
 	
+	/**Verifies the content of the input fields and gives a warning to the user if there is erroneous inputs
+	 * 
+	 * @return true if the inputs are acceptable
+	 */
 	private boolean verifyInput() {
 		
 		Alert alert = new Alert(AlertType.WARNING);
