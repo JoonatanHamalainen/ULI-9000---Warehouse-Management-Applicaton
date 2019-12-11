@@ -34,7 +34,6 @@
          <generator class="native"/>
       </id>
       
-      <property name = "capacity" column = "Capacity" type = "int"/>
       <property name = "coordinateX" column = "CoordinateX" type = "int"/>
       <property name = "coordinateY" column = "CoordinateY" type = "int"/>
       <property name = "storageID" column = "StorageID" type = "int"/>
