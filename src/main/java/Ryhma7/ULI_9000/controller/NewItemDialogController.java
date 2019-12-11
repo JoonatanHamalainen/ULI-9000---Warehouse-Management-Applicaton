@@ -1,5 +1,8 @@
 package Ryhma7.ULI_9000.controller;
 
+import java.util.ResourceBundle;
+
+import Ryhma7.ULI_9000.App;
 import Ryhma7.ULI_9000.model.Item;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -25,6 +28,7 @@ public class NewItemDialogController {
 	private Stage dialogStage;
 	private Item item;
 	private boolean isOkClicked = false;
+	private App mainApp;
 	
 	/**Sets the dialog stage for the controller
 	 * @param dialogStage is the stage currently in use
@@ -90,56 +94,57 @@ public class NewItemDialogController {
 	 */
 	private boolean verifyInput() {
 		
+		ResourceBundle bundle = mainApp.getResourceBundle();
 		Alert alert = new Alert(AlertType.WARNING);
 		boolean pass = true;
-		String errorMessage="Please insert proper values to:";
+		String errorMessage = bundle.getString("warning.pleaseinsert");
 		
 		if((name.getText().replace("\\s", "")).length() < 1) {
-			errorMessage += "\nName (length must be greater than 0)";
+			errorMessage += bundle.getString("warning.name");
 			pass = false;
 		}
 		
 		try {
 			int temp = Integer.parseInt(weight.getText());
 			if(temp < 0) {
-				errorMessage += "\nWeight (integer of value 0 or greater)";
+				errorMessage += bundle.getString("warning.weight1");
 				pass = false;
 			}
 		}catch(Exception e) {
-			errorMessage += "\nWeight (integer)";
+			errorMessage += bundle.getString("warning.weight2");
 			pass = false;
 		}
 			
 		try {
 			int temp = Integer.parseInt(amount.getText());
 			if(temp < 0) {
-				errorMessage += "\nWeight (integer of value 0 or greater)";
+				errorMessage += bundle.getString("warning.weight1");
 				pass = false;
 			}
 		}catch(Exception e) {
-			errorMessage += "\nAmount (integer)";
+			errorMessage += bundle.getString("warning.amount");
 			pass = false;
 		}
 		
 		try {
 			Double temp = Double.parseDouble(unitPrice.getText());
 			if(temp < 0) {
-				errorMessage += "\nWeight (double of value 0 or greater)";
+				errorMessage += bundle.getString("warning.weightd");
 				pass = false;
 			}
 		}catch(Exception e) {
-			errorMessage += "\nUnit price (double)";
+			errorMessage += bundle.getString("warning.unitprice");
 			pass = false;
 		}
 		
 		try {
 			Double temp = Double.parseDouble(salesPrice.getText());
 			if(temp < 0) {
-				errorMessage += "\nWeight (double of value 0 or greater)";
+				errorMessage += bundle.getString("warning.weightd");
 				pass = false;
 			}
 		}catch(Exception e) {
-			errorMessage += "\nSalesPrice (double)";
+			errorMessage += bundle.getString("warning.salesprice");
 			pass = false;
 		}
 		
@@ -149,6 +154,12 @@ public class NewItemDialogController {
 			return false;
 		}
 		return pass;
+	}
+	/**Sets the mainApp for the controller
+	 * @param mainApp is the main application
+	 */
+	public void setMainApp(App mainApp) {
+		this.mainApp = mainApp;
 	}
 }
 
