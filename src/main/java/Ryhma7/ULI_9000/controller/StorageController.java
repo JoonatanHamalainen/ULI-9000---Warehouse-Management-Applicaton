@@ -405,7 +405,7 @@ public class StorageController implements ControllerInterfaceView {
 		Node cell = getNode(point);
 		if(cell != null) {
 			cell.getStyleClass().clear();
-			cell.getStyleClass().add("storage-grid-cell-shelf-fifty");
+			cell.getStyleClass().add("storage-grid-cell-shelf-zero");
 		}
 }
 	/**Retrieves a node in specified coordinates from the storageGrid
@@ -586,7 +586,7 @@ public class StorageController implements ControllerInterfaceView {
 							return "storage-grid-cell-shelf-twentyfive";
 						}
 					} else {
-						return "storage-grid-cell-shelf-zero";
+						return "storage-grid-cell-shelf-out";
 					}
 				}
 				return "storage-grid-cell-shelf-zero";

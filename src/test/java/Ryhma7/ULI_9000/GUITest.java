@@ -22,7 +22,7 @@ public class GUITest {
 	public void setUp() throws Exception {
 	    FxToolkit.setupApplication(App.class);
 	}
-	/*
+	
 	@Test
     void testMainPageEnglishLanguage(FxRobot robot) {
 		robot.clickOn("#eng");
@@ -96,7 +96,7 @@ public class GUITest {
 		robot.clickOn("#length");
 		robot.write("5");
 		robot.clickOn("#newstoragecreate");
-	}*/
+	}
 	@Test
 	void testOpeningStorage() {
 		
