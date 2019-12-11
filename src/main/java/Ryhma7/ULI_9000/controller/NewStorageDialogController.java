@@ -64,9 +64,10 @@ public class NewStorageDialogController implements ControllerInterfaceModalView 
 	 */
 	@FXML
 	private void handleCreateNewStorage() {
-		verifyStorage();
-		this.isOkClicked = true;
-		this.dialogStage.close();
+		if(verifyStorage()) {
+			this.isOkClicked = true;
+			this.dialogStage.close();
+		}
 	}
 	
 	/**Handler function for the user interface
