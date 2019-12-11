@@ -36,8 +36,15 @@
 	-fx-insets:0, 0 1 1 0;
 }
 
-.storage-grid-cell-shelf-fifty{
-	-fx-background-color:rgba(0,128,0,0.5);
+.storage-grid-cell-shelf-seventyfive{
+	-fx-background-color:rgba(0,128,0,0.75);
+	-fx-border-color: black;
+	-fx-border-width:0.1;
+	-fx-insets:0, 0 1 1 0;
+}
+
+.storage-grid-cell-shelf-out{
+	-fx-background-color:rgba(169,169,169,1);
 	-fx-border-color: black;
 	-fx-border-width:0.1;
 	-fx-insets:0, 0 1 1 0;
