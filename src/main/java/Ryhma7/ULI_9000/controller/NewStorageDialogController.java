@@ -1,5 +1,8 @@
 package Ryhma7.ULI_9000.controller;
 
+import java.util.ResourceBundle;
+
+import Ryhma7.ULI_9000.App;
 import Ryhma7.ULI_9000.model.Storage;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
@@ -23,6 +26,7 @@ public class NewStorageDialogController implements ControllerInterfaceModalView 
 	private Stage dialogStage;
 	private Storage storage;
 	private boolean isOkClicked = false;
+	private App mainApp;
 	
 	/**Sets the dialogStage for the controller
 	 * @param dialogStage is the current stage
@@ -84,42 +88,42 @@ public class NewStorageDialogController implements ControllerInterfaceModalView 
 	 */
 	private boolean verifyInput() {
 		
+		ResourceBundle bundle = mainApp.getResourceBundle();
 		Alert alert = new Alert(AlertType.WARNING);
 		boolean pass = true;
-		String errorMessage="Please insert proper values to:";
+		String errorMessage = bundle.getString("warning.pleaseinsert");
 		
 		if((name.getText().replace("\\s", "")).length() < 1) {
-			errorMessage += "\nName (length must be greater than 0)";
+			errorMessage += bundle.getString("warning.name");
 			pass = false;
 		}
 		
 		if((address.getText().replace("\\s", "")).length() < 1) {
-			errorMessage += "\nAddress (length must be greater than 0)";
+			errorMessage += bundle.getString("warning.address");
 			pass = false;
 		}
 		
 		try {
 			int temp = Integer.parseInt(width.getText());
 			if(temp < 1) {
-				errorMessage += "\nWidth (integer of value 1 or greater)";
+				errorMessage += bundle.getString("warning.width1");
 				pass = false;
 			}
 		}catch(Exception e) {
-			errorMessage += "\nWidth (integer)";
+			errorMessage += bundle.getString("warning.width2");
 			pass = false;
 		}
 			
 		try {
 			int temp = Integer.parseInt(length.getText());
 			if(temp < 1) {
-				errorMessage += "\nLength (integer of value 1 or greater)";
+				errorMessage += bundle.getString("warning.length1");
 				pass = false;
 			}
 		}catch(Exception e) {
-			errorMessage += "\nLength (integer)";
+			errorMessage += bundle.getString("warning.length2");
 			pass = false;
 		}
-		
 		
 		if(pass == false) {
 			alert.setContentText(errorMessage);
@@ -127,5 +131,11 @@ public class NewStorageDialogController implements ControllerInterfaceModalView 
 			return false;
 		}
 		return pass;
+	}
+	/**Sets the mainApp for the controller
+	 * @param mainApp is the main application
+	 */
+	public void setMainApp(App mainApp) {
+		this.mainApp = mainApp;
 	}
 }

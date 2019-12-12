@@ -65,7 +65,7 @@ public class App extends Application {
 		AnchorPane page = null;
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(App.class.getResource("view/StorageLayout2.fxml"));
+			loader.setLocation(App.class.getResource("view/StorageLayout.fxml"));
 			loader.setResources(bundle);
 			
 			page = (AnchorPane) loader.load();
