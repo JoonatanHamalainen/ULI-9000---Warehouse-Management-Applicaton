@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.util.Properties;
 import java.util.ResourceBundle;
-
 import Ryhma7.ULI_9000.App;
 import Ryhma7.ULI_9000.model.*;
 import javafx.beans.value.ChangeListener;

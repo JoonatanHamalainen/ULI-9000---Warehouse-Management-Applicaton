@@ -483,17 +483,6 @@ public class StorageController implements ControllerInterfaceView {
 		}
 	}
 	
-	
-	/*
-	/**Updates the selected item on the selected shelf
-	 * @param shelf is the shelf to be displayed
-	 
-	private void displaySelectedShelf(Shelf shelf) {
-		this.containedItem.setText(shelf.getItem().getName());		
-	}
-	*/
-	
-	
 	/**Saves changed made to contents of a shelf
 	 * @param shelf is the current shelf
 	 */
@@ -604,12 +593,10 @@ public class StorageController implements ControllerInterfaceView {
 			pane.getStyleClass().clear();
 			pane.getStyleClass().add("storage-grid-cell-wall");
 			database.addWall(coordinates, this.storage);
-			//this.selectedCells.add(coordinates);
 		}else {
 			pane.getStyleClass().clear();
 			pane.getStyleClass().add("storage-grid-cell");
 			database.deleteWall(coordinates, this.storage);
-			//this.selectedCells.remove(coordinates);
 		}
 	}
 }

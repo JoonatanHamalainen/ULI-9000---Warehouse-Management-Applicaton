@@ -6,7 +6,6 @@ import java.util.ArrayList;
 import java.util.Locale;
 import java.util.Properties;
 import java.util.ResourceBundle;
-
 import Ryhma7.ULI_9000.controller.RootLayoutController;
 import Ryhma7.ULI_9000.controller.NewItemDialogController;
 import Ryhma7.ULI_9000.controller.NewStorageDialogController;
