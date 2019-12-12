@@ -65,7 +65,9 @@ public class RootLayoutController implements ControllerInterfaceView {
 				loader.setResources(bundle);
 				
 				TitledPane storageInfo = (TitledPane) loader.load();
+				storageInfo.setId("allstorages");
 				AnchorPane content = (AnchorPane) storageInfo.getContent();
+				content.setId("nigger");
 				final CheckBox statusBox = (CheckBox) content.getChildren().get(0);
 				final TextField addressField = (TextField) content.getChildren().get(2);
 				final TextField widthField = (TextField) content.getChildren().get(4);
@@ -153,7 +155,12 @@ public class RootLayoutController implements ControllerInterfaceView {
 			}
 		}
 		//lisätään luotu accordion "your storages"-labelin ja "exit" buttonin väliin
+		System.out.println(accordion.getPanes().size());
 		vbox.getChildren().add(3, accordion);
+		for (int i=0; i < accordion.getPanes().size(); i++) {
+			accordion.getPanes().get(i).setId(null);
+		}
+		accordion.getPanes().get(accordion.getPanes().size()-1).setId("neweststorage");
 	}
 	/** Handler function for the interface
 	 * Creates a temporary storage object if its attributes are set isOkClicked receives value true,

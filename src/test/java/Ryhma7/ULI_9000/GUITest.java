@@ -5,6 +5,13 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.testfx.framework.junit5.*;
 import org.testfx.matcher.control.LabeledMatchers;
 
+import com.sun.xml.bind.CycleRecoverable.Context;
+
+import javafx.scene.Scene;
+import javafx.scene.control.Accordion;
+import javafx.scene.control.TableView;
+import javafx.stage.Stage;
+
 import org.testfx.api.FxAssert;
 import org.testfx.api.FxRobot;
 import org.testfx.api.FxToolkit;
@@ -14,15 +21,28 @@ import org.testfx.api.FxToolkit;
 public class GUITest {
 	
 	@BeforeAll
-	public static void setupSpec() throws Exception {
+	public static void setupSpec(FxRobot robot) throws Exception {
 	    FxToolkit.registerPrimaryStage();
+	    FxToolkit.setupApplication(App.class);
+	    
+	    /*
+	    robot.clickOn("#newstorage");
+		robot.write("testivarasto");
+		robot.clickOn("#address");
+		robot.write("testikuja 1");
+		robot.clickOn("#width");
+		robot.write("7");
+		robot.clickOn("#length");
+		robot.write("5");
+		robot.clickOn("#newstoragecreate");
+		*/
 	}
 
 	@BeforeEach
 	public void setUp() throws Exception {
 	    FxToolkit.setupApplication(App.class);
 	}
-	
+	/*
 	@Test
     void testMainPageEnglishLanguage(FxRobot robot) {
 		robot.clickOn("#eng");
@@ -86,17 +106,84 @@ public class GUITest {
         robot.clickOn("#newstoragecancel");
 	}
 	@Test
-	void should_be_able_to_create_storage(FxRobot robot) {
-		robot.clickOn("#newstorage");
-		robot.write("testivarasto");
-		robot.clickOn("#address");
-		robot.write("testikuja 1");
-		robot.clickOn("#width");
-		robot.write("7");
-		robot.clickOn("#length");
-		robot.write("5");
-		robot.clickOn("#newstoragecreate");
+	void testStorageLayoutEnglishLanguage(FxRobot robot) {
+		robot.clickOn("#eng");
+		robot.clickOn("#neweststorage");
+		
+		FxAssert.verifyThat("#addressLabel", LabeledMatchers.hasText("Address"));
+		FxAssert.verifyThat("#widthLabel", LabeledMatchers.hasText("Width (m)"));
+		FxAssert.verifyThat("#lengthLabel", LabeledMatchers.hasText("Length (m)"));
+		FxAssert.verifyThat("#removeStorage", LabeledMatchers.hasText("Remove"));
+		FxAssert.verifyThat("#saveStorageChanges", LabeledMatchers.hasText("Save Changes"));
+		FxAssert.verifyThat("#locked", LabeledMatchers.hasText("Locked"));
+		
+		FxAssert.verifyThat("#walls", LabeledMatchers.hasText("Edit Walls"));
+		FxAssert.verifyThat("#storage", LabeledMatchers.hasText("Storage"));
+		FxAssert.verifyThat("#addShelf", LabeledMatchers.hasText("Add Shelf"));
+		FxAssert.verifyThat("#newItem", LabeledMatchers.hasText("New Item"));
+		FxAssert.verifyThat("#removeItem", LabeledMatchers.hasText("Remove Item from Storage"));
+		FxAssert.verifyThat("#shelf", LabeledMatchers.hasText("Shelf"));
+		FxAssert.verifyThat("#addItemToShelf", LabeledMatchers.hasText("Add Item to Shelf:"));
+		FxAssert.verifyThat("#removeItemFromShelf", LabeledMatchers.hasText("Remove Item from Shelf"));
+		FxAssert.verifyThat("#removeShelf", LabeledMatchers.hasText("Remove Shelf"));
+		FxAssert.verifyThat("#contains", LabeledMatchers.hasText("Contains:"));
 	}
+	
+	@Test
+	void testStorageLayoutFinnishLanguage(FxRobot robot) {
+		robot.clickOn("#fin");
+		robot.clickOn("#neweststorage");
+		
+		FxAssert.verifyThat("#addressLabel", LabeledMatchers.hasText("Katuosoite"));
+		FxAssert.verifyThat("#widthLabel", LabeledMatchers.hasText("Leveys (m)"));
+		FxAssert.verifyThat("#lengthLabel", LabeledMatchers.hasText("Pituus (m)"));
+		FxAssert.verifyThat("#removeStorage", LabeledMatchers.hasText("Poista"));
+		FxAssert.verifyThat("#saveStorageChanges", LabeledMatchers.hasText("Tallenna Muutokset"));
+		FxAssert.verifyThat("#locked", LabeledMatchers.hasText("Lukittu"));
+		
+		FxAssert.verifyThat("#walls", LabeledMatchers.hasText("Muokkaa Seiniä"));
+		FxAssert.verifyThat("#storage", LabeledMatchers.hasText("Varasto"));
+		FxAssert.verifyThat("#addShelf", LabeledMatchers.hasText("Lisää Hylly"));
+		FxAssert.verifyThat("#newItem", LabeledMatchers.hasText("Uusi Tuote"));
+		FxAssert.verifyThat("#removeItem", LabeledMatchers.hasText("Poista Tuote Varastosta"));
+		FxAssert.verifyThat("#shelf", LabeledMatchers.hasText("Hylly"));
+		FxAssert.verifyThat("#addItemToShelf", LabeledMatchers.hasText("Lisää Tuote Hyllyyn:"));
+		FxAssert.verifyThat("#removeItemFromShelf", LabeledMatchers.hasText("Poista Tuote Hyllystä"));
+		FxAssert.verifyThat("#removeShelf", LabeledMatchers.hasText("Poista Hylly"));
+		FxAssert.verifyThat("#contains", LabeledMatchers.hasText("Sisältää:"));
+	}
+	
+	@Test
+	void testStorageLayoutSwedishLanguage(FxRobot robot) {
+		robot.clickOn("#swe");
+		robot.clickOn("#neweststorage");
+		
+		FxAssert.verifyThat("#addressLabel", LabeledMatchers.hasText("Adress"));
+		FxAssert.verifyThat("#widthLabel", LabeledMatchers.hasText("Bredd (m)"));
+		FxAssert.verifyThat("#lengthLabel", LabeledMatchers.hasText("Längd (m)"));
+		FxAssert.verifyThat("#removeStorage", LabeledMatchers.hasText("Ta Bort"));
+		FxAssert.verifyThat("#saveStorageChanges", LabeledMatchers.hasText("Spara ändringarna"));
+		FxAssert.verifyThat("#locked", LabeledMatchers.hasText("Låst"));
+		
+		FxAssert.verifyThat("#walls", LabeledMatchers.hasText("Redigera Väggar"));
+		FxAssert.verifyThat("#storage", LabeledMatchers.hasText("Föråd"));
+		FxAssert.verifyThat("#addShelf", LabeledMatchers.hasText("Lägg till Hylla"));
+		FxAssert.verifyThat("#newItem", LabeledMatchers.hasText("Ny Produkt"));
+		FxAssert.verifyThat("#removeItem", LabeledMatchers.hasText("Ta Bort från Förådet"));
+		FxAssert.verifyThat("#shelf", LabeledMatchers.hasText("Hylla"));
+		FxAssert.verifyThat("#addItemToShelf", LabeledMatchers.hasText("Lägg till Produkt i Hyllan:"));
+		FxAssert.verifyThat("#removeItemFromShelf", LabeledMatchers.hasText("Ta Bort från Hyllan"));
+		FxAssert.verifyThat("#removeShelf", LabeledMatchers.hasText("Ta Bort Hyllan"));
+		FxAssert.verifyThat("#contains", LabeledMatchers.hasText("Innehåller:"));
+	}*/
+	@Test
+	void testStorageLayoutSwedishLanguage(FxRobot robot) {
+		robot.clickOn("#eng");
+		robot.clickOn("#neweststorage");
+		robot.clickOn("#newItem");
+		FxAssert.verifyThat("#addressLabel", LabeledMatchers.hasText("Adress"));
+	}
+	
 	@Test
 	void testOpeningStorage() {
 		

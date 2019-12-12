@@ -19,7 +19,7 @@
          <right>
             <VBox minWidth="150.0" BorderPane.alignment="CENTER">
                <children>
-                  <Button maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleEnableWalls" text="%button.walls" />
+                  <Button fx:id ="walls" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleEnableWalls" text="%button.walls" />
                </children>
             </VBox>
          </right></BorderPane>
@@ -37,15 +37,15 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label text="%title.storage2" GridPane.columnSpan="3">
+                  <Label fx:id="storage" text="%title.storage2" GridPane.columnSpan="3">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
-                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleAddShelf" text="%button.addshelf2" GridPane.rowIndex="1" />
-                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleNewItem" text="%button.newitem2" GridPane.rowIndex="2" />
+                  <Button fx:id="addShelf" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleAddShelf" text="%button.addshelf2" GridPane.rowIndex="1" />
+                  <Button fx:id="newItem" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleNewItem" text="%button.newitem2" GridPane.rowIndex="2" />
                   <ComboBox fx:id="itemsInStorageBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" promptText="%list.itemsinstorage2" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleRemoveItemFromStrorage" text="%button.removeitem2" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Button fx:id="removeItem" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleRemoveItemFromStrorage" text="%button.removeitem2" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                </children>
             </GridPane>
             <GridPane hgap="3.0" vgap="3.0">
@@ -62,16 +62,16 @@
                 <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
               </rowConstraints>
                <children>
-                  <Label text="%title.shelf2" GridPane.columnSpan="5" GridPane.halignment="CENTER">
+                  <Label fx:id="shelf" text="%title.shelf2" GridPane.columnSpan="5" GridPane.halignment="CENTER">
                      <font>
                         <Font size="14.0" />
                      </font>
                   </Label>
                   <ComboBox fx:id="shelvesInStorageBox" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" promptText="%list.selectshelf2" GridPane.rowIndex="1" />
-                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleAddItemToShelf" text="%button.additemtoshelf2" GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleRemoveItemFromShelf" text="%button.removeitemfromshelf2" GridPane.columnIndex="2" GridPane.rowIndex="2" />
-                  <Button maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleRemoveShelf" text="%button.removeshelf2" GridPane.rowIndex="2" />
-                  <Label contentDisplay="CENTER" text="%title.contains2" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
+                  <Button fx:id="addItemToShelf" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleAddItemToShelf" text="%button.additemtoshelf2" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                  <Button fx:id="removeItemFromShelf" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleRemoveItemFromShelf" text="%button.removeitemfromshelf2" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                  <Button fx:id="removeShelf" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" mnemonicParsing="false" onAction="#handleRemoveShelf" text="%button.removeshelf2" GridPane.rowIndex="2" />
+                  <Label fx:id="contains" contentDisplay="CENTER" text="%title.contains2" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="1" />
                   <TextField fx:id="containedItem" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" GridPane.columnIndex="2" GridPane.rowIndex="1" />
                </children>
             </GridPane>
