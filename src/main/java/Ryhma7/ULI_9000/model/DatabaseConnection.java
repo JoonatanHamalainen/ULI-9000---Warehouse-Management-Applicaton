@@ -34,6 +34,12 @@ public class DatabaseConnection {
 		}
 	}
 
+	/**
+	 * Gets specified itemID from database
+	 * 
+	 * @param itemID is used to identify the itemID that needs to be returned
+	 * @return returns the specified itemID
+	 */
 	public Item getItem(int itemID) {
 		Session session = factory.openSession();
 		Transaction tx = null;
@@ -128,6 +134,12 @@ public class DatabaseConnection {
 		return tempStorage;
 	}
 
+	/**
+	 * Gets specified amount from database
+	 * 
+	 * @param item is used to specify which items amount needs to be returned
+	 * @return returns the specified amount
+	 */
 	public int getAmount(Item item) {
 		Session session = factory.openSession();
 		Transaction tx = null;
@@ -152,6 +164,12 @@ public class DatabaseConnection {
 		return amount;
 	}
 
+	/**
+	 * Gets specified highest amount from database
+	 * 
+	 * @param itemID is used to specify which items highest amount needs to be returned
+	 * @return returns the specified highest amount
+	 */
 	public int getHighestAmount(int itemID) {
 		Session session = factory.openSession();
 		Transaction tx = null;
@@ -177,6 +195,12 @@ public class DatabaseConnection {
 		return highestAmount;
 	}
 
+	/**
+	 * Gets specified items in a certain storage
+	 * 
+	 * @param storage is used to specify from which storage the items needs to be returned
+	 * @return returns the specified items
+	 */
 	@SuppressWarnings("unchecked")
 	public ArrayList<Item> getItemsInStorage(Storage storage) {
 		Session session = factory.openSession();
@@ -199,6 +223,12 @@ public class DatabaseConnection {
 		return items;
 	}
 
+	/**
+	 * Gets specified items in a certain shelf
+	 * 
+	 * @param shelf is used to specify from which storage the items needs to be returned
+	 * @return returns the specified items
+	 */
 	@SuppressWarnings("unchecked")
 	public ArrayList<Item> getItemsInShelf(Shelf shelf) {
 		Session session = factory.openSession();
@@ -258,6 +288,12 @@ public class DatabaseConnection {
 		return shelves;
 	}
 
+	/**
+	 * Gets all wall withing a specified storage
+	 * 
+	 * @param storage is used to specify the storage where walls needs to be returned
+	 * @return the specified walls
+	 */
 	public ArrayList<Point> getWallsInStorage(Storage storage) {
 		Session session = factory.openSession();
 		Transaction tx = null;
@@ -381,6 +417,12 @@ public class DatabaseConnection {
 		}
 	}
 
+	/**
+	 * Method that adds walls to a certain point in the storage
+	 * 
+	 * @param point is needed to specify where in the storage the wall will be placed
+	 * @param storage is needed to specify which storage the wall will be placed
+	 */
 	public void addWall(Point point, Storage storage) {
 		Session session = factory.openSession();
 		Transaction tx = null;
@@ -403,6 +445,12 @@ public class DatabaseConnection {
 		}
 	}
 
+	/**
+	 * Method adds item into a shelf
+	 * 
+	 * @param item is needed to specify which item will be added to the shelf
+	 * @param shelf is needed to specify which shelf the item will be added
+	 */
 	public void addItemToShelf(Item item, Shelf shelf) {
 		Session session = factory.openSession();
 		Transaction tx = null;
@@ -695,6 +743,11 @@ public class DatabaseConnection {
 		}
 	}
 
+	/**
+	 * Method for deleting a shelf
+	 * 
+	 * @param shelf is used to specify what shelf needs to be deleted
+	 */
 	public void deleteShelf(Shelf shelf) {
 		Session session = factory.openSession();
 		Transaction tx = null;
@@ -744,6 +797,11 @@ public class DatabaseConnection {
 		}
 	}
 
+	/**
+	 * Method deletes an Item from shelf
+	 * 
+	 * @param item is used to identify which item needs to be deleted
+	 */
 	public void deleteItemFromShelf(Item item) {
 		Session session = factory.openSession();
 		Transaction tx = null;
@@ -767,6 +825,12 @@ public class DatabaseConnection {
 		}
 	}
 
+	/**
+	 * Method deletes a wall
+	 * 
+	 * @param point is needed to specify in which point of the storage the wall will be deleted
+	 * @param storage is needed to specify in which storage the point of the wall will be deleted
+	 */
 	public void deleteWall(Point point, Storage storage) {
 		Session session = factory.openSession();
 		Transaction tx = null;
