@@ -142,7 +142,7 @@ public class App extends Application {
 			AnchorPane page = (AnchorPane) loader.load();
 			
 			Stage dialogStage = new Stage();
-			dialogStage.setTitle("Create New Storage");
+			dialogStage.setTitle(bundle.getString("windowtitle.storage"));
 			dialogStage.initModality(Modality.WINDOW_MODAL);
 			dialogStage.initOwner(primaryStage);
 			
@@ -150,6 +150,7 @@ public class App extends Application {
 			dialogStage.setScene(scene);
 			
 			NewStorageDialogController controller = loader.getController();
+			controller.setMainApp(this);
 			controller.setStorage(storage);
 			controller.setDialogStage(dialogStage);
 			
@@ -175,7 +176,7 @@ public class App extends Application {
 			AnchorPane page = (AnchorPane) loader.load();
 			
 			Stage dialogStage = new Stage();
-			dialogStage.setTitle("Create New Item");
+			dialogStage.setTitle(bundle.getString("windowtitle.item"));
 			dialogStage.initModality(Modality.WINDOW_MODAL);
 			dialogStage.initOwner(primaryStage);
 			
@@ -183,6 +184,7 @@ public class App extends Application {
 			dialogStage.setScene(scene);
 			
 			NewItemDialogController controller = loader.getController();
+			controller.setMainApp(this);
 			controller.setItem(item);
 			controller.setDialogStage(dialogStage);
 			
