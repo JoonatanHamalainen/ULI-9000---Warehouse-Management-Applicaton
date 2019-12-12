@@ -149,6 +149,8 @@ public class NewItemDialogController {
 		}
 		
 		if(pass == false) {
+			alert.setTitle(bundle.getString("warning.warning"));
+			alert.setHeaderText(bundle.getString("warning.warning"));
 			alert.setContentText(errorMessage);
 			alert.show();
 			return false;

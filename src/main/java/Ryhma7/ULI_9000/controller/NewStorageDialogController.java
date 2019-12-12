@@ -126,6 +126,8 @@ public class NewStorageDialogController implements ControllerInterfaceModalView 
 		}
 		
 		if(pass == false) {
+			alert.setTitle(bundle.getString("warning.warning"));
+			alert.setHeaderText(bundle.getString("warning.warning"));
 			alert.setContentText(errorMessage);
 			alert.show();
 			return false;
