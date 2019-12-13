@@ -203,7 +203,7 @@ public class App extends Application {
 	public void initRootLayout() {
 		try {
 			FXMLLoader loader = new FXMLLoader();
-			loader.setLocation(App.class.getResource("view/Rootlayout.fxml"));
+			loader.setLocation(App.class.getResource("view/RootLayout.fxml"));
 			loader.setResources(bundle);
 			
 			this.rootLayout =(BorderPane) loader.load();

@@ -155,7 +155,6 @@ public class StorageController implements ControllerInterfaceView {
 		this.itemsInStorageBox.setItems(this.storageItemList);
 		this.itemsInStorageBox.setButtonCell(new ItemCellList());
 		
-		
 		this.storageShelfList = FXCollections.observableList(database.getShelvesInStorage(this.storage));
 		if(this.storageShelfList != null && this.storageItemList != null) {
 			for(Shelf shelf: this.storageShelfList) {
@@ -479,6 +478,7 @@ public class StorageController implements ControllerInterfaceView {
 				}
 			}
 			BorderPane tempPane = (BorderPane) page.getChildren().get(0);
+			tempPane.setId("cell");
 			tempPane.setCenter(this.storageGrid);
 		}
 	}

@@ -153,7 +153,12 @@ public class RootLayoutController implements ControllerInterfaceView {
 			}
 		}
 		//lisätään luotu accordion "your storages"-labelin ja "exit" buttonin väliin
+		System.out.println(accordion.getPanes().size());
 		vbox.getChildren().add(3, accordion);
+		for (int i=0; i < accordion.getPanes().size(); i++) {
+			accordion.getPanes().get(i).setId(null);
+		}
+		accordion.getPanes().get(accordion.getPanes().size()-1).setId("neweststorage");
 	}
 	/** Handler function for the interface
 	 * Creates a temporary storage object if its attributes are set isOkClicked receives value true,
