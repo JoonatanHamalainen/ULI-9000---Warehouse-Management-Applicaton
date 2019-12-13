@@ -1,15 +1,29 @@
 package Ryhma7.ULI_9000;
 
+import static org.junit.jupiter.api.Assertions.assertEquals;
+
+import java.util.ArrayList;
+
+import org.hamcrest.Matcher;
+import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.testfx.framework.junit5.*;
 import org.testfx.matcher.control.LabeledMatchers;
+import org.testfx.matcher.control.TextInputControlMatchers;
+import org.testfx.service.query.PointQuery;
 
 import com.sun.xml.bind.CycleRecoverable.Context;
+import com.sun.xml.txw2.Document;
 
+import Ryhma7.ULI_9000.controller.StorageController;
+import Ryhma7.ULI_9000.model.DatabaseConnection;
+import Ryhma7.ULI_9000.model.Shelf;
 import javafx.scene.Scene;
 import javafx.scene.control.Accordion;
+import javafx.scene.control.Spinner;
 import javafx.scene.control.TableView;
+import javafx.scene.input.KeyCode;
 import javafx.stage.Stage;
 
 import org.testfx.api.FxAssert;
@@ -20,16 +34,19 @@ import org.testfx.api.FxToolkit;
 @ExtendWith(ApplicationExtension.class)
 public class GUITest {
 	
+	static DatabaseConnection database;
+	
 	@BeforeAll
 	public static void setupSpec(FxRobot robot) throws Exception {
+		database = new DatabaseConnection();
 	    FxToolkit.registerPrimaryStage();
 	    FxToolkit.setupApplication(App.class);
 	    
 	    /*
 	    robot.clickOn("#newstorage");
-		robot.write("testivarasto");
+		robot.write("Test Storage");
 		robot.clickOn("#address");
-		robot.write("testikuja 1");
+		robot.write("Test Road 1");
 		robot.clickOn("#width");
 		robot.write("7");
 		robot.clickOn("#length");
@@ -42,6 +59,7 @@ public class GUITest {
 	public void setUp() throws Exception {
 	    FxToolkit.setupApplication(App.class);
 	}
+	
 	/*
 	@Test
     void testMainPageEnglishLanguage(FxRobot robot) {
@@ -51,6 +69,7 @@ public class GUITest {
         FxAssert.verifyThat("#yourstorages", LabeledMatchers.hasText("Your Storages"));
         FxAssert.verifyThat("#exit", LabeledMatchers.hasText("Exit"));
     }
+    
 	@Test
 	void testNewStorageDialogEnglishLanguage(FxRobot robot) {
 		robot.clickOn("#eng");
@@ -72,6 +91,7 @@ public class GUITest {
         FxAssert.verifyThat("#yourstorages", LabeledMatchers.hasText("Sinun Varastosi"));
         FxAssert.verifyThat("#exit", LabeledMatchers.hasText("Poistu"));
     }
+    
 	@Test
 	void testNewStorageDialogFinnishLanguage(FxRobot robot) {
 		robot.clickOn("#fin");
@@ -93,6 +113,7 @@ public class GUITest {
         FxAssert.verifyThat("#yourstorages", LabeledMatchers.hasText("Dina Föråd"));
         FxAssert.verifyThat("#exit", LabeledMatchers.hasText("Avsluta"));
     }
+    
 	@Test
 	void testNewStorageDialogSwedishLanguage(FxRobot robot) {
 		robot.clickOn("#swe");
@@ -105,6 +126,7 @@ public class GUITest {
         FxAssert.verifyThat("#newstoragecancel", LabeledMatchers.hasText("Cancelera"));
         robot.clickOn("#newstoragecancel");
 	}
+	
 	@Test
 	void testStorageLayoutEnglishLanguage(FxRobot robot) {
 		robot.clickOn("#eng");
@@ -175,17 +197,131 @@ public class GUITest {
 		FxAssert.verifyThat("#removeItemFromShelf", LabeledMatchers.hasText("Ta Bort från Hyllan"));
 		FxAssert.verifyThat("#removeShelf", LabeledMatchers.hasText("Ta Bort Hyllan"));
 		FxAssert.verifyThat("#contains", LabeledMatchers.hasText("Innehåller:"));
-	}*/
-	@Test
-	void testStorageLayoutSwedishLanguage(FxRobot robot) {
-		robot.clickOn("#eng");
-		robot.clickOn("#neweststorage");
-		robot.clickOn("#newItem");
-		FxAssert.verifyThat("#addressLabel", LabeledMatchers.hasText("Adress"));
 	}
 	
 	@Test
-	void testOpeningStorage() {
+	void testNewItemDialogEnglishLanguage(FxRobot robot) {
+		robot.clickOn("#eng");
+		robot.clickOn("#neweststorage");
+		robot.clickOn("#newItem");
 		
+		FxAssert.verifyThat("#itemName", LabeledMatchers.hasText("Item Name"));
+		FxAssert.verifyThat("#itemWeight", LabeledMatchers.hasText("Item Weight (g)"));
+		FxAssert.verifyThat("#itemAmount", LabeledMatchers.hasText("Item Amount"));
+		FxAssert.verifyThat("#itemUnitprice", LabeledMatchers.hasText("Unit Price (€)"));
+		FxAssert.verifyThat("#itemSalesprice", LabeledMatchers.hasText("Sales Price (€)"));
+		FxAssert.verifyThat("#createNewItem", LabeledMatchers.hasText("Create"));
+		FxAssert.verifyThat("#cancelItemCreation", LabeledMatchers.hasText("Cancel"));
+		
+		robot.clickOn("#cancelItemCreation");
 	}
+	
+	@Test
+	void testNewItemDialogFinnishLanguage(FxRobot robot) {
+		robot.clickOn("#fin");
+		robot.clickOn("#neweststorage");
+		robot.clickOn("#newItem");
+		
+		FxAssert.verifyThat("#itemName", LabeledMatchers.hasText("Tuotenimi"));
+		FxAssert.verifyThat("#itemWeight", LabeledMatchers.hasText("Tuotteen Paino (g)"));
+		FxAssert.verifyThat("#itemAmount", LabeledMatchers.hasText("Tuotemäärä"));
+		FxAssert.verifyThat("#itemUnitprice", LabeledMatchers.hasText("Yksikköhinta (€)"));
+		FxAssert.verifyThat("#itemSalesprice", LabeledMatchers.hasText("Myyntihinta (€)"));
+		FxAssert.verifyThat("#createNewItem", LabeledMatchers.hasText("Luo"));
+		FxAssert.verifyThat("#cancelItemCreation", LabeledMatchers.hasText("Peruuta"));
+		
+		robot.clickOn("#cancelItemCreation");
+	}
+	
+	@Test
+	void testNewItemDialogSwedishLanguage(FxRobot robot) {
+		robot.clickOn("#swe");
+		robot.clickOn("#neweststorage");
+		robot.clickOn("#newItem");
+		
+		FxAssert.verifyThat("#itemName", LabeledMatchers.hasText("Produkt Namn"));
+		FxAssert.verifyThat("#itemWeight", LabeledMatchers.hasText("Produkt Vikt (g)"));
+		FxAssert.verifyThat("#itemAmount", LabeledMatchers.hasText("Produkt Mängd"));
+		FxAssert.verifyThat("#itemUnitprice", LabeledMatchers.hasText("Enhetspris (€)"));
+		FxAssert.verifyThat("#itemSalesprice", LabeledMatchers.hasText("Försäljningspris (€)"));
+		FxAssert.verifyThat("#createNewItem", LabeledMatchers.hasText("Skapa"));
+		FxAssert.verifyThat("#cancelItemCreation", LabeledMatchers.hasText("Avbryt"));
+		
+		robot.clickOn("#cancelItemCreation");
+	}
+	*/
+	@Test
+	void testEnglishLanguage(FxRobot robot) {
+		robot.clickOn("#eng");
+		robot.clickOn("#neweststorage");
+		robot.clickOn("#newItem");
+		
+		FxAssert.verifyThat("#itemName", LabeledMatchers.hasText("Item Name"));
+		FxAssert.verifyThat("#itemWeight", LabeledMatchers.hasText("Item Weight (g)"));
+		FxAssert.verifyThat("#itemAmount", LabeledMatchers.hasText("Item Amount"));
+		FxAssert.verifyThat("#itemUnitprice", LabeledMatchers.hasText("Unit Price (€)"));
+		FxAssert.verifyThat("#itemSalesprice", LabeledMatchers.hasText("Sales Price (€)"));
+		FxAssert.verifyThat("#createNewItem", LabeledMatchers.hasText("Create"));
+		FxAssert.verifyThat("#cancelItemCreation", LabeledMatchers.hasText("Cancel"));
+		
+		robot.clickOn("#cancelItemCreation");
+	}
+	/*
+	@Test
+	void testItemCreationAndShelfCreationAndWallCreationAndAddingItemToShelf(FxRobot robot) {
+		int itemAmount = database.getItemsInStorage(database.getStorage("Test Storage")).size();
+		int shelfAmount = database.getShelvesInStorage(database.getStorage("Test Storage")).size();
+		int wallAmount = database.getWallsInStorage(database.getStorage("Test Storage")).size();
+		
+		robot.clickOn("#neweststorage");
+		robot.clickOn("#newItem");
+		robot.clickOn("#name");
+		robot.write("Test Item");
+		robot.clickOn("#weight");
+		robot.write("150");
+		robot.clickOn("#amount");
+		robot.write("69");
+		robot.clickOn("#unitPrice");
+		robot.write("5.95");
+		robot.clickOn("#salesPrice");
+		robot.write("7.85");
+		robot.clickOn("#createNewItem");
+		assertEquals(itemAmount + 1, database.getItemsInStorage(database.getStorage("Test Storage")).size());
+		itemAmount = database.getItemsInStorage(database.getStorage("Test Storage")).size();
+		robot.clickOn("#itemsInStorageBox");
+		for (int i=0; i<itemAmount; i++) {
+		robot.type(KeyCode.DOWN);
+		}
+		robot.type(KeyCode.ENTER);
+		robot.clickOn("#cell");
+		robot.clickOn("#addShelf");
+		assertEquals(shelfAmount + 1, database.getShelvesInStorage(database.getStorage("Test Storage")).size());
+		shelfAmount = database.getShelvesInStorage(database.getStorage("Test Storage")).size();
+		robot.clickOn("#shelvesInStorageBox");
+		for (int i=0; i<shelfAmount; i++) {
+			robot.type(KeyCode.DOWN);
+			}
+		robot.type(KeyCode.ENTER);
+		robot.clickOn("#addItemToShelf");
+		FxAssert.verifyThat("#containedItem", TextInputControlMatchers.hasText("Test Item"));
+		robot.doubleClickOn("#neweststorage");
+		robot.clickOn("#cell");
+		ArrayList<Shelf> shelves = database.getShelvesInStorage(database.getStorage("Test Storage"));
+		Shelf shelf = shelves.get(shelves.size()-1);
+		FxAssert.verifyThat("#shelfID", LabeledMatchers.hasText(String.valueOf(shelf.getShelfID())));
+		FxAssert.verifyThat("#itemName", LabeledMatchers.hasText("Test Item"));
+		FxAssert.verifyThat("#salesprice", LabeledMatchers.hasText("7.85"));
+		FxAssert.verifyThat("#unitPrice", LabeledMatchers.hasText("5.95"));
+		FxAssert.verifyThat("#weight", LabeledMatchers.hasText("150"));
+		robot.doubleClickOn("#removeShelf");
+		robot.clickOn("#walls");
+		robot.clickOn("#cell");
+		assertEquals(wallAmount + 1, database.getWallsInStorage(database.getStorage("Test Storage")).size());
+		robot.clickOn("#cell");
+		assertEquals(wallAmount, database.getWallsInStorage(database.getStorage("Test Storage")).size());
+		robot.clickOn("#walls");
+		assertEquals(shelfAmount-1, database.getShelvesInStorage(database.getStorage("Test Storage")).size());
+		robot.clickOn("#removeItem");
+		assertEquals(itemAmount-1, database.getItemsInStorage(database.getStorage("Test Storage")).size());
+	}*/
 }
