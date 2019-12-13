@@ -9,7 +9,7 @@ public class DatabaseConnectionTest {
 	static DatabaseConnection database;
 	
 	@Test
-	public void databaseConnectionTest() {
+	void databaseConnectionTest() {
 		try {
 		database = new DatabaseConnection();
 		}
