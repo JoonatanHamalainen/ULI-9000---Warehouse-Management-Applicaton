@@ -87,13 +87,6 @@ public class StorageController implements ControllerInterfaceView {
 	@FXML
 	private ComboBox<Item> itemsInStorageBox;
 
-	public ObservableList<Item> getStorageItemList() {
-		return storageItemList;
-	}
-
-	public ObservableList<Shelf> getStorageShelfList() {
-		return storageShelfList;
-	}
 	@FXML
 	private ComboBox<Shelf> shelvesInStorageBox;
 	

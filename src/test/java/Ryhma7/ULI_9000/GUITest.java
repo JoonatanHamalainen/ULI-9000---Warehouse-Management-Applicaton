@@ -3,28 +3,15 @@ package Ryhma7.ULI_9000;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 
 import java.util.ArrayList;
-
-import org.hamcrest.Matcher;
-import org.hamcrest.MatcherAssert;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.testfx.framework.junit5.*;
 import org.testfx.matcher.control.LabeledMatchers;
 import org.testfx.matcher.control.TextInputControlMatchers;
-import org.testfx.service.query.PointQuery;
-
-import com.sun.xml.bind.CycleRecoverable.Context;
-import com.sun.xml.txw2.Document;
-
-import Ryhma7.ULI_9000.controller.StorageController;
 import Ryhma7.ULI_9000.model.DatabaseConnection;
 import Ryhma7.ULI_9000.model.Shelf;
-import javafx.scene.Scene;
-import javafx.scene.control.Accordion;
-import javafx.scene.control.Spinner;
-import javafx.scene.control.TableView;
 import javafx.scene.input.KeyCode;
-import javafx.stage.Stage;
+
 
 import org.testfx.api.FxAssert;
 import org.testfx.api.FxRobot;
@@ -42,7 +29,6 @@ public class GUITest {
 	    FxToolkit.registerPrimaryStage();
 	    FxToolkit.setupApplication(App.class);
 	    
-	    /*
 	    robot.clickOn("#newstorage");
 		robot.write("Test Storage");
 		robot.clickOn("#address");
@@ -52,15 +38,8 @@ public class GUITest {
 		robot.clickOn("#length");
 		robot.write("5");
 		robot.clickOn("#newstoragecreate");
-		*/
 	}
 
-	@BeforeEach
-	public void setUp() throws Exception {
-	    FxToolkit.setupApplication(App.class);
-	}
-	
-	/*
 	@Test
     void testMainPageEnglishLanguage(FxRobot robot) {
 		robot.clickOn("#eng");
@@ -69,19 +48,6 @@ public class GUITest {
         FxAssert.verifyThat("#yourstorages", LabeledMatchers.hasText("Your Storages"));
         FxAssert.verifyThat("#exit", LabeledMatchers.hasText("Exit"));
     }
-    
-	@Test
-	void testNewStorageDialogEnglishLanguage(FxRobot robot) {
-		robot.clickOn("#eng");
-		robot.clickOn("#newstorage");
-		FxAssert.verifyThat("#nametxt", LabeledMatchers.hasText("Storage Name"));
-        FxAssert.verifyThat("#addresstxt", LabeledMatchers.hasText("Storage Address"));
-        FxAssert.verifyThat("#widthtxt", LabeledMatchers.hasText("Storage Width"));
-        FxAssert.verifyThat("#lengthtxt", LabeledMatchers.hasText("Storage Length"));
-        FxAssert.verifyThat("#newstoragecreate", LabeledMatchers.hasText("Create New Storage"));
-        FxAssert.verifyThat("#newstoragecancel", LabeledMatchers.hasText("Cancel"));
-        robot.clickOn("#newstoragecancel");
-	}
 
 	@Test
     void testMainPageFinnishLanguage(FxRobot robot) {
@@ -90,19 +56,6 @@ public class GUITest {
         FxAssert.verifyThat("#welcome", LabeledMatchers.hasText("Tervetuloa varastonhallintaohjelmaan ULI-9000! Aloita klikkaamalla Luo Uusi Varasto -painiketta!"));
         FxAssert.verifyThat("#yourstorages", LabeledMatchers.hasText("Sinun Varastosi"));
         FxAssert.verifyThat("#exit", LabeledMatchers.hasText("Poistu"));
-    }
-    
-	@Test
-	void testNewStorageDialogFinnishLanguage(FxRobot robot) {
-		robot.clickOn("#fin");
-		robot.clickOn("#newstorage");
-		FxAssert.verifyThat("#nametxt", LabeledMatchers.hasText("Varaston Nimi"));
-        FxAssert.verifyThat("#addresstxt", LabeledMatchers.hasText("Varaston Katuosoite"));
-        FxAssert.verifyThat("#widthtxt", LabeledMatchers.hasText("Varaston Leveys"));
-        FxAssert.verifyThat("#lengthtxt", LabeledMatchers.hasText("Varaston Pituus"));
-        FxAssert.verifyThat("#newstoragecreate", LabeledMatchers.hasText("Luo Uusi Varasto"));
-        FxAssert.verifyThat("#newstoragecancel", LabeledMatchers.hasText("Peruuta"));
-        robot.clickOn("#newstoragecancel");
     }
 	
 	@Test
@@ -113,6 +66,32 @@ public class GUITest {
         FxAssert.verifyThat("#yourstorages", LabeledMatchers.hasText("Dina Föråd"));
         FxAssert.verifyThat("#exit", LabeledMatchers.hasText("Avsluta"));
     }
+	
+	@Test
+	void testNewStorageDialogEnglishLanguage(FxRobot robot) {
+		robot.clickOn("#eng");
+		robot.clickOn("#newstorage");
+		FxAssert.verifyThat("#nametxt", LabeledMatchers.hasText("Storage Name"));
+        FxAssert.verifyThat("#addresstxt", LabeledMatchers.hasText("Storage Address"));
+        FxAssert.verifyThat("#widthtxt", LabeledMatchers.hasText("Storage Width (m)"));
+        FxAssert.verifyThat("#lengthtxt", LabeledMatchers.hasText("Storage Length (m)"));
+        FxAssert.verifyThat("#newstoragecreate", LabeledMatchers.hasText("Create New Storage"));
+        FxAssert.verifyThat("#newstoragecancel", LabeledMatchers.hasText("Cancel"));
+        robot.clickOn("#newstoragecancel");
+	}
+    
+	@Test
+	void testNewStorageDialogFinnishLanguage(FxRobot robot) {
+		robot.clickOn("#fin");
+		robot.clickOn("#newstorage");
+		FxAssert.verifyThat("#nametxt", LabeledMatchers.hasText("Varaston Nimi"));
+        FxAssert.verifyThat("#addresstxt", LabeledMatchers.hasText("Varaston Katuosoite"));
+        FxAssert.verifyThat("#widthtxt", LabeledMatchers.hasText("Varaston Leveys (m)"));
+        FxAssert.verifyThat("#lengthtxt", LabeledMatchers.hasText("Varaston Pituus (m)"));
+        FxAssert.verifyThat("#newstoragecreate", LabeledMatchers.hasText("Luo Uusi Varasto"));
+        FxAssert.verifyThat("#newstoragecancel", LabeledMatchers.hasText("Peruuta"));
+        robot.clickOn("#newstoragecancel");
+    }
     
 	@Test
 	void testNewStorageDialogSwedishLanguage(FxRobot robot) {
@@ -120,8 +99,8 @@ public class GUITest {
 		robot.clickOn("#newstorage");
 		FxAssert.verifyThat("#nametxt", LabeledMatchers.hasText("Förådets Namn"));
         FxAssert.verifyThat("#addresstxt", LabeledMatchers.hasText("Adress"));
-        FxAssert.verifyThat("#widthtxt", LabeledMatchers.hasText("Bredd på Förådet"));
-        FxAssert.verifyThat("#lengthtxt", LabeledMatchers.hasText("Längdet på Förådet"));
+        FxAssert.verifyThat("#widthtxt", LabeledMatchers.hasText("Bredd på Förådet (m)"));
+        FxAssert.verifyThat("#lengthtxt", LabeledMatchers.hasText("Längdet på Förådet (m)"));
         FxAssert.verifyThat("#newstoragecreate", LabeledMatchers.hasText("Skapa ny Föråd"));
         FxAssert.verifyThat("#newstoragecancel", LabeledMatchers.hasText("Cancelera"));
         robot.clickOn("#newstoragecancel");
@@ -249,24 +228,28 @@ public class GUITest {
 		
 		robot.clickOn("#cancelItemCreation");
 	}
-	*/
 	@Test
-	void testEnglishLanguage(FxRobot robot) {
-		robot.clickOn("#eng");
+	void testStorageCustomization(FxRobot robot) {
 		robot.clickOn("#neweststorage");
-		robot.clickOn("#newItem");
-		
-		FxAssert.verifyThat("#itemName", LabeledMatchers.hasText("Item Name"));
-		FxAssert.verifyThat("#itemWeight", LabeledMatchers.hasText("Item Weight (g)"));
-		FxAssert.verifyThat("#itemAmount", LabeledMatchers.hasText("Item Amount"));
-		FxAssert.verifyThat("#itemUnitprice", LabeledMatchers.hasText("Unit Price (€)"));
-		FxAssert.verifyThat("#itemSalesprice", LabeledMatchers.hasText("Sales Price (€)"));
-		FxAssert.verifyThat("#createNewItem", LabeledMatchers.hasText("Create"));
-		FxAssert.verifyThat("#cancelItemCreation", LabeledMatchers.hasText("Cancel"));
-		
-		robot.clickOn("#cancelItemCreation");
+		assertEquals("Test Storage", database.getStorages().get(database.getStorages().size()-1).getName());
+		assertEquals("Test Road 1", database.getStorages().get(database.getStorages().size()-1).getAddress());
+		assertEquals(7, database.getStorages().get(database.getStorages().size()-1).getWidth());
+		assertEquals(5, database.getStorages().get(database.getStorages().size()-1).getLength());
+		robot.clickOn("#address");
+		robot.clickOn("#locked");
+		robot.clickOn("#address");
+		robot.doubleClickOn("#address");
+		robot.write("Changed Address");
+		robot.doubleClickOn("#width");
+		robot.write("9");
+		robot.doubleClickOn("#length");
+		robot.write("15");
+		robot.clickOn("#saveStorageChanges");
+		assertEquals("Changed Address", database.getStorages().get(database.getStorages().size()-1).getAddress());
+		assertEquals(9, database.getStorages().get(database.getStorages().size()-1).getWidth());
+		assertEquals(15, database.getStorages().get(database.getStorages().size()-1).getLength());
+		robot.clickOn("#locked");
 	}
-	/*
 	@Test
 	void testItemCreationAndShelfCreationAndWallCreationAndAddingItemToShelf(FxRobot robot) {
 		int itemAmount = database.getItemsInStorage(database.getStorage("Test Storage")).size();
@@ -323,5 +306,13 @@ public class GUITest {
 		assertEquals(shelfAmount-1, database.getShelvesInStorage(database.getStorage("Test Storage")).size());
 		robot.clickOn("#removeItem");
 		assertEquals(itemAmount-1, database.getItemsInStorage(database.getStorage("Test Storage")).size());
-	}*/
+	}
+	
+	@AfterAll
+	static void testDeletingStorageAndEndingProgram(FxRobot robot) {
+		robot.clickOn("#neweststorage");
+		robot.clickOn("#locked");
+		robot.clickOn("#removeStorage");
+		robot.clickOn("#exit");
+	}
 }

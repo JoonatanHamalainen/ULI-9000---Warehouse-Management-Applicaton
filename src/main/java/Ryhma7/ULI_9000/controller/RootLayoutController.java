@@ -65,9 +65,7 @@ public class RootLayoutController implements ControllerInterfaceView {
 				loader.setResources(bundle);
 				
 				TitledPane storageInfo = (TitledPane) loader.load();
-				storageInfo.setId("allstorages");
 				AnchorPane content = (AnchorPane) storageInfo.getContent();
-				content.setId("nigger");
 				final CheckBox statusBox = (CheckBox) content.getChildren().get(0);
 				final TextField addressField = (TextField) content.getChildren().get(2);
 				final TextField widthField = (TextField) content.getChildren().get(4);
