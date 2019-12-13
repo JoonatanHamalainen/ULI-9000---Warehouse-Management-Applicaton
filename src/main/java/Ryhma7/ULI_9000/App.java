@@ -48,7 +48,7 @@ public class App extends Application {
 	public void start(Stage primaryStage) {
 		this.primaryStage = primaryStage;
 		this.primaryStage.setTitle("ULI-9000");
-		this.primaryStage.getIcons().add(new Image("file:ULI9000Logo.png"));
+		this.primaryStage.getIcons().add(new Image("file:src/main/resources/ULI9000Logo.png"));
 
 		this.storages = new ArrayList<Storage>();
 		
@@ -242,7 +242,7 @@ public class App extends Application {
 	 */
 	public void selectLanguage() {
 		Locale curLocale;
-		String appConfigPath = "language.properties";
+		String appConfigPath = "src/main/resources/language.properties";
 		Properties appProps = new Properties();
 		try {
 			appProps.load(new FileInputStream(appConfigPath));
