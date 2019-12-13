@@ -20,7 +20,6 @@ import org.testfx.api.FxToolkit;
 //Import dependencies
 @ExtendWith(ApplicationExtension.class)
 public class GUITest {
-	/*
 	static DatabaseConnection database;
 	
 	@BeforeAll
@@ -314,5 +313,5 @@ public class GUITest {
 		robot.clickOn("#locked");
 		robot.clickOn("#removeStorage");
 		robot.clickOn("#exit");
-	}*/
+	}
 }
