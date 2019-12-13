@@ -87,6 +87,13 @@ public class StorageController implements ControllerInterfaceView {
 	@FXML
 	private ComboBox<Item> itemsInStorageBox;
 
+	public ObservableList<Item> getStorageItemList() {
+		return storageItemList;
+	}
+
+	public ObservableList<Shelf> getStorageShelfList() {
+		return storageShelfList;
+	}
 	@FXML
 	private ComboBox<Shelf> shelvesInStorageBox;
 	
@@ -154,7 +161,6 @@ public class StorageController implements ControllerInterfaceView {
 			
 		this.itemsInStorageBox.setItems(this.storageItemList);
 		this.itemsInStorageBox.setButtonCell(new ItemCellList());
-		
 		
 		this.storageShelfList = FXCollections.observableList(database.getShelvesInStorage(this.storage));
 		if(this.storageShelfList != null && this.storageItemList != null) {
@@ -479,6 +485,7 @@ public class StorageController implements ControllerInterfaceView {
 				}
 			}
 			BorderPane tempPane = (BorderPane) page.getChildren().get(0);
+			tempPane.setId("cell");
 			tempPane.setCenter(this.storageGrid);
 		}
 	}

@@ -11,15 +11,15 @@
   <content>
     <AnchorPane minHeight="0.0" minWidth="0.0" prefWidth="198.0">
          <children>
-            <CheckBox layoutX="7.0" layoutY="5.0" mnemonicParsing="false" text="%storageinfo.checkbox" />
-            <Label layoutX="7.0" layoutY="32.0" text="%storageinfo.address" />
+            <CheckBox fx:id="locked" layoutX="7.0" layoutY="5.0" mnemonicParsing="false" text="%storageinfo.checkbox" />
+            <Label fx:id="addressLabel" layoutX="7.0" layoutY="32.0" text="%storageinfo.address" />
             <TextField fx:id="address" layoutX="7.0" layoutY="49.0" />
-            <Label layoutX="7.0" layoutY="74.0" text="%storageinfo.width" />
+            <Label fx:id="widthLabel" layoutX="7.0" layoutY="74.0" text="%storageinfo.width" />
             <TextField fx:id="width" layoutX="7.0" layoutY="90.0" />
-            <Label layoutX="5.0" layoutY="115.0" text="%storageinfo.length" />
+            <Label fx:id="lengthLabel" layoutX="5.0" layoutY="115.0" text="%storageinfo.length" />
             <TextField fx:id="length" layoutX="7.0" layoutY="132.0" />
-            <Button layoutX="5.0" layoutY="174.0" mnemonicParsing="false" prefWidth="90.0" text="%button.removestorage" AnchorPane.leftAnchor="-5.0" />
-            <Button layoutX="111.0" layoutY="174.0" mnemonicParsing="false" text="%button.storagesavechanges" AnchorPane.rightAnchor="-5.0" />
+            <Button fx:id="removeStorage" layoutX="5.0" layoutY="174.0" mnemonicParsing="false" prefWidth="90.0" text="%button.removestorage" AnchorPane.leftAnchor="-5.0" />
+            <Button fx:id="saveStorageChanges" layoutX="111.0" layoutY="174.0" mnemonicParsing="false" text="%button.storagesavechanges" AnchorPane.rightAnchor="-5.0" />
          </children></AnchorPane>
   </content>
 </TitledPane>

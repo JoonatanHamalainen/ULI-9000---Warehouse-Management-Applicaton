@@ -25,20 +25,20 @@
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label text="%newitem.name" />
-            <Label text="%newitem.amount" GridPane.rowIndex="2" />
-            <Label text="%newitem.unitprice" GridPane.rowIndex="3" />
-            <Label text="%newitem.weight" GridPane.rowIndex="1" />
+            <Label fx:id="itemName" text="%newitem.name" />
+            <Label fx:id="itemAmount" text="%newitem.amount" GridPane.rowIndex="2" />
+            <Label fx:id="itemUnitprice" text="%newitem.unitprice" GridPane.rowIndex="3" />
+            <Label fx:id="itemWeight" text="%newitem.weight" GridPane.rowIndex="1" />
             <TextField fx:id="name" GridPane.columnIndex="1" />
             <TextField fx:id="weight" GridPane.columnIndex="1" GridPane.rowIndex="1" />
             <TextField fx:id="amount" GridPane.columnIndex="1" GridPane.rowIndex="2" />
             <TextField fx:id="unitPrice" GridPane.columnIndex="1" GridPane.rowIndex="3" />
-            <Label text="%newitem.salesprice" GridPane.rowIndex="4" />
+            <Label fx:id="itemSalesprice" text="%newitem.salesprice" GridPane.rowIndex="4" />
             <TextField fx:id="salesPrice" GridPane.columnIndex="1" GridPane.rowIndex="4" />
             <ButtonBar prefHeight="40.0" prefWidth="200.0" GridPane.columnIndex="1" GridPane.rowIndex="5">
               <buttons>
-                <Button mnemonicParsing="false" onAction="#handleCreateNewItem" text="%button.newitemcreate" />
-                  <Button mnemonicParsing="false" onAction="#handleCancel" text="%button.newitemcancel" />
+                <Button fx:id="createNewItem" mnemonicParsing="false" onAction="#handleCreateNewItem" text="%button.newitemcreate" />
+                  <Button fx:id="cancelItemCreation" mnemonicParsing="false" onAction="#handleCancel" text="%button.newitemcancel" />
               </buttons>
             </ButtonBar>
          </children>
