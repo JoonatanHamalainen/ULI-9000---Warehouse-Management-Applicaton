@@ -9,12 +9,9 @@ public class DatabaseConnectionTest {
 	static DatabaseConnection database;
 	
 	@Test
-	void databaseConnectionTest() {
-		try {
+	static void databaseConnectionTest() {
 		database = new DatabaseConnection();
-		}
-		catch (Exception e) {
+		
 			fail("Not able to connect to database! Make sure you are connected to \"shell.metropolia.fi\"");
-		}
 	}
 }
